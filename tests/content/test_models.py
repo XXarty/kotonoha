@@ -118,7 +118,7 @@ def grammar_payload(**overrides: object) -> dict[str, object]:
         "common_mistakes": ["前后动作的先后关系需要结合语境判断。"],
         "related_entries": ["grammar:tae-kim:verb-basics"],
         "source_url": "https://guidetojapanese.org/learn/grammar/teform",
-        "license_key": "cc-by-nc-sa-3.0",
+        "license_key": "cc-by-sa-3.0",
         "content_version": "2026-07-14",
         "display_order": 11,
         "published": True,
@@ -127,14 +127,86 @@ def grammar_payload(**overrides: object) -> dict[str, object]:
     return payload
 
 
-def test_grammar_requires_official_source_and_noncommercial_license() -> None:
+def test_direct_grammar_defaults_and_serializes_published_provenance() -> None:
     record = GrammarRecord.model_validate(grammar_payload())
 
     assert record.slug == "te-form"
+    assert record.provenance_kind == "direct-source"
+    assert record.model_dump()["provenance_kind"] == "direct-source"
+    assert record.source_id == "tae-kim-grammar"
+    assert record.license_key == "cc-by-sa-3.0"
     with pytest.raises(ValidationError):
         GrammarRecord.model_validate(
             {**record.model_dump(), "source_url": "https://example.com/grammar"}
         )
+
+
+def test_project_authored_grammar_extension_preserves_context_and_note() -> None:
+    record = GrammarRecord.model_validate(
+        grammar_payload(
+            provenance_kind="project-authored-extension",
+            source_id="kotonoha-original",
+            source_url="https://github.com/XXarty/kotonoha",
+            license_key="all-rights-reserved",
+            curriculum_context_url="https://guidetojapanese.org/learn/grammar/other",
+            provenance_note=(
+                "本条的中文说明与例句为 KOTONOHA 原创；课程语境链接仅用于定位相关学习背景，"
+                "并非本语法点的直接课程。"
+            ),
+        )
+    )
+
+    assert record.provenance_kind == "project-authored-extension"
+    assert record.curriculum_context_url == (
+        "https://guidetojapanese.org/learn/grammar/other"
+    )
+    assert "KOTONOHA 原创" in record.provenance_note
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("source_id", "kotonoha-original"),
+        ("source_url", "https://github.com/XXarty/kotonoha"),
+        ("license_key", "all-rights-reserved"),
+        ("curriculum_context_url", "https://guidetojapanese.org/learn/grammar/other"),
+    ],
+)
+def test_direct_grammar_rejects_extension_provenance_fields(
+    field: str, value: object
+) -> None:
+    with pytest.raises(ValidationError):
+        GrammarRecord.model_validate(grammar_payload(**{field: value}))
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("source_id", "tae-kim-grammar"),
+        ("source_url", "https://guidetojapanese.org/learn/grammar/other"),
+        ("license_key", "cc-by-sa-3.0"),
+        ("provenance_note", " "),
+        ("curriculum_context_url", "https://example.com/context"),
+    ],
+)
+def test_grammar_extension_rejects_mismatched_provenance(
+    field: str, value: object
+) -> None:
+    payload = grammar_payload(
+        provenance_kind="project-authored-extension",
+        source_id="kotonoha-original",
+        source_url="https://github.com/XXarty/kotonoha",
+        license_key="all-rights-reserved",
+        curriculum_context_url="https://guidetojapanese.org/learn/grammar/other",
+        provenance_note=(
+            "本条的中文说明与例句为 KOTONOHA 原创；课程语境链接仅用于定位相关学习背景，"
+            "并非本语法点的直接课程。"
+        ),
+    )
+    payload[field] = value
+
+    with pytest.raises(ValidationError):
+        GrammarRecord.model_validate(payload)
 
 
 def test_grammar_requires_path_examples_mistakes_and_valid_related_ids() -> None:

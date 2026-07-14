@@ -66,4 +66,4 @@ npm run test:e2e
 
 ## Vercel
 
-将项目根目录设置为 `webapp/`，构建命令使用 `npm run build`。仅在需要账号同步时配置上述环境变量。项目启用 Tae Kim 的 CC BY-NC-SA 内容期间必须保持非商业。
+将项目根目录设置为 `webapp/`，构建命令使用 `npm run build`。仅在需要账号同步时配置上述环境变量。直接对应 Tae Kim 课程的语法记录标为 CC BY-SA 3.0；KOTONOHA 原创扩展标为 All rights reserved，并将课程语境链接与直接来源分开。

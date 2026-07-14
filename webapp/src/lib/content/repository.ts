@@ -77,7 +77,10 @@ const grammarSchema = z
   .object({
     kind: z.literal("grammar"),
     id: z.string().regex(/^grammar:tae-kim:[a-z0-9-]+$/),
-    source_id: z.literal("tae-kim-grammar"),
+    provenance_kind: z
+      .enum(["direct-source", "project-authored-extension"])
+      .default("direct-source"),
+    source_id: z.enum(["tae-kim-grammar", "kotonoha-original"]),
     source_key: z.string().regex(/^tae-kim:[a-z0-9-]+$/),
     slug: z.string().regex(/^[a-z0-9-]+$/),
     category: z.string().min(1),
@@ -90,7 +93,9 @@ const grammarSchema = z
     common_mistakes: z.array(z.string().trim().min(1)).min(1),
     related_entries: z.array(z.string().regex(/^grammar:tae-kim:[a-z0-9-]+$/)),
     source_url: z.url(),
-    license_key: z.literal("cc-by-nc-sa-3.0"),
+    curriculum_context_url: z.url().nullish(),
+    provenance_note: z.string().trim().min(1).nullish(),
+    license_key: z.enum(["cc-by-sa-3.0", "all-rights-reserved"]),
     content_version: z.string().min(1),
     display_order: z.number().int().positive(),
     published: z.literal(true),
@@ -119,6 +124,40 @@ const grammarSchema = z
         path: ["related_entries"],
         message: "A grammar entry cannot relate to itself",
       });
+    }
+    if (entry.provenance_kind === "direct-source") {
+      const hostname = new URL(entry.source_url).hostname.toLowerCase();
+      if (
+        entry.source_id !== "tae-kim-grammar" ||
+        entry.license_key !== "cc-by-sa-3.0" ||
+        !["guidetojapanese.org", "www.guidetojapanese.org"].includes(hostname) ||
+        entry.curriculum_context_url != null ||
+        entry.provenance_note != null
+      ) {
+        context.addIssue({
+          code: "custom",
+          path: ["provenance_kind"],
+          message: "Direct grammar provenance fields do not match Tae Kim",
+        });
+      }
+    } else {
+      const contextHostname = entry.curriculum_context_url
+        ? new URL(entry.curriculum_context_url).hostname.toLowerCase()
+        : undefined;
+      if (
+        entry.source_id !== "kotonoha-original" ||
+        entry.source_url !== "https://github.com/XXarty/kotonoha" ||
+        entry.license_key !== "all-rights-reserved" ||
+        entry.provenance_note == null ||
+        (contextHostname !== undefined &&
+          !["guidetojapanese.org", "www.guidetojapanese.org"].includes(contextHostname))
+      ) {
+        context.addIssue({
+          code: "custom",
+          path: ["provenance_kind"],
+          message: "Grammar extension provenance fields do not match KOTONOHA",
+        });
+      }
     }
   });
 

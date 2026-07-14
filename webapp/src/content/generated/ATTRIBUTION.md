@@ -9,9 +9,10 @@
 ## Grammar
 
 - Tae Kim's Japanese Grammar Guide: https://guidetojapanese.org/learn/grammar
-- License: Creative Commons Attribution-NonCommercial-ShareAlike 3.0 United States.
-- KOTONOHA reorganized the syllabus and wrote new concise Chinese explanations and examples.
-- This grammar bundle and the site that enables it must remain noncommercial.
+- Direct-source license: Creative Commons Attribution-ShareAlike 3.0.
+- KOTONOHA project-authored extensions: https://github.com/XXarty/kotonoha
+- Extension license: All rights reserved.
+- Curriculum-context links on extensions are not direct lessons for those grammar points.
 
 ## Kana
 

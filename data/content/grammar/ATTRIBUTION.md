@@ -1,10 +1,12 @@
 # Grammar content attribution
 
-The grammar syllabus is an adapted Chinese-language learning structure based on Tae Kim's *Japanese Grammar Guide*.
+The grammar syllabus combines direct curriculum material from Tae Kim's *Japanese Grammar Guide* with clearly marked project-authored extensions.
 
 - Original author: Tae Kim
 - Original guide: https://guidetojapanese.org/learn/grammar
-- License: Creative Commons Attribution-NonCommercial-ShareAlike 3.0 United States
-- License URL: https://creativecommons.org/licenses/by-nc-sa/3.0/us/
+- Direct-source license: Creative Commons Attribution-ShareAlike 3.0
+- Direct-source license URL: https://creativecommons.org/licenses/by-sa/3.0/
+- Project-authored extensions: KOTONOHA original, All rights reserved
+- Project source: https://github.com/XXarty/kotonoha
 
-KOTONOHA reorganized the sequence, wrote new concise Chinese explanations, and marked every example as either source-derived or project-authored. This grammar bundle must remain noncommercial and derivatives must use a compatible share-alike license.
+Every record publishes a provenance discriminator. Official guide links in `curriculum_context_url` on project-authored extensions provide learning context only and are not presented as direct lessons for those grammar points.

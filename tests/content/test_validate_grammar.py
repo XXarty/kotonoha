@@ -244,9 +244,15 @@ def test_advanced_path_preserves_required_close_distinctions() -> None:
 
     assert all(1 <= len(entry.related_entries) <= 2 for entry in advanced.values())
     assert all(
-        urlparse(entry.source_url).scheme == "https"
-        and urlparse(entry.source_url).hostname
-        in {"guidetojapanese.org", "www.guidetojapanese.org"}
+        (
+            entry.provenance_kind == "direct-source"
+            and urlparse(entry.source_url).hostname
+            in {"guidetojapanese.org", "www.guidetojapanese.org"}
+        )
+        or (
+            entry.provenance_kind == "project-authored-extension"
+            and entry.source_url == "https://github.com/XXarty/kotonoha"
+        )
         for entry in advanced.values()
     )
 
@@ -279,6 +285,69 @@ def test_advanced_path_preserves_required_close_distinctions() -> None:
     }
     for slug, terms in required_terms.items():
         assert all(term in guidance(slug) for term in terms)
+
+
+def test_advanced_path_publishes_honest_extension_provenance() -> None:
+    advanced = {
+        entry.slug: entry
+        for entry in load_grammar_curriculum(GRAMMAR_DIR)
+        if entry.path == "advanced"
+    }
+    extension_slugs = {
+        "mono-da",
+        "mono-no",
+        "gimi-tendency",
+        "kakeru-close-action",
+        "ni-kagiru",
+        "ni-tsuite",
+    }
+
+    for slug, entry in advanced.items():
+        if slug in extension_slugs:
+            assert entry.provenance_kind == "project-authored-extension"
+            assert entry.source_id == "kotonoha-original"
+            assert entry.source_url == "https://github.com/XXarty/kotonoha"
+            assert entry.license_key == "all-rights-reserved"
+            assert entry.curriculum_context_url
+            assert "KOTONOHA 原创" in entry.provenance_note
+            assert "并非本语法点的直接课程" in entry.provenance_note
+        else:
+            assert entry.provenance_kind == "direct-source"
+            assert entry.source_id == "tae-kim-grammar"
+            assert entry.license_key == "cc-by-sa-3.0"
+
+
+def test_advanced_path_preserves_reviewed_content_corrections() -> None:
+    advanced = {
+        entry.slug: entry
+        for entry in load_grammar_curriculum(GRAMMAR_DIR)
+        if entry.path == "advanced"
+    }
+
+    tsutsu_guidance = " ".join(
+        [
+            advanced["tsutsu-while"].connection,
+            advanced["tsutsu-while"].explanation_zh,
+            *advanced["tsutsu-while"].common_mistakes,
+        ]
+    )
+    assert all(
+        distinction in tsutsu_guidance
+        for distinction in ("同一主体", "书面", "ながら", "辅助", "主要", "同等分量")
+    )
+
+    mono_da_connection = advanced["mono-da"].connection
+    assert "な形容词词干 + なものだ" in mono_da_connection
+    assert "名词 + というものだ/であるものだ" in mono_da_connection
+    assert "名词／な形容词词干 + なものだ" not in mono_da_connection
+
+    sura_example = advanced["sura-minimum"].examples[0]
+    assert sura_example.ja == "経験豊富な専門家ですら、その原因を説明できなかった。"
+    assert sura_example.zh == "就连经验丰富的专家也无法解释其原因。"
+
+    assert advanced["zuku-me"].related_entries == [
+        "grammar:tae-kim:dake-shika"
+    ]
 
 
 def test_expressions_path_preserves_reviewed_grammar_distinctions() -> None:

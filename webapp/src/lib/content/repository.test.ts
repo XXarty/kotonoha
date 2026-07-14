@@ -25,8 +25,16 @@ function fixtures(sourceEnabled = true) {
           id: "tae-kim-grammar",
           title: "Tae Kim",
           url: "https://guidetojapanese.org/learn/grammar",
-          license_name: "CC BY-NC-SA 3.0",
-          license_url: "https://creativecommons.org/licenses/by-nc-sa/3.0/us/",
+          license_name: "CC BY-SA 3.0",
+          license_url: "https://creativecommons.org/licenses/by-sa/3.0/",
+          enabled: sourceEnabled,
+        },
+        {
+          id: "kotonoha-original",
+          title: "KOTONOHA 原创内容",
+          url: "https://github.com/XXarty/kotonoha",
+          license_name: "All rights reserved",
+          license_url: "https://github.com/XXarty/kotonoha",
           enabled: sourceEnabled,
         },
         {
@@ -98,7 +106,7 @@ function fixtures(sourceEnabled = true) {
         common_mistakes: ["不要把主题助词和主语标记完全等同。"],
         related_entries: ["grammar:tae-kim:wa-topic"],
         source_url: "https://guidetojapanese.org/learn/grammar/particlesintro",
-        license_key: "cc-by-nc-sa-3.0",
+        license_key: "cc-by-sa-3.0",
         content_version: "2026-07-14",
         display_order: 1,
         published: true,
@@ -173,6 +181,79 @@ describe("static content repository", () => {
     const grammarInput = fixtures();
     const grammar = [{ ...grammarInput.grammar[0], slug: "different-slug" }];
     expect(() => createContentRepository({ ...grammarInput, grammar })).toThrow();
+  });
+
+  it("defaults direct provenance and retains project extension provenance", () => {
+    const directInput = fixtures();
+    const directGrammar = [
+      {
+        ...directInput.grammar[0],
+        curriculum_context_url: null,
+        provenance_note: null,
+      },
+    ];
+    const directRepository = createContentRepository({
+      ...directInput,
+      grammar: directGrammar,
+    });
+    expect(directRepository.getGrammarEntry("topic-particle")).toMatchObject({
+      provenance_kind: "direct-source",
+      source_id: "tae-kim-grammar",
+      license_key: "cc-by-sa-3.0",
+    });
+
+    const extensionInput = fixtures();
+    const grammar = [
+      {
+        ...extensionInput.grammar[0],
+        provenance_kind: "project-authored-extension" as const,
+        source_id: "kotonoha-original" as const,
+        source_url: "https://github.com/XXarty/kotonoha",
+        license_key: "all-rights-reserved" as const,
+        curriculum_context_url: "https://guidetojapanese.org/learn/grammar/other",
+        provenance_note:
+          "本条的中文说明与例句为 KOTONOHA 原创；课程语境链接仅用于定位相关学习背景，并非本语法点的直接课程。",
+      },
+    ];
+    const extensionRepository = createContentRepository({ ...extensionInput, grammar });
+
+    expect(extensionRepository.getGrammarEntry("topic-particle")).toMatchObject({
+      provenance_kind: "project-authored-extension",
+      source_id: "kotonoha-original",
+      source_url: "https://github.com/XXarty/kotonoha",
+      license_key: "all-rights-reserved",
+      curriculum_context_url: "https://guidetojapanese.org/learn/grammar/other",
+      provenance_note: expect.stringContaining("并非本语法点的直接课程"),
+    });
+  });
+
+  it("rejects mismatched project extension provenance combinations", () => {
+    const input = fixtures();
+    const extension = {
+      ...input.grammar[0],
+      provenance_kind: "project-authored-extension" as const,
+      source_id: "kotonoha-original" as const,
+      source_url: "https://github.com/XXarty/kotonoha",
+      license_key: "all-rights-reserved" as const,
+      curriculum_context_url: "https://guidetojapanese.org/learn/grammar/other",
+      provenance_note:
+        "本条的中文说明与例句为 KOTONOHA 原创；课程语境链接仅用于定位相关学习背景，并非本语法点的直接课程。",
+    };
+
+    for (const mismatch of [
+      { source_id: "tae-kim-grammar" },
+      { source_url: "https://guidetojapanese.org/learn/grammar/other" },
+      { license_key: "cc-by-sa-3.0" },
+      { curriculum_context_url: "https://example.com/context" },
+      { provenance_note: " " },
+    ]) {
+      expect(() =>
+        createContentRepository({
+          ...input,
+          grammar: [{ ...extension, ...mismatch }],
+        }),
+      ).toThrow();
+    }
   });
 
   it("hydrates due progress and silently omits missing static items", () => {

@@ -48,7 +48,8 @@ export interface VocabularyEntry {
 export interface GrammarEntry {
   kind: "grammar";
   id: ContentItemId;
-  source_id: string;
+  provenance_kind: "direct-source" | "project-authored-extension";
+  source_id: "tae-kim-grammar" | "kotonoha-original";
   source_key: string;
   slug: string;
   category: string;
@@ -61,7 +62,9 @@ export interface GrammarEntry {
   common_mistakes: string[];
   related_entries: string[];
   source_url: string;
-  license_key: "cc-by-nc-sa-3.0";
+  curriculum_context_url?: string | null;
+  provenance_note?: string | null;
+  license_key: "cc-by-sa-3.0" | "all-rights-reserved";
   content_version: string;
   display_order: number;
   published: true;

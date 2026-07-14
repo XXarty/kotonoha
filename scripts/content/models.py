@@ -101,7 +101,10 @@ class VocabularyRecord(ContentRecord):
 class GrammarRecord(ContentRecord):
     kind: Literal["grammar"] = "grammar"
     id: str = Field(pattern=r"^grammar:tae-kim:[a-z0-9-]+$")
-    source_id: Literal["tae-kim-grammar"]
+    provenance_kind: Literal["direct-source", "project-authored-extension"] = (
+        "direct-source"
+    )
+    source_id: Literal["tae-kim-grammar", "kotonoha-original"]
     source_key: str = Field(pattern=r"^tae-kim:[a-z0-9-]+$")
     slug: str = Field(pattern=r"^[a-z0-9-]+$")
     category: NonBlankText
@@ -114,18 +117,19 @@ class GrammarRecord(ContentRecord):
     common_mistakes: list[NonBlankText] = Field(min_length=1)
     related_entries: list[str] = Field(default_factory=list)
     source_url: str
-    license_key: Literal["cc-by-nc-sa-3.0"]
+    curriculum_context_url: str | None = None
+    provenance_note: NonBlankText | None = None
+    license_key: Literal["cc-by-sa-3.0", "all-rights-reserved"]
     content_version: NonBlankText
     display_order: int = Field(gt=0)
     published: Literal[True]
 
-    @field_validator("source_url")
+    @field_validator("source_url", "curriculum_context_url")
     @classmethod
-    def validate_source_url(cls, value: str) -> str:
+    def validate_provenance_url(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
         value = _require_https(value)
-        hostname = (urlparse(value).hostname or "").lower()
-        if hostname not in {"guidetojapanese.org", "www.guidetojapanese.org"}:
-            raise ValueError("grammar source URL must use guidetojapanese.org")
         return value
 
     @field_validator("related_entries")
@@ -145,6 +149,38 @@ class GrammarRecord(ContentRecord):
             raise ValueError("grammar identity fields must match slug")
         if self.id in self.related_entries:
             raise ValueError("grammar entry cannot relate to itself")
+        if self.provenance_kind == "direct-source":
+            hostname = (urlparse(self.source_url).hostname or "").lower()
+            if self.source_id != "tae-kim-grammar":
+                raise ValueError("direct grammar must use the Tae Kim source ID")
+            if self.license_key != "cc-by-sa-3.0":
+                raise ValueError("direct grammar must use the CC BY-SA 3.0 license")
+            if hostname not in {"guidetojapanese.org", "www.guidetojapanese.org"}:
+                raise ValueError("direct grammar source URL must use guidetojapanese.org")
+            if self.curriculum_context_url is not None or self.provenance_note is not None:
+                raise ValueError(
+                    "direct grammar must not publish extension provenance fields"
+                )
+        else:
+            if self.source_id != "kotonoha-original":
+                raise ValueError("grammar extensions must use the KOTONOHA source ID")
+            if self.source_url != "https://github.com/XXarty/kotonoha":
+                raise ValueError("grammar extensions must use the KOTONOHA source URL")
+            if self.license_key != "all-rights-reserved":
+                raise ValueError("grammar extensions must be all rights reserved")
+            if self.provenance_note is None:
+                raise ValueError("grammar extensions require a provenance note")
+            if self.curriculum_context_url is not None:
+                hostname = (
+                    urlparse(self.curriculum_context_url).hostname or ""
+                ).lower()
+                if hostname not in {
+                    "guidetojapanese.org",
+                    "www.guidetojapanese.org",
+                }:
+                    raise ValueError(
+                        "grammar curriculum context URL must use guidetojapanese.org"
+                    )
         return self
 
 

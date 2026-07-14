@@ -57,8 +57,16 @@ def source_metadata() -> dict[str, object]:
                 "id": "tae-kim-grammar",
                 "title": "Tae Kim Japanese Grammar Guide",
                 "url": "https://guidetojapanese.org/learn/grammar",
-                "license_name": "CC BY-NC-SA 3.0",
-                "license_url": "https://creativecommons.org/licenses/by-nc-sa/3.0/us/",
+                "license_name": "CC BY-SA 3.0",
+                "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+                "enabled": True,
+            },
+            {
+                "id": "kotonoha-original",
+                "title": "KOTONOHA 原创语法扩展",
+                "url": "https://github.com/XXarty/kotonoha",
+                "license_name": "All rights reserved",
+                "license_url": "https://github.com/XXarty/kotonoha",
                 "enabled": True,
             },
             {
