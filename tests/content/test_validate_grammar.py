@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from urllib.parse import urlparse
 
 import pytest
 
@@ -45,6 +46,39 @@ EXPECTED_FOUNDATION_SLUGS = [
     "kara-reason",
 ]
 
+EXPECTED_CORE_SLUGS = [
+    "polite-masu",
+    "addressing-people",
+    "ka-question",
+    "te-combinations",
+    "potential-form",
+    "ni-suru-ni-naru",
+    "ba-conditional",
+    "tara-conditional",
+    "nara-conditional",
+    "to-conditional",
+    "nakereba-naranai",
+    "nakute-mo-ii",
+    "hoshii-desire",
+    "tagaru-desire",
+    "volitional-form",
+    "to-quotation",
+    "tte-quotation",
+    "to-iu-definition",
+    "you-to-suru",
+    "te-miru",
+    "ageru",
+    "kureru",
+    "morau",
+    "kudasai-request",
+    "nasai-command",
+    "imperative-form",
+    "counters",
+    "relative-clauses",
+    "transitive-intransitive",
+    "explanatory-no-da",
+]
+
 
 def _write(path: Path, payload: object) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
@@ -61,8 +95,36 @@ def test_foundation_path_has_thirty_expanded_entries() -> None:
     assert all(1 <= len(entry.related_entries) <= 2 for entry in foundation)
 
 
+def test_core_path_has_thirty_expanded_entries() -> None:
+    entries = load_grammar_curriculum(GRAMMAR_DIR)
+    core = [entry for entry in entries if entry.path == "core"]
+    curriculum_ids = {entry.id for entry in entries}
+
+    assert len(core) == 30
+    assert [entry.slug for entry in core] == EXPECTED_CORE_SLUGS
+    assert [entry.display_order for entry in core] == list(range(31, 61))
+    assert all(
+        urlparse(entry.source_url).scheme == "https"
+        and urlparse(entry.source_url).hostname
+        in {"guidetojapanese.org", "www.guidetojapanese.org"}
+        for entry in core
+    )
+    assert all(entry.examples and entry.common_mistakes for entry in core)
+    assert all(1 <= len(entry.related_entries) <= 2 for entry in core)
+    assert all(
+        related_id in curriculum_ids
+        for entry in core
+        for related_id in entry.related_entries
+    )
+
+
 def test_explicit_json_file_is_supported() -> None:
-    assert load_grammar_curriculum(FOUNDATION) == load_grammar_curriculum(GRAMMAR_DIR)
+    expected_foundation = [
+        entry
+        for entry in load_grammar_curriculum(GRAMMAR_DIR)
+        if entry.path == "foundation"
+    ]
+    assert load_grammar_curriculum(FOUNDATION) == expected_foundation
 
 
 def test_validator_rejects_duplicate_identity_across_files(tmp_path: Path) -> None:
