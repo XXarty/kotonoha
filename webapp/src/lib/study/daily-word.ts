@@ -1,3 +1,5 @@
+import { getDailyWordCandidates } from "@/lib/content/repository";
+
 const HONG_KONG_TIME_ZONE = "Asia/Hong_Kong";
 
 export function getHongKongDateKey(now = new Date()): string {
@@ -32,4 +34,8 @@ export function selectDailyWord<T extends { id: string }>(
   );
 
   return sorted.length === 0 ? null : sorted[hashDate(dateKey) % sorted.length];
+}
+
+export function getDailyWord(now = new Date()) {
+  return selectDailyWord(getDailyWordCandidates(), getHongKongDateKey(now));
 }
