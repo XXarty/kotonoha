@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import gzip
 import json
 import sys
 from collections import Counter, defaultdict
@@ -92,26 +93,28 @@ def index_kaikki_glosses(
     wanted_spellings: set[str],
 ) -> dict[str, set[tuple[str, ...]]]:
     index: dict[str, set[tuple[str, ...]]] = defaultdict(set)
-    for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-        if not line.strip():
-            continue
-        try:
-            row = json.loads(line)
-        except json.JSONDecodeError as exc:
-            raise ValueError(f"invalid Kaikki JSONL at {path}:{line_number}") from exc
-        word = normalize_text(str(row.get("word", "")))
-        if row.get("lang_code") != "ja" or word not in wanted_spellings:
-            continue
-        glosses = tuple(
-            dict.fromkeys(
-                normalize_text(str(gloss))
-                for sense in row.get("senses", [])
-                for gloss in sense.get("glosses", [])
-                if normalize_text(str(gloss))
+    open_text = gzip.open if path.suffix == ".gz" else Path.open
+    with open_text(path, "rt", encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, 1):
+            if not line.strip():
+                continue
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError as exc:
+                raise ValueError(f"invalid Kaikki JSONL at {path}:{line_number}") from exc
+            word = normalize_text(str(row.get("word", "")))
+            if row.get("lang_code") != "ja" or word not in wanted_spellings:
+                continue
+            glosses = tuple(
+                dict.fromkeys(
+                    normalize_text(str(gloss))
+                    for sense in row.get("senses", [])
+                    for gloss in sense.get("glosses", [])
+                    if normalize_text(str(gloss))
+                )
             )
-        )
-        if glosses:
-            index[word].add(glosses)
+            if glosses:
+                index[word].add(glosses)
     return dict(index)
 
 

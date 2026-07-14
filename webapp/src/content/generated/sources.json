@@ -1,0 +1,54 @@
+{
+  "snapshots": [
+    {
+      "downloaded_at": "2026-07-14T15:26:35Z",
+      "sha256": "8af95b75912396aa07b45fdf91f24473dfa86ea28bad7b8777e9150f0dccba44",
+      "snapshot_date": "2026-07-13",
+      "source_id": "jmdict-kaikki"
+    },
+    {
+      "downloaded_at": "2026-07-14T15:26:35Z",
+      "sha256": "2e67f84a8ba4dc15f55638cd61fb775875b3b2f61b118e1550d0f13c78f5d48f",
+      "snapshot_date": "2026-07-06",
+      "source_id": "jmdict-kaikki"
+    },
+    {
+      "downloaded_at": "2026-07-14T15:26:35Z",
+      "sha256": "84d16f0bab0494a5216d581a620143c8931fa9e659056d7bc41bdec0919f8691",
+      "snapshot_date": "2026-07-14",
+      "source_id": "tae-kim-grammar"
+    },
+    {
+      "downloaded_at": "2026-07-14T15:26:35Z",
+      "sha256": "adb4e38d69f263f1852016c3939b1432e4c67e41770a17fb10a20c53d35d6ce2",
+      "snapshot_date": "2026-07-14",
+      "source_id": "kotonoha-kana"
+    }
+  ],
+  "sources": [
+    {
+      "enabled": true,
+      "id": "jmdict-kaikki",
+      "license_name": "JMdict redistribution terms + CC BY-SA 4.0",
+      "license_url": "https://www.edrdg.org/edrdg/licence.html",
+      "title": "JMdict + Kaikki 中文维基词典",
+      "url": "https://kaikki.org/zhwiktionary/rawdata.html"
+    },
+    {
+      "enabled": true,
+      "id": "tae-kim-grammar",
+      "license_name": "CC BY-NC-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc-sa/3.0/us/",
+      "title": "Tae Kim Japanese Grammar Guide",
+      "url": "https://guidetojapanese.org/learn/grammar"
+    },
+    {
+      "enabled": true,
+      "id": "kotonoha-kana",
+      "license_name": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "title": "KOTONOHA 基础五十音(CC0)",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    }
+  ]
+}

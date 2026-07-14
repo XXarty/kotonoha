@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import gzip
 from pathlib import Path
 
 from scripts.content.build_vocabulary import build_vocabulary, select_jmdict_candidates
@@ -37,3 +38,13 @@ def test_build_is_byte_deterministic() -> None:
     second = build_vocabulary(JMDICT, KAIKKI, limit=500)
 
     assert first.json_bytes() == second.json_bytes()
+
+
+def test_build_streams_compressed_kaikki_jsonl(tmp_path: Path) -> None:
+    compressed = tmp_path / "kaikki.jsonl.gz"
+    with gzip.open(compressed, "wt", encoding="utf-8") as handle:
+        handle.write(KAIKKI.read_text(encoding="utf-8"))
+
+    result = build_vocabulary(JMDICT, compressed, limit=500)
+
+    assert [record.id for record in result.records] == ["vocabulary:jmdict:1000001"]
