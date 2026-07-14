@@ -46,3 +46,17 @@ Complete. The home page and the vocabulary/grammar directories now use the appro
 ## Commit
 
 `feat: redesign learning home and directories` (this report is included in that commit)
+
+## Independent review fixes
+
+- Review verdict addressed: the central honest-count contract now runs through `createContentRepository` instead of relying on page-boundary mocks.
+- Added a schema-valid production contract fixture with all four grammar paths and deliberately uneven counts `2 / 1 / 3 / 1`. The test asserts the exact `foundation → core → expressions → advanced` order, titles, descriptions, counts, `meta`, `tone`, per-path list parity, and `unknown → []`.
+- Added a second source-filter scenario. Disabling the schema-valid `kotonoha-original` grammar source recomputes directory/list counts to `1 / 1 / 2 / 0` and removes the now-empty advanced path.
+- Added mixed vocabulary categories and tiers; the real directory count sum is asserted against the enabled fixture record count.
+- Replaced the page test's uniform target-like numbers with small uneven repository-fixture values and asserted grammar cards use `N 个单元`, never the generic vocabulary `N 条` unit.
+- RED: the new `[path]` route suite failed because `./page` did not exist while the old route still lived at `[category]`; the repository contract fixture itself passed immediately, confirming the reviewed production aggregator was already sound and the defect was missing evidence.
+- Renamed `app/grammar/[category]` to `app/grammar/[path]`, including the promised param and local variable, without changing public URLs or the separate grammar entry route.
+- Added dynamic route tests proving a valid path receives its exact list and an unknown path calls `notFound` before any list read.
+- Review-fix GREEN: 6 suites / 22 tests passed. UI Task 1–4 regression selection: 5 suites / 51 tests passed. Lint and `git diff --check` passed.
+- After moving the stale untracked `.next` cache out of the worktree, typecheck again reports only the two previously documented grammar-detail `example_ja` / `example_zh` schema errors.
+- Fix commit: `fix: verify honest learning path counts` (this report is included in that commit).

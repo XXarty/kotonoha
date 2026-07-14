@@ -128,21 +128,160 @@ function fixtures(sourceEnabled = true) {
   } as const;
 }
 
-describe("static content repository", () => {
-  it("groups grammar into the four real learning paths", () => {
-    const repository = createContentRepository(fixtures());
+function vocabularyFixture(
+  id: number,
+  category: "nouns" | "verbs" | "adjectives" | "other",
+  tier: "core" | "extended",
+) {
+  const base = fixtures().vocabulary[0];
+  return {
+    ...base,
+    id: `vocabulary:jmdict:${id}`,
+    source_key: `jmdict:${id}`,
+    category,
+    tier,
+    japanese: `词${id}`,
+    kana: `ことば${id}`,
+    romaji: `kotoba-${id}`,
+  } as const;
+}
 
-    expect(repository.getGrammarDirectory()).toEqual([
+function grammarFixture(
+  slug: string,
+  path: "foundation" | "core" | "expressions" | "advanced",
+  displayOrder: number,
+  source: "tae-kim-grammar" | "kotonoha-original",
+) {
+  const base = fixtures().grammar[0];
+  const shared = {
+    ...base,
+    id: `grammar:tae-kim:${slug}`,
+    source_key: `tae-kim:${slug}`,
+    slug,
+    path,
+    display_order: displayOrder,
+    expression: `表达 ${slug}`,
+    related_entries: [],
+  } as const;
+
+  if (source === "tae-kim-grammar") return shared;
+
+  return {
+    ...shared,
+    provenance_kind: "project-authored-extension" as const,
+    source_id: "kotonoha-original" as const,
+    source_url: "https://github.com/XXarty/kotonoha",
+    license_key: "all-rights-reserved" as const,
+    curriculum_context_url: "https://guidetojapanese.org/learn/grammar/other",
+    provenance_note:
+      "本条的中文说明与例句为 KOTONOHA 原创；课程语境链接仅用于定位相关学习背景，并非本语法点的直接课程。",
+  };
+}
+
+function productionContractFixtures(disableOriginal = false) {
+  const base = fixtures();
+  return {
+    ...base,
+    sources: {
+      ...base.sources,
+      sources: base.sources.sources.map((source) =>
+        source.id === "kotonoha-original"
+          ? { ...source, enabled: !disableOriginal }
+          : source,
+      ),
+    },
+    vocabulary: [
+      vocabularyFixture(1000001, "nouns", "core"),
+      vocabularyFixture(1000002, "nouns", "extended"),
+      vocabularyFixture(1000003, "verbs", "core"),
+      vocabularyFixture(1000004, "adjectives", "extended"),
+      vocabularyFixture(1000005, "other", "core"),
+    ],
+    grammar: [
+      grammarFixture("foundation-direct", "foundation", 1, "tae-kim-grammar"),
+      grammarFixture("foundation-original", "foundation", 2, "kotonoha-original"),
+      grammarFixture("core-direct", "core", 3, "tae-kim-grammar"),
+      grammarFixture("expression-direct-a", "expressions", 4, "tae-kim-grammar"),
+      grammarFixture("expression-original", "expressions", 5, "kotonoha-original"),
+      grammarFixture("expression-direct-b", "expressions", 6, "tae-kim-grammar"),
+      grammarFixture("advanced-original", "advanced", 7, "kotonoha-original"),
+    ],
+  };
+}
+
+describe("static content repository", () => {
+  it("keeps grammar directory counts, metadata, order, and lists aligned", () => {
+    const repository = createContentRepository(productionContractFixtures());
+
+    const directory = repository.getGrammarDirectory();
+    expect(directory).toEqual([
       {
         slug: "foundation",
         title: "基础",
-        description: expect.any(String),
-        count: 1,
-        meta: "1 个单元",
+        description: "句子结构、形容词、动词和基本助词。",
+        count: 2,
+        meta: "2 个单元",
         tone: "mist",
       },
+      {
+        slug: "core",
+        title: "核心",
+        description: "时态、连接、条件、愿望、请求和授受。",
+        count: 1,
+        meta: "1 个单元",
+        tone: "paper",
+      },
+      {
+        slug: "expressions",
+        title: "常用表达",
+        description: "推测、比较、原因、目的、变化和口语表达。",
+        count: 3,
+        meta: "3 个单元",
+        tone: "mist",
+      },
+      {
+        slug: "advanced",
+        title: "进阶",
+        description: "被动、使役、敬语、正式表达和复杂句型。",
+        count: 1,
+        meta: "1 个单元",
+        tone: "paper",
+      },
+    ]);
+    for (const item of directory) {
+      expect(repository.getGrammarList(item.slug)).toHaveLength(item.count);
+    }
+    expect(repository.getGrammarList("unknown")).toEqual([]);
+  });
+
+  it("recomputes grammar paths when the original-content source is disabled", () => {
+    const repository = createContentRepository(productionContractFixtures(true));
+
+    expect(repository.getGrammarDirectory()).toEqual([
+      expect.objectContaining({ slug: "foundation", count: 1, meta: "1 个单元" }),
+      expect.objectContaining({ slug: "core", count: 1, meta: "1 个单元" }),
+      expect.objectContaining({ slug: "expressions", count: 2, meta: "2 个单元" }),
     ]);
     expect(repository.getGrammarList("foundation")).toHaveLength(1);
+    expect(repository.getGrammarList("core")).toHaveLength(1);
+    expect(repository.getGrammarList("expressions")).toHaveLength(2);
+    expect(repository.getGrammarList("advanced")).toEqual([]);
+  });
+
+  it("makes vocabulary directory counts sum to all enabled mixed-tier records", () => {
+    const input = productionContractFixtures();
+    const repository = createContentRepository(input);
+    const directory = repository.getVocabularyDirectory();
+
+    expect(directory.map(({ slug, count }) => ({ slug, count }))).toEqual([
+      { slug: "nouns", count: 2 },
+      { slug: "verbs", count: 1 },
+      { slug: "adjectives", count: 1 },
+      { slug: "other", count: 1 },
+    ]);
+    expect(directory.reduce((sum, item) => sum + item.count, 0)).toBe(
+      input.vocabulary.length,
+    );
   });
 
   it("filters disabled sources from directories, details, search, and daily words", () => {

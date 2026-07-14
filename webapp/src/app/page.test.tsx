@@ -20,15 +20,17 @@ vi.mock("@/lib/content/repository", () => ({
     },
   ],
   getGrammarDirectory: () => [
-    { slug: "foundation", title: "基础", description: "基础路径", count: 30 },
-    { slug: "core", title: "核心", description: "核心路径", count: 30 },
-    { slug: "expressions", title: "常用表达", description: "表达路径", count: 30 },
-    { slug: "advanced", title: "进阶", description: "进阶路径", count: 30 },
+    { slug: "foundation", title: "基础", description: "基础路径", count: 2 },
+    { slug: "core", title: "核心", description: "核心路径", count: 1 },
+    { slug: "expressions", title: "常用表达", description: "表达路径", count: 3 },
+    { slug: "advanced", title: "进阶", description: "进阶路径", count: 1 },
   ],
   getKanaTable: () => Array.from({ length: 46 }, (_, index) => ({ id: `kana:${index}` })),
   getVocabularyDirectory: () => [
-    { slug: "nouns", title: "常用名词", description: "常见名词", count: 2400 },
-    { slug: "verbs", title: "常用动词", description: "常见动词", count: 1600 },
+    { slug: "nouns", title: "常用名词", description: "常见名词", count: 2 },
+    { slug: "verbs", title: "常用动词", description: "常见动词", count: 1 },
+    { slug: "adjectives", title: "常用形容词", description: "常见形容词", count: 1 },
+    { slug: "other", title: "常用表达", description: "常见表达", count: 1 },
   ],
 }));
 
@@ -46,7 +48,7 @@ describe("site copy contract", () => {
     );
   });
 
-  it("orders the real daily word, guidance, entrances, and honest counts", () => {
+  it("orders the daily word, guidance, entrances, and repository fixture counts", () => {
     render(<Home />);
 
     const dailyWord = screen.getByRole("region", { name: "今日のことば" });
@@ -58,8 +60,8 @@ describe("site copy contract", () => {
     expect(dailyWord.compareDocumentPosition(guidance)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(guidance.compareDocumentPosition(entrances)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(entrances.compareDocumentPosition(sources)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(screen.getByText("4,000 条词汇")).toBeVisible();
-    expect(screen.getByText("120 个语法单元")).toBeVisible();
+    expect(screen.getByText("5 条词汇")).toBeVisible();
+    expect(screen.getByText("7 个语法单元")).toBeVisible();
   });
 
   it("keeps the approved empty, review, and search strings exact", () => {
