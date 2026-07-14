@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { SiteFooter } from "@/components/site-footer";
+import { siteCopy } from "@/lib/site-copy";
 
 import { metadata } from "./layout";
 import Home from "./page";
@@ -23,6 +24,19 @@ describe("site copy contract", () => {
     expect(screen.getByRole("link", { name: "开始今天的学习" })).toHaveAttribute(
       "href",
       "/vocabulary",
+    );
+  });
+
+  it("keeps the approved empty, review, and search strings exact", () => {
+    expect(siteCopy.empty).toBe(
+      "这里暂时还没有内容。换一个关键词，或回到学习路径看看。",
+    );
+    expect(siteCopy.review.prompt).toBe(
+      "不用一次记住全部。把今天会的，轻轻留下来。",
+    );
+    expect(siteCopy.search.placeholder).toBe("输入日文、假名、罗马字或中文");
+    expect(siteCopy.search.empty).toBe(
+      "这里暂时还没有匹配内容。换一个关键词，或回到学习路径看看。",
     );
   });
 });

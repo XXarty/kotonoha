@@ -17,7 +17,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       <h1 className="page-title">搜索</h1>
       <form action="/search" className="mt-10 flex max-w-3xl gap-2" role="search">
         <label className="sr-only" htmlFor="content-search">搜索日语内容</label>
-        <input autoFocus className="min-w-0 flex-1 border-b-2 border-[var(--ink)] bg-transparent px-1 py-3 text-xl outline-none" defaultValue={query} id="content-search" name="q" placeholder="日文、假名、罗马字或中文" />
+        <input autoFocus className="min-w-0 flex-1 border-b-2 border-[var(--ink)] bg-[var(--paper)] px-1 py-3 text-xl outline-none" defaultValue={query} id="content-search" name="q" placeholder="日文、假名、罗马字或中文" />
         <button className="button-primary" type="submit">搜索</button>
       </form>
       {query ? <p className="mt-5 text-sm text-[var(--ink-soft)]">“{query}” 找到 {total} 条结果</p> : <p className="lede">可同时搜索日文写法、假名、罗马字、中文释义与语法例句。</p>}
