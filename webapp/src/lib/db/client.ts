@@ -2,14 +2,18 @@ import { attachDatabasePool } from "@vercel/functions";
 import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 
-import * as schema from "./schema";
+import { authSchema } from "./auth-schema";
+import * as appSchema from "./schema";
 
-export type AppDatabase = NodePgDatabase<typeof schema>;
+export const databaseSchema = { ...appSchema, ...authSchema };
+
+export type AppDatabase = NodePgDatabase<typeof appSchema>;
+export type RuntimeDatabase = NodePgDatabase<typeof databaseSchema>;
 
 let pool: Pool | undefined;
-let database: AppDatabase | undefined;
+let database: RuntimeDatabase | undefined;
 
-export function getDb(): AppDatabase {
+export function getDb(): RuntimeDatabase {
   if (!database) {
     const connectionString = process.env.DATABASE_URL;
     if (!connectionString) {
@@ -18,7 +22,7 @@ export function getDb(): AppDatabase {
 
     pool = new Pool({ connectionString, max: 5 });
     attachDatabasePool(pool);
-    database = drizzle({ client: pool, schema });
+    database = drizzle({ client: pool, schema: databaseSchema });
   }
 
   return database;

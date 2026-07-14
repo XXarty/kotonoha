@@ -15,6 +15,13 @@
       "when": 1784027775756,
       "tag": "0001_sweet_morlun",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1784029372148,
+      "tag": "0002_magical_gideon",
+      "breakpoints": true
     }
   ]
 }
