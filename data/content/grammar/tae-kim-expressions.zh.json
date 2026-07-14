@@ -1,0 +1,932 @@
+[
+  {
+    "id": "grammar:tae-kim:passive-form",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:passive-form",
+    "slug": "passive-form",
+    "category": "voice",
+    "list_name": "voice-and-politeness",
+    "expression": "受身形（～れる／～られる）",
+    "connection": "一段动词去る + られる；五段动词末音变为あ段（う→わ）+ れる；する→される，来る→こられる；施事者常用に标记",
+    "explanation_zh": "把承受动作的人或事物放在主语位置；日语也常用受身形表达某事给自己带来的困扰或影响。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/causepass",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 61,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "私は電車で隣の人に足を踏まれました。",
+        "zh": "我在电车里被旁边的人踩了脚。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "一段动词的「～られる」也可能是可能形；受身句关注承受者并常出现「施事者 + に」，不要只看词尾就判断为“能够”。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:causative-form",
+      "grammar:tae-kim:potential-form"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:causative-form",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:causative-form",
+    "slug": "causative-form",
+    "category": "voice",
+    "list_name": "voice-and-politeness",
+    "expression": "使役形（～せる／～させる）",
+    "connection": "一段动词去る + させる；五段动词末音变为あ段（う→わ）+ せる；する→させる，来る→こさせる",
+    "explanation_zh": "表示让、允许或迫使某人做某事；究竟是许可还是强制，要由关系和语境判断。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/causepass",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 62,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "部長は新人に資料を作らせました。",
+        "zh": "部长让新人制作了资料。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "使役形的主语是促成动作的人，实际行动者常用「に／を」标记；不要把「新人に作らせた」误当成新人受到动作的普通受身句。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:passive-form",
+      "grammar:tae-kim:causative-passive"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:causative-passive",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:causative-passive",
+    "slug": "causative-passive",
+    "category": "voice",
+    "list_name": "voice-and-politeness",
+    "expression": "使役受身形（～させられる）",
+    "connection": "先把动词变为使役形，再把所得的一段动词变为受身形：食べる→食べさせる→食べさせられる",
+    "explanation_zh": "表示主语被别人要求或迫使做某事，重点同时落在“使其行动”和“本人承受”上。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/causepass",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 63,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "私は先生に作文を書き直させられました。",
+        "zh": "我被老师要求重写作文。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "变形顺序只能是“使役后受身”，不能先做受身再加使役；「書かれた」只是被写／受到书写动作，不等于“被迫写”。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:causative-form",
+      "grammar:tae-kim:passive-form"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:honorific-verbs",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:honorific-verbs",
+    "slug": "honorific-verbs",
+    "category": "politeness",
+    "list_name": "voice-and-politeness",
+    "expression": "尊敬语动词",
+    "connection": "特殊尊敬动词（いらっしゃる、召し上がる等）；或 お／ご + 动词连用形 + になる",
+    "explanation_zh": "抬高听者、顾客或话题中应受尊敬者的动作；特殊动词优先于一般构式。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/honorific",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 64,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "社長はもうお帰りになりました。",
+        "zh": "社长已经回去了。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "尊敬语用于对方或应受尊敬者的动作，通常不用来抬高自己；说自己的动作时应考虑谦让语。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:humble-verbs",
+      "grammar:tae-kim:polite-masu"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:humble-verbs",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:humble-verbs",
+    "slug": "humble-verbs",
+    "category": "politeness",
+    "list_name": "voice-and-politeness",
+    "expression": "谦让语动词",
+    "connection": "特殊谦让动词（参る、申す、拝見する等）；或 お／ご + 动词连用形 + する／いたす",
+    "explanation_zh": "压低自己或己方与对方相关的动作，从而向对方表达敬意。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/honorific",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 65,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "私が会場までご案内いたします。",
+        "zh": "由我带您到会场。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "不要把顾客或上级的动作说成谦让语；例如询问对方是否看过资料，应使用「ご覧になりましたか」，而非「拝見しましたか」。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:honorific-verbs",
+      "grammar:tae-kim:polite-masu"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:te-shimau",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:te-shimau",
+    "slug": "te-shimau",
+    "category": "aspect",
+    "list_name": "speaker-perspective",
+    "expression": "～てしまう",
+    "connection": "动词て形 + しまう；口语中「～てしまう／～でしまう」常缩为「～ちゃう／～じゃう」",
+    "explanation_zh": "表示动作彻底完成，或带出意外、遗憾等说话人态度；两种含义由语境区分。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/unintended",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 66,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "財布を電車に忘れてしまいました。",
+        "zh": "我不小心把钱包忘在电车上了。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "「～てしまう」不一定都表示后悔；在「宿題を全部やってしまう」中也可只强调全部完成，不能脱离语境固定翻译成“不小心”。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:te-form",
+      "grammar:tae-kim:tsumori"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:generic-koto",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:generic-koto",
+    "slug": "generic-koto",
+    "category": "nominalization",
+    "list_name": "generic-nouns-and-judgment",
+    "expression": "こと",
+    "connection": "动词或完整小句的普通形 + こと；再按名词接は、が、を等助词",
+    "explanation_zh": "把动作、状态或整件事情名词化，便于把它当作话题、主语或宾语。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/genericnouns",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 67,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "日本語を毎日読むことは大切です。",
+        "zh": "每天阅读日语很重要。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "名词化后的「こと」仍是名词成分，后面需要合适的助词；不要写成缺少主题标记的「読むこと大切だ」。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:relative-clauses",
+      "grammar:tae-kim:ta-koto-ga-aru"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:generic-mono",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:generic-mono",
+    "slug": "generic-mono",
+    "category": "nominalization",
+    "list_name": "generic-nouns-and-judgment",
+    "expression": "もの／もん",
+    "connection": "动词／い形容词普通形 + もの；名词 + のもの；な形容词 + なもの；句末说明理由时用普通形 + もの／もん",
+    "explanation_zh": "「もの」可泛指有形事物，也可在句末带出带感情色彩的解释或辩解；「もん」更口语。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/genericnouns",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 68,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "大切なものは、この箱に入れてください。",
+        "zh": "请把重要的东西放进这个盒子。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "泛指具体物品通常用「もの」，抽象动作或事情通常用「こと」；句末「だって忙しかったんだもん」又是带情绪的解释，不能与普通物品名词混为一谈。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:generic-koto",
+      "grammar:tae-kim:explanatory-no-da"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:wake-explanation",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:wake-explanation",
+    "slug": "wake-explanation",
+    "category": "reasoning",
+    "list_name": "generic-nouns-and-judgment",
+    "expression": "～わけだ／～わけがない",
+    "connection": "普通形 + わけ；名词／な形容词 + なわけ；后接だ、ではない、がない等",
+    "explanation_zh": "根据已知信息归纳出合乎逻辑的结论；否定为「わけがない」时表示“不可能有这种道理”。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/reasoning",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 69,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "毎日練習したから、上手になったわけですね。",
+        "zh": "原来是因为每天练习，所以才变熟练了。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "「わけだ」是从线索推出结论，不只是补充背景的「のだ」；「わけではない」表示“不见得／并非”，也不同于强烈断定不可能的「わけがない」。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:explanatory-no-da",
+      "grammar:tae-kim:generic-koto"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:hazu-expectation",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:hazu-expectation",
+    "slug": "hazu-expectation",
+    "category": "modality",
+    "list_name": "generic-nouns-and-judgment",
+    "expression": "～はずだ",
+    "connection": "动词／い形容词普通形 + はず；な形容词 + なはず；名词 + のはず",
+    "explanation_zh": "基于计划、事实或推理表达有根据的预期，相当于“按理应该会／应该是”。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/should",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 70,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "電車はもう駅に着いているはずです。",
+        "zh": "电车按理已经到站了。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "「はず」说的是有依据的预期，不是对人的义务要求；“应该遵守约定”要用「べき」，不能用「はず」代替。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:beki-should",
+      "grammar:tae-kim:to-omou"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:beki-should",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:beki-should",
+    "slug": "beki-should",
+    "category": "modality",
+    "list_name": "generic-nouns-and-judgment",
+    "expression": "～べきだ／～べきではない",
+    "connection": "动词辞书形 + べきだ；する可用「するべき／すべき」；否定判断用「べきではない」",
+    "explanation_zh": "表达在道德、规则或情势上应当采取的行动，语气通常比一般建议强。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/should",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 71,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "約束は守るべきです。",
+        "zh": "约定是应当遵守的。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "「べき」不是中性的未来预测，也不适合随意命令对方；过去的“本来应该做”说「するべきだった」，前面的动词仍用辞书形。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:hazu-expectation",
+      "grammar:tae-kim:nakereba-naranai"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:you-similarity",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:you-similarity",
+    "slug": "you-similarity",
+    "category": "evidentiality",
+    "list_name": "similarity-and-evidence",
+    "expression": "～ようだ",
+    "connection": "动词／い形容词普通形 + ようだ；名词 + のようだ；な形容词 + なようだ",
+    "explanation_zh": "依据观察或线索作较中性、较正式的推断，也可用「ような／ように」表达相似的性质或方式。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/similarity",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 72,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "道が濡れています。夜に雨が降ったようです。",
+        "zh": "路面湿了，看来夜里下过雨。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "名词接「のよう」、な形容词接「なよう」，不能都直接接；仅凭眼前外观说“看起来好吃”时用「おいしそう」，不是「おいしいようだ」。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:mitai-similarity",
+      "grammar:tae-kim:rashii-similarity"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:mitai-similarity",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:mitai-similarity",
+    "slug": "mitai-similarity",
+    "category": "evidentiality",
+    "list_name": "similarity-and-evidence",
+    "expression": "～みたいだ",
+    "connection": "名词、动词或形容词的普通形 + みたいだ；修饰名词用「みたいな」，修饰动作方式用「みたいに」",
+    "explanation_zh": "口语中表达“像……一样”或根据所见作推测，语体比「ようだ」随意。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/similarity",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 73,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "あの雲は動物みたいに見えます。",
+        "zh": "那朵云看起来像动物。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "「みたい」按名词／な形容词方式变化，应说「みたいじゃない」；不要把它当成い形容词写成「みたくない」，也别与「見たい」混淆。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:you-similarity",
+      "grammar:tae-kim:rashii-similarity"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:rashii-similarity",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:rashii-similarity",
+    "slug": "rashii-similarity",
+    "category": "evidentiality",
+    "list_name": "similarity-and-evidence",
+    "expression": "～らしい",
+    "connection": "名词、动词或形容词的普通形 + らしい；整体按い形容词变化",
+    "explanation_zh": "根据听到的信息或间接迹象判断情况；接名词时也可表示符合该类事物的典型特征。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/similarity",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 74,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "天気予報では、週末は雪らしいです。",
+        "zh": "据天气预报说，周末好像会下雪。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "「雪らしい」是基于间接信息的判断，而「雪のようだ／雪みたいだ」更侧重观察到的相似或推断；「子供らしい」还可能表示“像个孩子”。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:you-similarity",
+      "grammar:tae-kim:sou-hearsay"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:sou-appearance",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:sou-appearance",
+    "slug": "sou-appearance",
+    "category": "evidentiality",
+    "list_name": "similarity-and-evidence",
+    "expression": "～そうだ（样态）",
+    "connection": "动词连用形 + そうだ；い形容词去い + そうだ；な形容词 + そうだ；否定的「ない」常变为「なさそう」",
+    "explanation_zh": "根据眼前样态判断某事似乎即将发生，或某性质看起来成立。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/similarity",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 75,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "このケーキはおいしそうです。",
+        "zh": "这个蛋糕看起来很好吃。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "样态「そう」不用完整普通形：应说「降りそう／おいしそう」，而传闻才说「降るそうだ／おいしいそうだ」；另外「いい」要变为「よさそう」。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:sou-hearsay",
+      "grammar:tae-kim:mitai-similarity"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:sou-hearsay",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:sou-hearsay",
+    "slug": "sou-hearsay",
+    "category": "evidentiality",
+    "list_name": "similarity-and-evidence",
+    "expression": "～そうだ（传闻）",
+    "connection": "完整普通形 + そうだ；名词／な形容词 + だそうだ",
+    "explanation_zh": "转述从他人、新闻或其他来源听到的信息，不表示说话人亲眼观察。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/similarity",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 76,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "天気予報によると、明日は雨が降るそうです。",
+        "zh": "据天气预报说，明天会下雨。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "传闻「そう」前保留完整普通形，名词和な形容词还要保留「だ」；「学生そうだ」和「雨が降りそうだ」分别会变成不自然表达和样态含义。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:sou-appearance",
+      "grammar:tae-kim:rashii-similarity"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:yori-hou-comparison",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:yori-hou-comparison",
+    "slug": "yori-hou-comparison",
+    "category": "comparison",
+    "list_name": "comparison-and-ease",
+    "expression": "AよりBのほうが～",
+    "connection": "比较基准 A + より + 被突出项 B + のほうが + 评价；两项择一可用「どちらのほう」",
+    "explanation_zh": "「より」标出比较时离开的基准，「ほう」指出评价更偏向的一方。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/comparison",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 77,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "バスより電車のほうが早いです。",
+        "zh": "电车比公交车快。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "「AよりBのほうが速い」中更快的是B；不要受中文“比”字句影响把比较方向读反，也不要漏掉「ほう」后的「が」。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:i-adjectives",
+      "grammar:tae-kim:dake-shika"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:yasui-nikui",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:yasui-nikui",
+    "slug": "yasui-nikui",
+    "category": "aspect",
+    "list_name": "comparison-and-ease",
+    "expression": "～やすい／～にくい",
+    "connection": "动词连用形 + やすい／にくい；所得整体按い形容词变化",
+    "explanation_zh": "描述某动作在客观条件或个人体验上容易做或难以做。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/easyhard",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 78,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "この説明は分かりやすいです。",
+        "zh": "这个说明很容易理解。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "必须接动词连用形，如「読みやすい／書きにくい」，不能接辞书形写成「読むやすい」；整个词按い形容词变化，不再加「な」。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:verb-groups",
+      "grammar:tae-kim:i-adjectives"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:naide-without",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:naide-without",
+    "slug": "naide-without",
+    "category": "clauses",
+    "list_name": "clause-relations",
+    "expression": "～ないで",
+    "connection": "动词ない形 + で；する→しないで，来る→こないで",
+    "explanation_zh": "表示在没有完成前项动作的情况下进行后项，相当于“不……就／没……而……”。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/negativeverbs2",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 79,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "朝ご飯を食べないで学校へ行きました。",
+        "zh": "没吃早饭就去学校了。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "表示伴随状态“没做A而做B”用「ないで」；单纯连接否定或说明原因时常用「なくて」，不要把两者机械互换。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:verb-negative",
+      "grammar:tae-kim:te-combinations"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:nagara-while",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:nagara-while",
+    "slug": "nagara-while",
+    "category": "time",
+    "list_name": "clause-relations",
+    "expression": "～ながら",
+    "connection": "动词连用形 + ながら + 主要动作",
+    "explanation_zh": "表示同一主体在进行前项动作的同时进行后项；主要叙述重点通常在后项。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/timeactions",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 80,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "音楽を聞きながら勉強します。",
+        "zh": "我一边听音乐一边学习。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "并行动作原则上共享同一主体；若前后动作由不同的人完成，不能只靠「ながら」连接，应改用「間に」等更明确的结构。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:te-combinations",
+      "grammar:tae-kim:toki-time"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:node-reason",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:node-reason",
+    "slug": "node-reason",
+    "category": "reasoning",
+    "list_name": "clause-relations",
+    "expression": "～ので",
+    "connection": "动词／い形容词普通形 + ので；名词／な形容词 + なので",
+    "explanation_zh": "把前项作为后项的原因或背景，语气常比直接主张理由的「から」更说明性、更缓和。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/compound",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 81,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "雨が降っているので、試合は中止です。",
+        "zh": "因为正在下雨，比赛取消。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "名词和な形容词要接「なので」，不能写「雨だので／静かだので」；「ので」给原因，而「のに」表示与预期相反，二者不要因只差一个音而混淆。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:kara-reason",
+      "grammar:tae-kim:noni-contrast"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:noni-contrast",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:noni-contrast",
+    "slug": "noni-contrast",
+    "category": "contrast",
+    "list_name": "clause-relations",
+    "expression": "～のに",
+    "connection": "动词／い形容词普通形 + のに；名词／な形容词 + なのに",
+    "explanation_zh": "连接实际结果与前项形成的预期冲突，常带有意外、不满或惋惜。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/compound",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 82,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "電池を替えたのに、時計が動きません。",
+        "zh": "明明换了电池，钟却不走。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "「のに」不是原因连接词：若后项是前项的正常结果应用「ので」；句末单独用「のに」还可能留下“明明……”的遗憾语气。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:node-reason",
+      "grammar:tae-kim:kara-reason"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:toki-time",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:toki-time",
+    "slug": "toki-time",
+    "category": "time",
+    "list_name": "time-and-deadlines",
+    "expression": "～とき",
+    "connection": "动词／い形容词普通形 + とき；名词 + のとき；な形容词 + なとき",
+    "explanation_zh": "把前项设为后项发生的时间框架；动词在「とき」前的形态体现两个动作的相对先后。",
+    "source_url": "https://guidetojapanese.org/learn/complete/verb_sequences",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 83,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "日本へ行くとき、空港で保険に入りました。",
+        "zh": "去日本时，我在机场买了保险。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "「行くとき」常指到达前的途中或临行时，「行ったとき」常指到达后／曾去时；整个句子是过去也不代表「とき」前一定用过去形。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:mae-ni-before",
+      "grammar:tae-kim:ato-de-after"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:mae-ni-before",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:mae-ni-before",
+    "slug": "mae-ni-before",
+    "category": "time",
+    "list_name": "time-and-deadlines",
+    "expression": "～前に",
+    "connection": "动词辞书形 + 前に；名词 + の前に",
+    "explanation_zh": "表示后项发生在前项动作或某个时间点之前。",
+    "source_url": "https://guidetojapanese.org/learn/complete/verb_sequences",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 84,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "出かける前に、窓を閉めました。",
+        "zh": "出门前，我关了窗户。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "即使后项发生在过去，「前に」前通常仍用辞书形表示尚未发生的动作；应说「出かける前に」，不是「出かけた前に」。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:toki-time",
+      "grammar:tae-kim:ato-de-after"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:ato-de-after",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:ato-de-after",
+    "slug": "ato-de-after",
+    "category": "time",
+    "list_name": "time-and-deadlines",
+    "expression": "～後で",
+    "connection": "动词た形 + 後で；名词 + の後で",
+    "explanation_zh": "明确表示前项完成之后再发生后项，适合交代动作顺序。",
+    "source_url": "https://guidetojapanese.org/learn/complete/verb_sequences",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 85,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "食事をした後で、散歩しましょう。",
+        "zh": "吃完饭后去散步吧。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "动词在「後で」前要用た形，因为作为基准的动作已完成；不能照搬「前に」的连接写成「食事をする後で」。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:mae-ni-before",
+      "grammar:tae-kim:te-kara-since"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:te-kara-since",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:te-kara-since",
+    "slug": "te-kara-since",
+    "category": "time",
+    "list_name": "time-and-deadlines",
+    "expression": "～てから",
+    "connection": "动词て形 + から + 后续动作或持续状态",
+    "explanation_zh": "把前项完成设为起点，表示从那以后发生后项，也可强调先做前项再做后项。",
+    "source_url": "https://guidetojapanese.org/learn/complete/verb_sequences",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 86,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "日本に来てから、納豆が好きになりました。",
+        "zh": "来到日本以后，我喜欢上了纳豆。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "时间起点必须用て形「来てから」；「来るから」通常会被理解为“因为要来”，是表示理由的「から」，并非“来之后”。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:ato-de-after",
+      "grammar:tae-kim:made-ni-deadline"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:made-ni-deadline",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:made-ni-deadline",
+    "slug": "made-ni-deadline",
+    "category": "time",
+    "list_name": "time-and-deadlines",
+    "expression": "～までに",
+    "connection": "截止时间或事件 + までに + 一次性完成的动作",
+    "explanation_zh": "设置最迟完成期限，表示动作必须在该界限到来以前完成。",
+    "source_url": "https://guidetojapanese.org/learn/complete/time",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 87,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "金曜日までに申込書を提出してください。",
+        "zh": "请在星期五之前提交申请表。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "「金曜日まで働く」表示持续工作到周五，「金曜日までに提出する」表示以周五为最迟完成点；有无「に」会改变持续与截止的焦点。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:kara-made",
+      "grammar:tae-kim:toki-time"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:you-ni-naru",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:you-ni-naru",
+    "slug": "you-ni-naru",
+    "category": "change",
+    "list_name": "change-and-decision",
+    "expression": "～ようになる",
+    "connection": "动词辞书形／ない形 + ようになる；能力变化常用可能形 + ようになる",
+    "explanation_zh": "表示经过变化后开始能做、会做或形成某种习惯，关注状态逐渐成为事实。",
+    "source_url": "https://guidetojapanese.org/completeguide.html",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 88,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "毎朝、目覚まし時計なしで起きられるようになりました。",
+        "zh": "现在我每天早上不用闹钟也能起床了。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "「ようになる」描述能力或习惯的变化，不是当场决定；名词／形容词变成某状态用「に／くなる」，个人作决定则用「ことにする」。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:ni-suru-ni-naru",
+      "grammar:tae-kim:koto-ni-suru"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:koto-ni-suru",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:koto-ni-suru",
+    "slug": "koto-ni-suru",
+    "category": "decision",
+    "list_name": "change-and-decision",
+    "expression": "～ことにする",
+    "connection": "动词辞书形／ない形 + ことにする；持续执行的决定常用「ことにしている」",
+    "explanation_zh": "把某个行动选定为自己的决定；进行体可表示长期坚持的个人规则。",
+    "source_url": "https://guidetojapanese.org/completeguide.html",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 89,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "来月から毎日、日記を書くことにします。",
+        "zh": "我决定从下个月起每天写日记。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "个人主动决定用「ことにする」，组织安排或外部结果常用「ことになる」；为形成习惯而努力的「ようにする」也不等同于一次决定。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:ni-suru-ni-naru",
+      "grammar:tae-kim:you-ni-naru"
+    ]
+  },
+  {
+    "id": "grammar:tae-kim:dake-shika",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:dake-shika",
+    "slug": "dake-shika",
+    "category": "limitation",
+    "list_name": "comparison-and-ease",
+    "expression": "だけ／しか～ない",
+    "connection": "限定项 + だけ + 肯定或否定谓语；限定项 + しか + 否定谓语",
+    "explanation_zh": "「だけ」中性地限定范围为“只有这些”；「しか～ない」排除其他可能，强调“除此之外没有”。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/amount",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 90,
+    "published": true,
+    "path": "expressions",
+    "examples": [
+      {
+        "ja": "冷蔵庫には卵だけありますが、牛乳は一本しかありません。",
+        "zh": "冰箱里只有鸡蛋，而牛奶只剩一瓶。",
+        "source": "kotonoha-original"
+      }
+    ],
+    "common_mistakes": [
+      "「しか」后必须使用否定谓语，应说「一つしかない」；「一つだけある」可以用肯定，而「一つだけない」则表示“唯独一个没有”，含义不同。"
+    ],
+    "related_entries": [
+      "grammar:tae-kim:yori-hou-comparison",
+      "grammar:tae-kim:mo-also"
+    ]
+  }
+]

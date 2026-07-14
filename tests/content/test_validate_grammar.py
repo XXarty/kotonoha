@@ -79,6 +79,39 @@ EXPECTED_CORE_SLUGS = [
     "explanatory-no-da",
 ]
 
+EXPECTED_EXPRESSIONS_SLUGS = [
+    "passive-form",
+    "causative-form",
+    "causative-passive",
+    "honorific-verbs",
+    "humble-verbs",
+    "te-shimau",
+    "generic-koto",
+    "generic-mono",
+    "wake-explanation",
+    "hazu-expectation",
+    "beki-should",
+    "you-similarity",
+    "mitai-similarity",
+    "rashii-similarity",
+    "sou-appearance",
+    "sou-hearsay",
+    "yori-hou-comparison",
+    "yasui-nikui",
+    "naide-without",
+    "nagara-while",
+    "node-reason",
+    "noni-contrast",
+    "toki-time",
+    "mae-ni-before",
+    "ato-de-after",
+    "te-kara-since",
+    "made-ni-deadline",
+    "you-ni-naru",
+    "koto-ni-suru",
+    "dake-shika",
+]
+
 
 def _write(path: Path, payload: object) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
@@ -114,6 +147,29 @@ def test_core_path_has_thirty_expanded_entries() -> None:
     assert all(
         related_id in curriculum_ids
         for entry in core
+        for related_id in entry.related_entries
+    )
+
+
+def test_expressions_path_has_thirty_expanded_entries() -> None:
+    entries = load_grammar_curriculum(GRAMMAR_DIR)
+    expressions = [entry for entry in entries if entry.path == "expressions"]
+    curriculum_ids = {entry.id for entry in entries}
+
+    assert len(expressions) == 30
+    assert [entry.slug for entry in expressions] == EXPECTED_EXPRESSIONS_SLUGS
+    assert [entry.display_order for entry in expressions] == list(range(61, 91))
+    assert all(
+        urlparse(entry.source_url).scheme == "https"
+        and urlparse(entry.source_url).hostname
+        in {"guidetojapanese.org", "www.guidetojapanese.org"}
+        for entry in expressions
+    )
+    assert all(entry.examples and entry.common_mistakes for entry in expressions)
+    assert all(1 <= len(entry.related_entries) <= 2 for entry in expressions)
+    assert all(
+        related_id in curriculum_ids
+        for entry in expressions
         for related_id in entry.related_entries
     )
 
