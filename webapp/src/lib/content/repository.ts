@@ -211,7 +211,7 @@ export function createContentRepository(rawInput: unknown) {
         japanese: item.japanese,
         kana: item.kana,
         romaji: item.romaji,
-        meaningZh: item.meaning_zh.join("；"),
+        meaningZh: item.meaning_zh[0],
         meaningEn: item.meaning_en.join("; "),
         sourceTitle: sourceMap.get(item.source_id)?.title ?? item.source_id,
       })),
