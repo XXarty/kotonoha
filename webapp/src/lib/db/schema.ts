@@ -92,6 +92,7 @@ export const vocabularyEntries = pgTable(
     listId: uuid("list_id")
       .notNull()
       .references(() => contentLists.id, { onDelete: "cascade" }),
+    sourceKey: text("source_key").notNull(),
     japanese: text("japanese").notNull(),
     kana: text("kana").notNull(),
     romaji: text("romaji").notNull(),
@@ -103,6 +104,10 @@ export const vocabularyEntries = pgTable(
     ...timestamps(),
   },
   (table) => [
+    uniqueIndex("vocabulary_entries_list_source_key_unique").on(
+      table.listId,
+      table.sourceKey,
+    ),
     index("vocabulary_entries_list_order_idx").on(table.listId, table.displayOrder),
     index("vocabulary_entries_public_idx").on(table.validationStatus, table.listId),
     index("vocabulary_entries_japanese_idx").on(table.japanese),
@@ -117,6 +122,8 @@ export const grammarEntries = pgTable(
     listId: uuid("list_id")
       .notNull()
       .references(() => contentLists.id, { onDelete: "cascade" }),
+    sourceKey: text("source_key").notNull(),
+    sourceNumber: integer("source_number").notNull(),
     expression: text("expression").notNull(),
     connection: text("connection").notNull(),
     explanationZh: text("explanation_zh").notNull(),
@@ -128,6 +135,11 @@ export const grammarEntries = pgTable(
     ...timestamps(),
   },
   (table) => [
+    uniqueIndex("grammar_entries_list_source_key_unique").on(table.listId, table.sourceKey),
+    uniqueIndex("grammar_entries_list_source_number_unique").on(
+      table.listId,
+      table.sourceNumber,
+    ),
     index("grammar_entries_list_order_idx").on(table.listId, table.displayOrder),
     index("grammar_entries_public_idx").on(table.validationStatus, table.listId),
     index("grammar_entries_expression_idx").on(table.expression),
@@ -141,6 +153,7 @@ export const kanaEntries = pgTable(
     listId: uuid("list_id")
       .notNull()
       .references(() => contentLists.id, { onDelete: "cascade" }),
+    sourceKey: text("source_key").notNull(),
     hiragana: text("hiragana").notNull(),
     katakana: text("katakana").notNull(),
     romaji: text("romaji").notNull(),
@@ -151,6 +164,7 @@ export const kanaEntries = pgTable(
     ...timestamps(),
   },
   (table) => [
+    uniqueIndex("kana_entries_list_source_key_unique").on(table.listId, table.sourceKey),
     index("kana_entries_list_order_idx").on(table.listId, table.displayOrder),
     index("kana_entries_public_idx").on(table.validationStatus, table.listId),
   ],

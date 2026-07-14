@@ -629,7 +629,7 @@ torch==2.7.1
 pytest==8.4.1
 ~~~
 
-The tests must reject blank Japanese, kana, English meaning, source page, or unrecognized validation status.
+The tests must reject a blank source key, Japanese, kana, English meaning, source page, or unrecognized validation status.
 
 - [ ] **Step 2: Implement validated extraction models**
 
@@ -639,6 +639,7 @@ from pydantic import BaseModel, Field
 
 class RawVocabularyRecord(BaseModel):
     source_slug: str
+    source_key: str = Field(min_length=1)
     category: str
     list_name: str
     japanese: str = Field(min_length=1)
@@ -655,6 +656,7 @@ class VocabularyRecord(RawVocabularyRecord):
 
 class GrammarRecord(BaseModel):
     source_slug: str
+    source_key: str = Field(min_length=1)
     source_number: int = Field(ge=1, le=228)
     pattern: str = Field(min_length=1)
     explanation_zh: str = Field(min_length=1)
@@ -663,7 +665,19 @@ class GrammarRecord(BaseModel):
     source_page: int = Field(gt=0)
     confidence: float = Field(ge=0, le=1)
     validation_status: Literal["needs_review", "published"]
+
+class KanaRecord(BaseModel):
+    source_slug: str
+    list_name: str
+    source_key: str = Field(min_length=1)
+    hiragana: str = Field(min_length=1)
+    katakana: str = Field(min_length=1)
+    romaji: str = Field(min_length=1)
+    row_group: str = Field(min_length=1)
+    validation_status: Literal["needs_review", "published"]
 ~~~
+
+Stable keys are deterministic and scoped by the database list ID: DK uses `p{source_page:03d}-i{page_ordinal:03d}`, where the ordinal follows stable page reading order; grammar uses `n{source_number:03d}`; kana uses the canonicalized `{row_group}:{romaji}`. Never derive a source key from random IDs, OCR text, translated content, or content hashes.
 
 - [ ] **Step 3: Install and verify OCR language packs**
 
@@ -678,7 +692,7 @@ Expected: jpn, chi_sim, and eng appear in the language list.
 
 - [ ] **Step 4: Implement DK extraction**
 
-Render pages at 300 DPI. Use the PDF text layer for romaji and English, Tesseract for Japanese glyphs, and the page 8-9 table of contents for category/list page boundaries. Normalize Unicode with NFKC, preserve long-vowel macrons, and flag records below 0.92 OCR confidence or missing field alignment.
+Render pages at 300 DPI. Use the PDF text layer for romaji and English, Tesseract for Japanese glyphs, and the page 8-9 table of contents for category/list page boundaries. Normalize Unicode with NFKC, preserve long-vowel macrons, emit the page-and-ordinal `source_key`, and flag records below 0.92 OCR confidence or missing field alignment.
 
 The CLI contract is:
 
@@ -690,7 +704,7 @@ python scripts/content/extract_dk.py \
 
 - [ ] **Step 5: Implement Teikyo table extraction**
 
-Render pages 2-16 at 350 DPI, OCR each table row with Japanese and simplified-Chinese languages, map the printed numbers 1-228, and fail the run when any number is duplicated or missing.
+Render pages 2-16 at 350 DPI, OCR each table row with Japanese and simplified-Chinese languages, map the printed numbers 1-228, emit the number-derived `source_key`, and fail the run when any number is duplicated or missing.
 
 The CLI contract is:
 
@@ -714,7 +728,7 @@ Run:
 python -m pytest tests/content -q
 ~~~
 
-Expected: fixture extraction and manifest tests pass.
+Expected: fixture extraction and manifest tests pass, including nonblank and per-list unique `source_key` values and unique grammar `source_number` values.
 
 - [ ] **Step 8: Run the full extraction and inspect the manifest**
 
@@ -725,12 +739,13 @@ Expected manifest assertions:
 - Teikyo source_numbers contains every integer from 1 through 228 exactly once before publication.
 - published + needs_review equals total records.
 - No empty source page or content key.
+- Every list has unique, nonblank source keys; each grammar source key exactly matches its printed source number.
 
 Do not publish needs_review records merely to reach a target count.
 
 - [ ] **Step 9: Import reviewed records idempotently**
 
-import_to_neon.py inserts content_sources, books, sections, content_lists, vocabulary_entries, and grammar_entries using stable source keys and ON CONFLICT DO UPDATE. Run it only after Vercel/Neon environment setup in Task 12.
+import_to_neon.py inserts content_sources, books, sections, content_lists, vocabulary_entries, grammar_entries, and kana_entries using stable source keys and `ON CONFLICT DO UPDATE`. Vocabulary and kana target `(list_id, source_key)`; grammar targets `(list_id, source_number)` only after asserting that `source_key` matches the printed number. These targets are schema-level unique constraints, and updates retain existing row IDs so saved progress links remain valid. Any source-key/number mismatch is a hard import error. Run the importer only after Vercel/Neon environment setup in Task 12.
 
 - [ ] **Step 10: Commit scripts and safe manifests only**
 

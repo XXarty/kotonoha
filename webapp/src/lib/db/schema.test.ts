@@ -48,6 +48,37 @@ describe("database schema contracts", () => {
     expect(columnNames(kanaEntries)).toContain("validation_status");
   });
 
+  it("provides stable per-list conflict keys for idempotent content imports", () => {
+    const entries = [
+      [vocabularyEntries, "vocabulary_entries_list_source_key_unique"],
+      [grammarEntries, "grammar_entries_list_source_key_unique"],
+      [kanaEntries, "kana_entries_list_source_key_unique"],
+    ] as const;
+
+    for (const [table, indexName] of entries) {
+      expect(columnNames(table)).toContain("source_key");
+      const sourceKeyIndex = indexConfig(table, indexName);
+      expect(sourceKeyIndex?.unique).toBe(true);
+      expect(sourceKeyIndex?.columns.map((column) => "name" in column && column.name)).toEqual([
+        "list_id",
+        "source_key",
+      ]);
+    }
+  });
+
+  it("preserves and uniquely indexes the printed grammar number", () => {
+    expect(columnNames(grammarEntries)).toContain("source_number");
+    const sourceNumberIndex = indexConfig(
+      grammarEntries,
+      "grammar_entries_list_source_number_unique",
+    );
+
+    expect(sourceNumberIndex?.unique).toBe(true);
+    expect(
+      sourceNumberIndex?.columns.map((column) => "name" in column && column.name),
+    ).toEqual(["list_id", "source_number"]);
+  });
+
   it("uniquely identifies progress and favorites by user, kind, and item", () => {
     const progressIndex = indexConfig(
       userItemProgress,

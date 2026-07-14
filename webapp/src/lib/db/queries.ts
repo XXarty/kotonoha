@@ -114,6 +114,8 @@ export function buildGrammarLevelQuery(database: AppDatabase, levelSlug: string)
       explanationZh: grammarEntries.explanationZh,
       exampleJa: grammarEntries.exampleJa,
       exampleZh: grammarEntries.exampleZh,
+      sourceKey: grammarEntries.sourceKey,
+      sourceNumber: grammarEntries.sourceNumber,
       sourcePage: grammarEntries.sourcePage,
       listSlug: contentLists.slug,
       listTitle: contentLists.title,
@@ -125,7 +127,7 @@ export function buildGrammarLevelQuery(database: AppDatabase, levelSlug: string)
     .innerJoin(books, eq(sections.bookId, books.id))
     .innerJoin(contentSources, eq(books.sourceId, contentSources.id))
     .where(and(publicGrammarWhere(), eq(sections.slug, levelSlug)))
-    .orderBy(asc(contentLists.displayOrder), asc(grammarEntries.displayOrder));
+    .orderBy(asc(contentLists.displayOrder), asc(grammarEntries.sourceNumber));
 }
 
 export async function getGrammarLevel(levelSlug: string) {
@@ -137,8 +139,9 @@ export interface VocabularySearchResult {
   id: string;
   primaryText: string;
   reading: string;
-  meaningZh: string;
-  context: string;
+  secondaryText: string;
+  sourceTitle: string;
+  contextTitle: string;
 }
 
 export interface GrammarSearchResult {
@@ -146,8 +149,9 @@ export interface GrammarSearchResult {
   id: string;
   primaryText: string;
   reading: null;
-  meaningZh: string;
-  context: string;
+  secondaryText: string;
+  sourceTitle: string;
+  contextTitle: string;
 }
 
 export interface KanaSearchResult {
@@ -155,11 +159,23 @@ export interface KanaSearchResult {
   id: string;
   primaryText: string;
   reading: string;
-  meaningZh: string;
-  context: string;
+  secondaryText: string;
+  sourceTitle: string;
+  contextTitle: string;
 }
 
 export type SearchResult = VocabularySearchResult | GrammarSearchResult | KanaSearchResult;
+
+export interface SearchResultGroups {
+  vocabulary: VocabularySearchResult[];
+  grammar: GrammarSearchResult[];
+  kana: KanaSearchResult[];
+}
+
+export type SearchExecutor = (
+  term: string,
+  perKindLimit: number,
+) => Promise<SearchResultGroups>;
 
 export function buildVocabularySearchQuery(database: AppDatabase, term: string, limit: number) {
   const pattern = `%${term}%`;
@@ -169,8 +185,9 @@ export function buildVocabularySearchQuery(database: AppDatabase, term: string, 
       id: vocabularyEntries.id,
       primaryText: vocabularyEntries.japanese,
       reading: vocabularyEntries.kana,
-      meaningZh: vocabularyEntries.meaningZh,
-      context: contentLists.title,
+      secondaryText: vocabularyEntries.meaningZh,
+      sourceTitle: contentSources.title,
+      contextTitle: contentLists.title,
     })
     .from(vocabularyEntries)
     .innerJoin(contentLists, eq(vocabularyEntries.listId, contentLists.id))
@@ -200,8 +217,9 @@ export function buildGrammarSearchQuery(database: AppDatabase, term: string, lim
       id: grammarEntries.id,
       primaryText: grammarEntries.expression,
       reading: sql<null>`null`,
-      meaningZh: grammarEntries.explanationZh,
-      context: contentLists.title,
+      secondaryText: grammarEntries.explanationZh,
+      sourceTitle: contentSources.title,
+      contextTitle: contentLists.title,
     })
     .from(grammarEntries)
     .innerJoin(contentLists, eq(grammarEntries.listId, contentLists.id))
@@ -231,8 +249,9 @@ export function buildKanaSearchQuery(database: AppDatabase, term: string, limit:
       id: kanaEntries.id,
       primaryText: kanaEntries.hiragana,
       reading: kanaEntries.romaji,
-      meaningZh: kanaEntries.katakana,
-      context: contentLists.title,
+      secondaryText: kanaEntries.katakana,
+      sourceTitle: contentSources.title,
+      contextTitle: contentLists.title,
     })
     .from(kanaEntries)
     .innerJoin(contentLists, eq(kanaEntries.listId, contentLists.id))
@@ -252,19 +271,31 @@ export function buildKanaSearchQuery(database: AppDatabase, term: string, limit:
     .limit(limit);
 }
 
-export async function searchContent(term: string, limit = 20): Promise<SearchResult[]> {
-  const normalizedTerm = term.trim();
-  if (!normalizedTerm) return [];
-
+async function executeSearchQueries(
+  normalizedTerm: string,
+  perKindLimit: number,
+): Promise<SearchResultGroups> {
   const database = getDb();
-  const perKindLimit = Math.max(1, Math.min(limit, 50));
-  const results = await Promise.all([
+  const [vocabulary, grammar, kana] = await Promise.all([
     buildVocabularySearchQuery(database, normalizedTerm, perKindLimit),
     buildGrammarSearchQuery(database, normalizedTerm, perKindLimit),
     buildKanaSearchQuery(database, normalizedTerm, perKindLimit),
   ]);
 
-  return results.flat().slice(0, perKindLimit);
+  return { vocabulary, grammar, kana };
+}
+
+export async function searchContent(
+  term: string,
+  limit = 20,
+  execute: SearchExecutor = executeSearchQueries,
+): Promise<SearchResultGroups> {
+  const normalizedTerm = term.trim();
+  if (!normalizedTerm) return { vocabulary: [], grammar: [], kana: [] };
+
+  const normalizedLimit = Number.isFinite(limit) ? Math.trunc(limit) : 20;
+  const perKindLimit = Math.max(1, Math.min(normalizedLimit, 50));
+  return execute(normalizedTerm, perKindLimit);
 }
 
 interface ReviewQueueBase {
