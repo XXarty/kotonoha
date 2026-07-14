@@ -123,7 +123,22 @@ def test_bundle_manifest_hashes_match_files(tmp_path: Path) -> None:
     assert manifest.counts == {"vocabulary": 500, "grammar": 30, "kana": 46, "invalid": 0}
     for filename, digest in manifest.files.items():
         assert digest == sha256_file(output / filename)
+    verification = json.loads((output / "verification.json").read_text(encoding="utf-8"))
+    assert verification["manifest_sha256"] == sha256_file(output / "manifest.json")
+    assert verification["counts"] == manifest.counts
     assert verify_static_bundle(output).counts == manifest.counts
+
+
+def test_verifier_rejects_stale_release_evidence(tmp_path: Path) -> None:
+    inputs = bundle_inputs(tmp_path, vocabulary_count=500)
+    output = tmp_path / "generated"
+    build_static_bundle(**inputs, output_dir=output)
+    verification = json.loads((output / "verification.json").read_text(encoding="utf-8"))
+    verification["manifest_sha256"] = "0" * 64
+    write_json(output / "verification.json", verification)
+
+    with pytest.raises(ValueError, match="verification manifest hash mismatch"):
+        verify_static_bundle(output)
 
 
 def test_failed_validation_does_not_replace_previous_bundle(tmp_path: Path) -> None:

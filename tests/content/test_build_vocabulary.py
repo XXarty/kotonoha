@@ -6,6 +6,7 @@ from pathlib import Path
 
 from scripts.content.build_vocabulary import (
     build_vocabulary,
+    index_kaikki_glosses,
     limit_balanced_records,
     select_jmdict_candidates,
 )
@@ -84,3 +85,21 @@ def test_launch_limit_keeps_multiple_available_categories() -> None:
     selected = limit_balanced_records(records, limit=2)
 
     assert {item.category for item in selected} == {"nouns", "verbs"}
+
+
+def test_kaikki_section_markers_do_not_duplicate_a_gloss(tmp_path: Path) -> None:
+    kaikki = tmp_path / "kaikki.jsonl"
+    kaikki.write_text(
+        json.dumps(
+            {
+                "lang_code": "ja",
+                "word": "開館",
+                "senses": [{"glosses": ["开馆。==日语== 開館【かいかん】开馆。"]}],
+            },
+            ensure_ascii=False,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    assert index_kaikki_glosses(kaikki, {"開館"}) == {"開館": {("开馆。",)}}

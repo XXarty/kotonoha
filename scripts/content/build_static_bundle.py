@@ -141,10 +141,19 @@ def build_static_bundle(
             built_at=built_at or _default_built_at(snapshots),
         )
         _write_json(temporary / "manifest.json", manifest.model_dump(mode="json"))
+        _write_json(
+            temporary / "verification.json",
+            {
+                "counts": manifest.counts,
+                "manifest_sha256": sha256_file(temporary / "manifest.json"),
+                "verified_at": manifest.built_at.isoformat().replace("+00:00", "Z"),
+                "verifier_version": 1,
+            },
+        )
         verify_static_bundle(temporary)
 
         output_dir.mkdir(parents=True, exist_ok=True)
-        for filename in [*hashed_files, "manifest.json"]:
+        for filename in [*hashed_files, "manifest.json", "verification.json"]:
             (temporary / filename).replace(output_dir / filename)
         return manifest
     finally:
@@ -153,6 +162,12 @@ def build_static_bundle(
 
 def verify_static_bundle(output_dir: Path) -> BuildManifest:
     manifest = BuildManifest.model_validate(_read_json(output_dir / "manifest.json"))
+    verification = _read_json(output_dir / "verification.json")
+    actual_manifest_sha256 = sha256_file(output_dir / "manifest.json")
+    if verification.get("manifest_sha256") != actual_manifest_sha256:
+        raise ValueError("verification manifest hash mismatch")
+    if verification.get("counts") != manifest.counts:
+        raise ValueError("verification count mismatch")
     for filename, expected_sha256 in manifest.files.items():
         actual_sha256 = sha256_file(output_dir / filename)
         if actual_sha256 != expected_sha256:

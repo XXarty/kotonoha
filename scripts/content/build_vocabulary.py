@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import gzip
 import json
+import re
 import sys
 from collections import Counter, defaultdict
 from dataclasses import dataclass
@@ -15,6 +16,9 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.content.models import VocabularyRecord, normalize_text, vocabulary_id
+
+
+_KAIKKI_SECTION_MARKER = re.compile(r"={2,}\s*日[语語]\s*={2,}")
 
 
 @dataclass(frozen=True)
@@ -107,15 +111,20 @@ def index_kaikki_glosses(
                 continue
             glosses = tuple(
                 dict.fromkeys(
-                    normalize_text(str(gloss))
+                    cleaned
                     for sense in row.get("senses", [])
                     for gloss in sense.get("glosses", [])
-                    if normalize_text(str(gloss))
+                    if (cleaned := _clean_kaikki_gloss(gloss))
                 )
             )
             if glosses:
                 index[word].add(glosses)
     return dict(index)
+
+
+def _clean_kaikki_gloss(value: object) -> str:
+    normalized = normalize_text(str(value))
+    return _KAIKKI_SECTION_MARKER.split(normalized, maxsplit=1)[0].strip()
 
 
 def _category(part_of_speech: tuple[str, ...]) -> str:
