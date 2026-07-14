@@ -13,6 +13,18 @@ import {
 type Mode = "sign-in" | "sign-up";
 type FieldErrors = Partial<Record<keyof AuthCredentials, string>>;
 
+function authErrorMessage(error: unknown): string {
+  const friendly = getAuthErrorMessage(error);
+  if (friendly !== "操作失败，请稍后重试") return `${friendly}。请检查后重试。`;
+  if (error && typeof error === "object" && "message" in error) {
+    const message = (error as { message?: unknown }).message;
+    if (typeof message === "string" && message.trim()) {
+      return `操作失败：${message.trim().replace(/[。.!！]+$/, "")}。请检查信息后重试。`;
+    }
+  }
+  return "操作失败。请检查网络连接后重试。";
+}
+
 export function AuthForm({ redirectTo = "/profile" }: { redirectTo?: string }) {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("sign-in");
@@ -55,28 +67,28 @@ export function AuthForm({ redirectTo = "/profile" }: { redirectTo?: string }) {
             });
 
       if (response.error) {
-        setFormError(getAuthErrorMessage(response.error));
+        setFormError(authErrorMessage(response.error));
         return;
       }
 
       router.replace(redirectTo);
       router.refresh();
     } catch (error) {
-      setFormError(getAuthErrorMessage(error));
+      setFormError(authErrorMessage(error));
     } finally {
       setIsPending(false);
     }
   }
 
   return (
-    <section className="w-full max-w-md rounded-3xl border border-slate-200 bg-white/90 p-8 shadow-sm">
-      <fieldset className="mb-8 grid grid-cols-2 rounded-full bg-slate-100 p-1">
+    <section className="auth-panel paper-panel">
+      <fieldset className="auth-mode-switch">
         <legend className="sr-only">账号操作</legend>
         <button
           type="button"
           aria-label="登录模式"
           aria-pressed={mode === "sign-in"}
-          className="rounded-full px-4 py-2 text-sm"
+          className="auth-mode-button"
           onClick={() => setMode("sign-in")}
         >
           登录
@@ -84,20 +96,20 @@ export function AuthForm({ redirectTo = "/profile" }: { redirectTo?: string }) {
         <button
           type="button"
           aria-pressed={mode === "sign-up"}
-          className="rounded-full px-4 py-2 text-sm"
+          className="auth-mode-button"
           onClick={() => setMode("sign-up")}
         >
           注册
         </button>
       </fieldset>
 
-      <form className="space-y-5" noValidate onSubmit={handleSubmit}>
-        <div>
-          <label className="mb-2 block text-sm text-slate-700" htmlFor="auth-email">
+      <form className="auth-form" noValidate onSubmit={handleSubmit}>
+        <div className="auth-field">
+          <label htmlFor="auth-email">
             邮箱
           </label>
           <input
-            className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-600"
+            className="auth-input"
             id="auth-email"
             name="email"
             type="email"
@@ -106,18 +118,18 @@ export function AuthForm({ redirectTo = "/profile" }: { redirectTo?: string }) {
             aria-invalid={fieldErrors.email ? true : undefined}
           />
           {fieldErrors.email ? (
-            <p className="mt-2 text-sm text-red-700" id="auth-email-error">
+            <p className="auth-field-error" id="auth-email-error">
               {fieldErrors.email}
             </p>
           ) : null}
         </div>
 
-        <div>
-          <label className="mb-2 block text-sm text-slate-700" htmlFor="auth-password">
+        <div className="auth-field">
+          <label htmlFor="auth-password">
             密码
           </label>
           <input
-            className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-600"
+            className="auth-input"
             id="auth-password"
             name="password"
             type="password"
@@ -127,20 +139,20 @@ export function AuthForm({ redirectTo = "/profile" }: { redirectTo?: string }) {
             aria-invalid={fieldErrors.password ? true : undefined}
           />
           {fieldErrors.password ? (
-            <p className="mt-2 text-sm text-red-700" id="auth-password-error">
+            <p className="auth-field-error" id="auth-password-error">
               {fieldErrors.password}
             </p>
           ) : null}
         </div>
 
         {formError ? (
-          <p className="text-sm text-red-700" role="alert">
+          <p className="auth-form-error" role="alert">
             {formError}
           </p>
         ) : null}
 
         <button
-          className="w-full rounded-full bg-slate-900 px-5 py-3 text-white disabled:opacity-60"
+          className="button-primary auth-submit"
           disabled={isPending}
           type="submit"
         >

@@ -14,6 +14,65 @@ export default async function VocabularyEntryPage({ params }: { params: Promise<
   }
   const entry = getVocabularyEntry(decodedId);
   if (!entry) notFound();
-  const source = getSourceAttributions().sources.find((item) => item.id === entry.source_id);
-  return <main className="page shell"><p className="eyebrow">Vocabulary specimen</p><div className="detail-grid"><section><h1 className="detail-japanese">{entry.japanese}</h1><p className="detail-reading">{entry.kana} · {entry.romaji}</p><p className="mt-8 text-sm text-[var(--ink-soft)]">词性：{entry.part_of_speech.join(" · ")}</p><ConnectedStudyRater authEnabled={isAuthConfigured()} itemId={entry.id} /></section><section><p className="data-label">中文释义</p><ol className="meaning-list">{entry.meaning_zh.map((meaning) => <li key={meaning}>{meaning}</li>)}</ol><p className="data-label mt-8">English</p><p className="mt-2 text-[var(--ink-soft)]">{entry.meaning_en.join("; ")}</p>{source ? <p className="source-note">来源：<a className="underline underline-offset-4" href={source.url}>{source.title}</a> · <a className="underline underline-offset-4" href={source.license_url}>{source.license_name}</a></p> : null}</section></div></main>;
+  const source = getSourceAttributions().sources.find(
+    (item) => item.id === entry.source_id && item.enabled,
+  );
+  return (
+    <main className="detail-page page shell">
+      <p className="eyebrow">单词 · {entry.tier === "core" ? "日常核心" : "进阶扩展"}</p>
+      <header className="detail-header">
+        <h1 className="detail-japanese" lang="ja">{entry.japanese}</h1>
+        <p className="detail-reading"><span lang="ja">{entry.kana}</span> · {entry.romaji}</p>
+        <p className="detail-meta">词性：{entry.part_of_speech.join(" · ")}</p>
+      </header>
+
+      <div className="detail-grid">
+        <div>
+          <section className="detail-section" aria-labelledby="meaning-heading">
+            <h2 className="detail-section-title" id="meaning-heading">中文释义</h2>
+            <ol className="meaning-list">
+              {entry.meaning_zh.map((meaning) => <li key={meaning}>{meaning}</li>)}
+            </ol>
+          </section>
+
+          <section className="detail-section" aria-labelledby="english-heading">
+            <h2 className="detail-section-title" id="english-heading">英文释义</h2>
+            <p className="detail-body-soft">{entry.meaning_en.join("; ")}</p>
+          </section>
+        </div>
+
+        <div>
+          {entry.examples.length > 0 ? (
+            <section className="detail-section" aria-labelledby="examples-heading">
+              <h2 className="detail-section-title" id="examples-heading">例句</h2>
+              <ol className="detail-examples">
+                {entry.examples.map((example, index) => (
+                  <li className="detail-example" key={`${example.ja}-${index}`}>
+                    <p lang="ja">{example.ja}</p>
+                    <p>{example.zh}</p>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ) : null}
+
+          {source ? (
+            <section className="source-block" aria-labelledby="source-heading">
+              <h2 className="detail-section-title" id="source-heading">来源</h2>
+              <p>
+                <a href={source.url}>{source.title}</a>
+                <span aria-hidden="true"> · </span>
+                <a href={source.license_url}>{source.license_name}</a>
+              </p>
+              <p>内容版本：{entry.content_version}</p>
+            </section>
+          ) : null}
+        </div>
+      </div>
+
+      <div className="detail-learning-rater">
+        <ConnectedStudyRater authEnabled={isAuthConfigured()} itemId={entry.id} />
+      </div>
+    </main>
+  );
 }

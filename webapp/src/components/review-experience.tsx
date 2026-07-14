@@ -6,8 +6,19 @@ import { useState, useTransition } from "react";
 import { getDueReviewAction } from "@/lib/actions/study";
 import { authClient } from "@/lib/auth/client";
 import { contentRoute } from "@/lib/content/routes";
+import { siteCopy } from "@/lib/site-copy";
 
 type DueReviewItem = Awaited<ReturnType<typeof getDueReviewAction>>[number];
+
+const GUEST_GUIDANCE = "这次记录会留在这台设备上。登录后，也能在其他设备继续。";
+
+function reviewError(error: unknown): string {
+  if (error instanceof Error) {
+    const detail = error.message.trim().replace(/[。.!！]+$/, "");
+    if (detail) return `暂时无法读取复习队列：${detail}。请稍后重试。`;
+  }
+  return "暂时无法读取复习队列。请检查网络连接后重试。";
+}
 
 export function ReviewExperience({ authEnabled }: { authEnabled: boolean }) {
   if (!authEnabled) return <ReviewGuidance />;
@@ -30,14 +41,14 @@ function SessionReviewExperience() {
       setError("");
       try {
         setItems(await getDueReviewAction());
-      } catch {
-        setError("暂时无法读取复习队列，请稍后重试。");
+      } catch (caughtError) {
+        setError(reviewError(caughtError));
       }
     });
   }
 
   return (
-    <section className="mt-12 max-w-3xl">
+    <section className="review-queue">
       <button className="button-primary" disabled={isPending} onClick={loadQueue} type="button">
         {isPending ? "读取中…" : "查看到期内容"}
       </button>
@@ -49,7 +60,17 @@ function SessionReviewExperience() {
 }
 
 function ReviewGuidance() {
-  return <div className="mt-12 max-w-2xl border-y border-[var(--line)] py-10"><h2 className="font-[var(--font-display)] text-3xl">在这台设备上继续</h2><p className="mt-4 text-[var(--ink-soft)]">访客评分会保存在浏览器中。登录后，复习日期和收藏可以写入你的个人进度，并在不同设备之间同步。</p><div className="mt-7 flex flex-wrap gap-3"><Link className="button-primary" href="/sign-in?next=/review">登录查看进度</Link><Link className="button-quiet" href="/vocabulary">继续学单词</Link></div></div>;
+  return (
+    <section className="review-guidance paper-panel" aria-labelledby="review-guidance-heading">
+      <h2 id="review-guidance-heading">把会的，轻轻留下来</h2>
+      <p>{siteCopy.review.prompt}</p>
+      <p>{GUEST_GUIDANCE}</p>
+      <div className="review-guidance-actions">
+        <Link className="button-primary" href="/sign-in?next=/review">登录查看进度</Link>
+        <Link className="button-quiet" href="/vocabulary">继续学单词</Link>
+      </div>
+    </section>
+  );
 }
 
 function reviewHref(item: DueReviewItem): string {

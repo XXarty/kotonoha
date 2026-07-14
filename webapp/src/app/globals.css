@@ -329,12 +329,60 @@ input, select { min-height: 2.75rem; }
 .entry-primary { font: 500 1.35rem/1.4 var(--font-display); }
 .entry-reading { color: var(--ink-soft); font-size: .92rem; }
 .entry-meaning { color: var(--ink-soft); }
-.detail-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(18rem, .9fr); gap: clamp(2rem, 7vw, 7rem); margin-top: 3rem; }
+.detail-page { max-width: var(--shell-max); }
+.detail-header { margin-top: 1.25rem; }
+.detail-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(18rem, .95fr); gap: clamp(2.5rem, 7vw, 6.5rem); margin-top: clamp(2.5rem, 6vw, 4.5rem); }
 .detail-japanese { margin: 0; font: 500 clamp(3.5rem, 10vw, 8.5rem)/1 var(--font-display); letter-spacing: -.05em; }
 .detail-reading { margin-top: 1rem; color: var(--indigo); font: .9rem/1.5 var(--font-data); letter-spacing: .06em; }
+.detail-meta { margin: 1.5rem 0 0; color: var(--ink-soft); font-size: .9rem; }
+.detail-section + .detail-section { margin-top: 2.75rem; }
+.detail-section-title { margin: 0; color: var(--moss-text); font: 650 .84rem/1.5 var(--font-body); letter-spacing: .08em; }
+.detail-body-soft { margin: .8rem 0 0; color: var(--ink-soft); }
+.detail-explanation { margin: .85rem 0 0; font-size: 1.05rem; line-height: 1.9; }
+.grammar-connection { margin: .85rem 0 0; font: 500 clamp(1.25rem, 2.5vw, 1.65rem)/1.65 var(--font-display); }
 .meaning-list { margin: 0; padding: 0; list-style: none; }
 .meaning-list li { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.detail-examples { margin: .9rem 0 0; padding: 0; list-style: none; }
+.detail-example { padding: 1.15rem 0; border-bottom: 1px solid var(--line); }
+.detail-example:first-child { padding-top: .4rem; }
+.detail-example p { margin: 0; }
+.detail-example p:first-child { font: 500 clamp(1.35rem, 3vw, 1.85rem)/1.75 var(--font-display); }
+.detail-example p + p { margin-top: .35rem; color: var(--ink-soft); }
+.detail-note-list { margin: .85rem 0 0; padding-left: 1.35rem; }
+.detail-note-list li + li { margin-top: .65rem; }
+.related-entry-list { display: flex; flex-wrap: wrap; gap: .65rem; margin: .9rem 0 0; padding: 0; list-style: none; }
+.related-entry-list a { display: inline-flex; min-height: 2.75rem; align-items: center; padding: .4rem .85rem; border: 1px solid var(--sage); border-radius: .65rem; color: var(--moss-text); background: var(--paper); font-family: var(--font-display); font-size: 1.1rem; }
+.related-entry-list a:hover { border-color: var(--moss); }
+.source-block { margin-top: 2.75rem; padding-top: 1.35rem; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .9rem; }
+.source-block p { margin: .55rem 0 0; }
+.source-block a { color: var(--moss-text); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25rem; }
 .source-note { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .86rem; }
+.detail-learning-rater { max-width: 50rem; margin-top: clamp(3rem, 7vw, 5.5rem); }
+.study-rater { padding-top: 1.75rem; border-top: 1px solid var(--line); }
+.study-rater-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1rem; }
+.study-rater-message { min-height: 1.7rem; margin: .85rem 0 0; color: var(--moss-text); font-size: .9rem; }
+.study-rater-guidance { margin: .35rem 0 0; color: var(--ink-soft); font-size: .86rem; }
+.kana-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: .7rem; margin: 3rem 0 0; padding: 0; list-style: none; }
+.kana-card { display: flex; min-height: 8.75rem; flex-direction: column; align-items: center; justify-content: center; padding: 1rem .5rem; text-align: center; }
+.kana-hiragana { color: var(--ink); font: 500 2.25rem/1.15 var(--font-display); }
+.kana-katakana { margin-top: .25rem; color: var(--ink); font: 500 1.45rem/1.25 var(--font-display); }
+.kana-romaji { margin-top: .6rem; color: var(--moss-text); }
+.review-guidance { max-width: 44rem; margin-top: 3rem; padding: clamp(1.5rem, 4vw, 2.5rem); }
+.review-guidance h2 { margin: 0; font: 500 clamp(1.65rem, 3vw, 2.25rem)/1.3 var(--font-display); }
+.review-guidance p { margin: .8rem 0 0; color: var(--ink-soft); }
+.review-guidance p:first-of-type { color: var(--ink); font-size: 1.05rem; }
+.review-guidance-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
+.review-queue { max-width: 48rem; margin-top: 3rem; }
+.auth-panel { width: 100%; max-width: 28rem; padding: clamp(1.5rem, 4vw, 2rem); }
+.auth-mode-switch { display: grid; grid-template-columns: repeat(2, 1fr); gap: .35rem; margin: 0 0 2rem; padding: .3rem; border: 1px solid var(--line); border-radius: .8rem; background: var(--mist); }
+.auth-mode-button { min-height: 2.75rem; border: 0; border-radius: .6rem; color: var(--ink-soft); background: transparent; cursor: pointer; }
+.auth-mode-button[aria-pressed="true"] { color: var(--ink); background: var(--paper); box-shadow: 0 .12rem .45rem rgba(38, 51, 46, .1); }
+.auth-form { display: grid; gap: 1.25rem; }
+.auth-field label { display: block; margin-bottom: .45rem; color: var(--ink-soft); font-size: .9rem; }
+.auth-input { width: 100%; min-height: 3rem; padding: .65rem .8rem; border: 1px solid var(--sage); border-radius: .65rem; color: var(--ink); }
+.auth-input:focus { border-color: var(--moss); }
+.auth-field-error, .auth-form-error { margin: .45rem 0 0; color: #9f1d1d; font-size: .88rem; }
+.auth-submit { width: 100%; margin-top: .25rem; }
 
 @media (max-width: 960px) {
   .home-opening-grid { grid-template-columns: 1fr; min-height: auto; }
@@ -348,6 +396,7 @@ input, select { min-height: 2.75rem; }
   .grammar-directory-section .directory-card { grid-template-columns: minmax(8rem, .55fr) minmax(14rem, 1.5fr); }
   .grammar-directory-section .directory-count { grid-column: 1; grid-row: 2; }
   .grammar-directory-section .directory-action { grid-column: 2; grid-row: 2; justify-self: end; margin-top: 0; }
+  .kana-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 
 @media (max-width: 720px) {
@@ -414,6 +463,11 @@ input, select { min-height: 2.75rem; }
   .entry-row { grid-template-columns: 1fr 1fr; }
   .entry-meaning { grid-column: 1 / -1; }
   .detail-grid { grid-template-columns: 1fr; }
+  .grammar-detail-grid { gap: 2.75rem; }
+  .detail-japanese { font-size: clamp(3.5rem, 21vw, 6rem); }
+  .kana-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; }
+  .kana-card { min-height: 8rem; }
+  .review-guidance-actions a { flex: 1 1 12rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -77,4 +77,22 @@ describe("AuthForm", () => {
 
     await waitFor(() => expect(replace).toHaveBeenCalledWith("/grammar/beginner"));
   });
+
+  it("keeps the server error visible and actionable", async () => {
+    signInEmail.mockResolvedValue({
+      data: null,
+      error: { code: "EMAIL_SIGN_IN_DISABLED", message: "Email sign-in is disabled" },
+    });
+    render(<AuthForm />);
+
+    fireEvent.change(screen.getByLabelText("邮箱"), {
+      target: { value: "learner@example.com" },
+    });
+    fireEvent.change(screen.getByLabelText("密码"), { target: { value: "12345678" } });
+    fireEvent.click(screen.getByRole("button", { name: "登录" }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "操作失败：Email sign-in is disabled。请检查信息后重试。",
+    );
+  });
 });
