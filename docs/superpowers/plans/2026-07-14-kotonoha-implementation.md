@@ -4,15 +4,15 @@
 
 **Goal:** Build, populate, test, publish, and deploy the KOTONOHA Japanese vocabulary and grammar learning site defined in docs/PRD.md.
 
-**Architecture:** A Next.js 16 App Router application lives in webapp and uses Server Components for public content, small Client Components for study interactions, Neon Auth for identity, and Neon PostgreSQL with Drizzle for durable content and progress. Original PDFs remain local-only; reproducible extraction scripts create manifests and load reviewed records directly into Neon.
+**Architecture:** A Next.js 16 App Router application lives in webapp and uses Server Components for public content, small Client Components for study interactions, Better Auth for identity, and one Neon PostgreSQL database with Drizzle for auth tables, durable content, and progress. Original PDFs remain local-only; reproducible extraction scripts create manifests and load reviewed records directly into Neon.
 
-**Tech Stack:** Next.js 16.1+, React 19.2.4+, TypeScript, Tailwind CSS 4, Vitest, Playwright, Neon Auth v0.2+, Neon PostgreSQL, Drizzle ORM, Vercel Functions, Python 3, Poppler, Tesseract OCR, MarianMT, GitHub, Vercel.
+**Tech Stack:** Next.js 16.1+, React 19.2.4+, TypeScript, Tailwind CSS 4, Vitest, Playwright, Better Auth 1.6.23+, Neon PostgreSQL, Drizzle ORM, Vercel Functions, Python 3, Poppler, Tesseract OCR, MarianMT, GitHub, Vercel.
 
 ## Global Constraints
 
 - Use the App Router under webapp/src/app.
-- Require Node.js 20.9 or newer, Next.js 16.1 or newer, and React 19.2.4 or newer.
-- Initialize database and Auth clients lazily so next build does not evaluate missing runtime credentials.
+- Require Node.js 20.19+, 22.13+, or 24+ as enforced by webapp/package.json and webapp/.npmrc; require Next.js 16.1+ and React 19.2.4+.
+- Initialize database and Better Auth server clients lazily so next build does not evaluate missing runtime credentials.
 - Revalidate authorization inside Server Components, Server Actions, and Route Handlers; proxy.ts is never the sole authorization gate.
 - Never commit source PDFs, OCR work files, database credentials, Auth secrets, or full derived book content.
 - Keep DK and Teikyo source records removable through content_sources.enabled.
@@ -43,8 +43,8 @@
 - webapp/src/lib/db/schema.ts: Drizzle schema.
 - webapp/src/lib/db/client.ts: lazy Neon connection.
 - webapp/src/lib/db/queries.ts: public content reads filtered by enabled sources.
-- webapp/src/lib/auth/server.ts: Neon Auth server configuration.
-- webapp/src/lib/auth/client.ts: Neon Auth client.
+- webapp/src/lib/auth/server.ts: lazy Better Auth server configuration backed by Neon PostgreSQL.
+- webapp/src/lib/auth/client.ts: Better Auth React client.
 - webapp/src/lib/sync/offline-store.ts: browser pending-event storage.
 - webapp/src/lib/sync/sync-client.ts: idempotent progress synchronization.
 
@@ -57,7 +57,7 @@
 - webapp/src/app/search/page.tsx: cross-content search.
 - webapp/src/app/profile/page.tsx: account progress and favorites.
 - webapp/src/app/sign-in/page.tsx: email/password entry.
-- webapp/src/app/api/auth/[...path]/route.ts: Neon Auth handler.
+- webapp/src/app/api/auth/[...path]/route.ts: Better Auth Next.js handler.
 - webapp/src/app/api/sync/route.ts: authenticated progress event endpoint.
 
 ### Content pipeline
@@ -84,7 +84,7 @@
 - Modify: .gitignore
 
 **Interfaces:**
-- Consumes: Node.js 20.9+ and npm.
+- Consumes: Node.js 20.19+, 22.13+, or 24+ and npm.
 - Produces: npm scripts test, test:watch, test:e2e, typecheck, db:generate, db:migrate, db:seed, and a buildable App Router shell.
 
 - [ ] **Step 1: Scaffold the application**
@@ -103,7 +103,7 @@ Run:
 
 ~~~bash
 cd webapp
-npm install drizzle-orm pg @vercel/functions @neondatabase/auth lucide-react zod idb-keyval clsx
+npm install drizzle-orm pg @vercel/functions better-auth@^1.6.23 lucide-react zod idb-keyval clsx
 npm install -D drizzle-kit @types/pg vitest @vitejs/plugin-react @testing-library/react @testing-library/jest-dom jsdom @playwright/test tsx
 ~~~
 
@@ -396,7 +396,7 @@ git commit -m "feat: add deterministic study rules"
 
 **Interfaces:**
 - Produces: getDb(), Drizzle tables, getDailyWordCandidates(), getVocabularyBooks(), getDkCategory(), getGrammarLevel(), searchContent(), and getReviewQueue().
-- Consumes: ContentKind and user IDs from Neon Auth.
+- Consumes: ContentKind and Better Auth user IDs stored in Neon PostgreSQL.
 
 - [ ] **Step 1: Write schema contract tests**
 
@@ -407,7 +407,7 @@ Expected: FAIL because schema.ts does not exist.
 
 - [ ] **Step 2: Implement the Drizzle schema**
 
-Create tables with UUID primary keys and these required columns:
+Create application-owned tables with UUID primary keys and these required columns. Store Better Auth user IDs in text columns on progress, favorites, sessions, and sync rows so their type matches the generated Better Auth user table:
 
 ~~~ts
 export const contentSources = pgTable("content_sources", {
@@ -469,8 +469,8 @@ Create .env.example with names only:
 
 ~~~dotenv
 DATABASE_URL=
-NEON_AUTH_BASE_URL=
-NEON_AUTH_COOKIE_SECRET=
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=http://localhost:3000
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ~~~
 
@@ -493,11 +493,12 @@ git commit -m "feat: define Neon content and progress schema"
 
 ---
 
-### Task 4: Integrate Neon Auth with server-side authorization
+### Task 4: Integrate Better Auth on Neon PostgreSQL with server-side authorization
 
 **Files:**
 - Create: webapp/src/lib/auth/server.ts
 - Create: webapp/src/lib/auth/client.ts
+- Create: webapp/src/lib/db/auth-schema.ts
 - Create: webapp/src/app/api/auth/[...path]/route.ts
 - Create: webapp/src/app/sign-in/page.tsx
 - Create: webapp/src/components/auth-form.tsx
@@ -507,39 +508,67 @@ git commit -m "feat: define Neon content and progress schema"
 - Test: webapp/src/lib/auth/require-user.test.ts
 
 **Interfaces:**
-- Produces: auth, authClient, requireUser(), GET/POST Auth handlers, and protected profile rendering.
-- Consumes: NEON_AUTH_BASE_URL and a stable 32+ character NEON_AUTH_COOKIE_SECRET.
+- Produces: getAuth(), authClient, Better Auth Drizzle tables/migration, requireUser(), GET/POST handlers, and protected profile rendering.
+- Consumes: DATABASE_URL, BETTER_AUTH_URL (or NEXT_PUBLIC_APP_URL), and a stable 32+ character BETTER_AUTH_SECRET.
 
 - [ ] **Step 1: Write a failing authorization test**
 
-Mock auth.getSession() returning no user and assert requireUser() throws an UnauthorizedError; return a user and assert the exact user ID is returned.
+Mock `getAuth().api.getSession({ headers })` returning no user and assert requireUser() throws an UnauthorizedError; return a session user and assert the exact Better Auth user ID is returned.
 
-- [ ] **Step 2: Configure the current Neon Auth server API**
+- [ ] **Step 2: Configure lazy Better Auth with the Neon Drizzle layer**
 
 ~~~ts
-import { createNeonAuth } from "@neondatabase/auth/next/server";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { getDb } from "@/lib/db/client";
+import * as schema from "@/lib/db/schema";
 
-let authInstance: ReturnType<typeof createNeonAuth> | undefined;
+let authInstance: ReturnType<typeof betterAuth> | undefined;
 
 export function getAuth() {
   if (!authInstance) {
-    authInstance = createNeonAuth({
-      baseUrl: process.env.NEON_AUTH_BASE_URL!,
-      cookies: { secret: process.env.NEON_AUTH_COOKIE_SECRET! },
+    const secret = process.env.BETTER_AUTH_SECRET;
+    const baseURL = process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL;
+    if (!secret || secret.length < 32) throw new Error("BETTER_AUTH_SECRET must be at least 32 characters");
+    if (!baseURL) throw new Error("BETTER_AUTH_URL is not configured");
+    authInstance = betterAuth({
+      database: drizzleAdapter(getDb(), { provider: "pg", schema }),
+      secret,
+      baseURL,
+      emailAndPassword: { enabled: true },
     });
   }
   return authInstance;
 }
 ~~~
 
-Wrap getAuth().handler() inside exported async GET and POST functions so environment access occurs at request time. Configure auth middleware in src/proxy.ts only for redirects; call requireUser() again inside profile and sync operations.
+Generate the Better Auth Drizzle tables into `src/lib/db/auth-schema.ts`, export them through the Drizzle schema, include them in `drizzle.config.ts`, and run `npm run db:generate` so user/session/account/verification tables are migrated with the application. Generation may use configured local credentials, but committed runtime modules must keep getAuth() lazy.
+
+Wrap the handler inside exported async route functions so environment access occurs only at request time:
+
+~~~ts
+import { toNextJsHandler } from "better-auth/next-js";
+import { getAuth } from "@/lib/auth/server";
+
+export async function GET(request: Request) {
+  return toNextJsHandler(getAuth()).GET(request);
+}
+
+export async function POST(request: Request) {
+  return toNextJsHandler(getAuth()).POST(request);
+}
+~~~
+
+In `requireUser()`, call `getAuth().api.getSession({ headers: await headers() })` and return `session.user.id`; repeat this server-side validation inside every protected page, Server Action, mutation, and sync handler. Configure `src/proxy.ts` only for optimistic redirects and never treat it as the authorization boundary.
 
 - [ ] **Step 3: Add the client and email/password form**
 
 ~~~ts
 "use client";
-import { createAuthClient } from "@neondatabase/auth/next";
-export const authClient = createAuthClient();
+import { createAuthClient } from "better-auth/react";
+export const authClient = createAuthClient({
+  baseURL: process.env.NEXT_PUBLIC_APP_URL,
+});
 ~~~
 
 The form validates email with Zod, requires an eight-character password, exposes sign-in and sign-up modes, and maps Auth errors to a concise Chinese message.
@@ -559,8 +588,8 @@ Expected: authorization tests pass and build completes even when Auth runtime va
 - [ ] **Step 5: Commit**
 
 ~~~bash
-git add webapp/src/lib/auth webapp/src/app/api/auth webapp/src/app/sign-in webapp/src/app/profile webapp/src/components/auth-form.tsx webapp/src/proxy.ts
-git commit -m "feat: integrate Neon authentication"
+git add webapp/src/lib/auth webapp/src/lib/db/auth-schema.ts webapp/src/lib/db/schema.ts webapp/drizzle webapp/drizzle.config.ts webapp/src/app/api/auth webapp/src/app/sign-in webapp/src/app/profile webapp/src/components/auth-form.tsx webapp/src/proxy.ts
+git commit -m "feat: integrate Better Auth on Neon"
 ~~~
 
 ---
@@ -1046,7 +1075,7 @@ vercel integration add neon --scope <selected-scope>
 vercel env pull .env.local --yes
 ~~~
 
-Provision Neon Auth for the resulting branch, add NEON_AUTH_BASE_URL and a stable 32+ character NEON_AUTH_COOKIE_SECRET to development, preview, and production, then pull again. Compare environment key names from .env.example and .env.local without printing values.
+Provision Neon PostgreSQL for the resulting branch. Generate a stable 32+ character `BETTER_AUTH_SECRET` outside the repository, set `DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, and `NEXT_PUBLIC_APP_URL` for development, preview, and production, and use the canonical URL for each environment's two URL variables. Pull the environment again, then compare key names from .env.example and .env.local without printing values.
 
 - [ ] **Step 4: Apply migrations and import reviewed content**
 

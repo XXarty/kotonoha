@@ -20,8 +20,8 @@
     "db:seed": "tsx scripts/seed.ts"
   },
   "dependencies": {
-    "@neondatabase/auth": "^0.4.2-beta",
     "@vercel/functions": "^3.7.5",
+    "better-auth": "^1.6.23",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.45.2",
     "idb-keyval": "^6.3.0",
