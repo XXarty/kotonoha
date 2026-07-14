@@ -207,6 +207,14 @@ function includesNormalized(fields: readonly string[], query: string): boolean {
   return fields.some((field) => normalizeSearch(field).includes(query));
 }
 
+interface VocabularyListOptions {
+  tier?: string;
+}
+
+function isVocabularyTier(value: string | undefined): value is VocabularyEntry["tier"] {
+  return value === "core" || value === "extended";
+}
+
 export function createContentRepository(rawInput: unknown) {
   const parsed = repositoryInputSchema.parse(rawInput);
   const sources = parsed.sources.sources as ContentSource[];
@@ -286,8 +294,12 @@ export function createContentRepository(rawInput: unknown) {
 
   return {
     getVocabularyDirectory,
-    getVocabularyList: (category: string) =>
-      vocabulary.filter((item) => item.category === category),
+    getVocabularyList: (category: string, options: VocabularyListOptions = {}) =>
+      vocabulary.filter(
+        (item) =>
+          item.category === category &&
+          (!isVocabularyTier(options.tier) || item.tier === options.tier),
+      ),
     getVocabularyEntry: (id: string) =>
       (itemMap.get(id)?.kind === "vocabulary" ? itemMap.get(id) : null) as VocabularyEntry | null,
     getGrammarDirectory,

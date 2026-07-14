@@ -284,6 +284,26 @@ describe("static content repository", () => {
     );
   });
 
+  it("filters vocabulary only for exact supported tiers", () => {
+    const repository = createContentRepository(productionContractFixtures());
+
+    expect(repository.getVocabularyList("nouns", { tier: "core" })).toEqual([
+      expect.objectContaining({ id: "vocabulary:jmdict:1000001", tier: "core" }),
+    ]);
+    expect(repository.getVocabularyList("nouns", { tier: "extended" })).toEqual([
+      expect.objectContaining({ id: "vocabulary:jmdict:1000002", tier: "extended" }),
+    ]);
+    expect(repository.getVocabularyList("nouns", { tier: "CORE" })).toHaveLength(2);
+    expect(repository.getVocabularyList("nouns", { tier: "unknown" })).toHaveLength(2);
+    expect(repository.getVocabularyList("nouns")).toHaveLength(2);
+  });
+
+  it("keeps source filtering in force for tiered vocabulary lists", () => {
+    const repository = createContentRepository(fixtures(false));
+
+    expect(repository.getVocabularyList("verbs", { tier: "core" })).toEqual([]);
+  });
+
   it("filters disabled sources from directories, details, search, and daily words", () => {
     const repository = createContentRepository(fixtures(false));
 
