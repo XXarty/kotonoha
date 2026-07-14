@@ -13,7 +13,7 @@ import {
 type Mode = "sign-in" | "sign-up";
 type FieldErrors = Partial<Record<keyof AuthCredentials, string>>;
 
-export function AuthForm() {
+export function AuthForm({ redirectTo = "/profile" }: { redirectTo?: string }) {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("sign-in");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
@@ -59,7 +59,7 @@ export function AuthForm() {
         return;
       }
 
-      router.replace("/profile");
+      router.replace(redirectTo);
       router.refresh();
     } catch (error) {
       setFormError(getAuthErrorMessage(error));
@@ -70,7 +70,8 @@ export function AuthForm() {
 
   return (
     <section className="w-full max-w-md rounded-3xl border border-slate-200 bg-white/90 p-8 shadow-sm">
-      <div className="mb-8 grid grid-cols-2 rounded-full bg-slate-100 p-1" aria-label="账号操作">
+      <fieldset className="mb-8 grid grid-cols-2 rounded-full bg-slate-100 p-1">
+        <legend className="sr-only">账号操作</legend>
         <button
           type="button"
           aria-label="登录模式"
@@ -88,7 +89,7 @@ export function AuthForm() {
         >
           注册
         </button>
-      </div>
+      </fieldset>
 
       <form className="space-y-5" noValidate onSubmit={handleSubmit}>
         <div>
@@ -102,6 +103,7 @@ export function AuthForm() {
             type="email"
             autoComplete="email"
             aria-describedby={fieldErrors.email ? "auth-email-error" : undefined}
+            aria-invalid={fieldErrors.email ? true : undefined}
           />
           {fieldErrors.email ? (
             <p className="mt-2 text-sm text-red-700" id="auth-email-error">
@@ -122,6 +124,7 @@ export function AuthForm() {
             minLength={8}
             autoComplete={mode === "sign-in" ? "current-password" : "new-password"}
             aria-describedby={fieldErrors.password ? "auth-password-error" : undefined}
+            aria-invalid={fieldErrors.password ? true : undefined}
           />
           {fieldErrors.password ? (
             <p className="mt-2 text-sm text-red-700" id="auth-password-error">

@@ -33,4 +33,22 @@ describe("Better Auth route handlers", () => {
     expect(toNextJsHandler).toHaveBeenCalledWith(auth);
     expect(getHandler).toHaveBeenCalledWith(request);
   });
+
+  it("creates the POST handler at request time", async () => {
+    const request = new Request("https://kotonoha.example/api/auth/sign-in/email", {
+      method: "POST",
+      body: JSON.stringify({ email: "learner@example.com", password: "12345678" }),
+      headers: { "content-type": "application/json" },
+    });
+    const response = new Response(null, { status: 204 });
+    const auth = { api: {} };
+    getAuth.mockReturnValue(auth);
+    postHandler.mockResolvedValue(response);
+
+    const route = await import("./route");
+
+    await expect(route.POST(request)).resolves.toBe(response);
+    expect(toNextJsHandler).toHaveBeenCalledWith(auth);
+    expect(postHandler).toHaveBeenCalledWith(request);
+  });
 });

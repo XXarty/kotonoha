@@ -35,6 +35,9 @@ describe("AuthForm", () => {
 
     expect(await screen.findByText("请输入有效的邮箱地址")).toBeInTheDocument();
     expect(screen.getByText("密码至少需要 8 个字符")).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "账号操作" })).toBeInTheDocument();
+    expect(screen.getByLabelText("邮箱")).toHaveAttribute("aria-invalid", "true");
+    expect(screen.getByLabelText("密码")).toHaveAttribute("aria-invalid", "true");
     expect(signInEmail).not.toHaveBeenCalled();
   });
 
@@ -58,5 +61,20 @@ describe("AuthForm", () => {
     });
     expect(replace).toHaveBeenCalledWith("/profile");
     expect(refresh).toHaveBeenCalled();
+  });
+
+  it("returns to a trusted relative path after sign-in", async () => {
+    signInEmail.mockResolvedValue({ data: { user: { id: "user-1" } }, error: null });
+    render(<AuthForm redirectTo="/grammar/beginner" />);
+
+    fireEvent.change(screen.getByLabelText("邮箱"), {
+      target: { value: "learner@example.com" },
+    });
+    fireEvent.change(screen.getByLabelText("密码"), {
+      target: { value: "12345678" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "登录" }));
+
+    await waitFor(() => expect(replace).toHaveBeenCalledWith("/grammar/beginner"));
   });
 });
