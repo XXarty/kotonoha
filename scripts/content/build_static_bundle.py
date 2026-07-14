@@ -17,11 +17,11 @@ from scripts.content.fetch_sources import sha256_file
 from scripts.content.models import (
     BuildManifest,
     ContentSource,
-    GrammarRecord,
     KanaRecord,
     SourceSnapshot,
     VocabularyRecord,
 )
+from scripts.content.validate_grammar import load_grammar_curriculum
 
 
 ATTRIBUTION = """# KOTONOHA public content attribution
@@ -89,15 +89,15 @@ def build_static_bundle(
     minimum_vocabulary: int = 500,
 ) -> BuildManifest:
     vocabulary = [VocabularyRecord.model_validate(item) for item in _read_json(vocabulary_path)]
-    grammar = [GrammarRecord.model_validate(item) for item in _read_json(grammar_path)]
+    grammar = load_grammar_curriculum(grammar_path)
     kana = [KanaRecord.model_validate(item) for item in _read_json(kana_path)]
     sources, snapshots = _load_source_metadata(source_metadata_path)
     rejection_counts = {str(key): int(value) for key, value in _read_json(rejections_path).items()}
 
     if len(vocabulary) < minimum_vocabulary:
         raise ValueError(f"launch bundle requires at least {minimum_vocabulary} vocabulary entries")
-    if len(grammar) != 30:
-        raise ValueError(f"launch bundle requires exactly 30 grammar entries, got {len(grammar)}")
+    if len(grammar) != 120:
+        raise ValueError(f"launch bundle requires exactly 120 grammar entries, got {len(grammar)}")
     if len(kana) != 46:
         raise ValueError(f"launch bundle requires exactly 46 kana entries, got {len(kana)}")
 

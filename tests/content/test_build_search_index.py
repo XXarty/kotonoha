@@ -135,10 +135,11 @@ def test_verified_committed_bundle_can_publish_without_inventing_tiers(tmp_path:
 
     rows = write_verified_bundle_search_index(
         bundle_dir=ROOT / "webapp/src/content/generated",
+        public_dir=ROOT / "webapp/public",
         output_path=output,
     )
 
-    assert len(rows) == 2000 + 30 + 46
+    assert len(rows) == 10000 + 120 + 46
     assert output.read_bytes().endswith(b"\n")
     assert all("tier" not in row for row in rows)
 
@@ -150,6 +151,8 @@ def test_cli_publishes_a_verified_bundle_without_upstream_inputs(tmp_path: Path)
         [
             "--bundle",
             str(ROOT / "webapp/src/content/generated"),
+            "--public-dir",
+            str(ROOT / "webapp/public"),
             "--output",
             str(output),
         ]

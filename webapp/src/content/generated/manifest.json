@@ -1,34 +1,36 @@
 {
-  "built_at": "2026-07-14T15:26:35Z",
+  "built_at": "2026-07-14T23:01:22Z",
   "counts": {
-    "grammar": 30,
+    "grammar": 120,
     "invalid": 0,
     "kana": 46,
-    "vocabulary": 2000
+    "vocabulary": 10000
   },
   "files": {
     "ATTRIBUTION.md": "46c226a68be400973c80c62381ea2650200d3d1f092ad05f5873b50e54104c3e",
-    "grammar.json": "db9dadac698fdf0b6bff27bcd1862fab9ba7f4623cd07ee86f660052ae5266f1",
+    "grammar.json": "f8b5b6dc8f58a61bc41f70ca90d5bf6787437794655466fa5e1349ae0eb66574",
     "kana.json": "f1cda2a4908d60ffb9e88b8437eeb0c43875472a38fdc036dd58a9f58f71cd01",
-    "sources.json": "8197603a3d9451c4151bdc690c30ab6cfef7d182a6e54fdbda749935f8bdab70",
-    "vocabulary.json": "204cef4dbc86ce3145a0bf9c4fd230c0d360bb77ef51342ef1e439952fe82cc2"
+    "public/content/search-index.json": "92a01b24cc74c1b5e63054926d30cf60ce049ed71bac68a5cce4fba920b770a6",
+    "sources.json": "ad3eadf30cf96d306641018e8fc1bf6e5b154909224b7b65f4a46e4085db125c",
+    "vocabulary.json": "228ea72e7ebf0811d800cd1ab9bdf4f86aa90bbb6e84b30566e0220c7b5cf8ab"
   },
   "generator_version": "2",
   "manifest_version": 2,
   "rejection_counts": {
-    "ambiguous_chinese": 415,
-    "missing_chinese": 14310
+    "ambiguous_chinese": 2999,
+    "missing_chinese": 169269,
+    "pos_mismatch": 27675
   },
   "snapshots": [
     {
-      "downloaded_at": "2026-07-14T15:26:35Z",
-      "sha256": "8af95b75912396aa07b45fdf91f24473dfa86ea28bad7b8777e9150f0dccba44",
+      "downloaded_at": "2026-07-14T23:01:22Z",
+      "sha256": "f2d1c9bf6f3283ceb2342edee16a06e4e912bb3ff5d08cc2108cd4844392d3e3",
       "snapshot_date": "2026-07-13",
       "source_id": "jmdict-kaikki"
     },
     {
-      "downloaded_at": "2026-07-14T15:26:35Z",
-      "sha256": "2e67f84a8ba4dc15f55638cd61fb775875b3b2f61b118e1550d0f13c78f5d48f",
+      "downloaded_at": "2026-07-14T23:01:22Z",
+      "sha256": "0bbfb811f6abfd0a10c829908d5e9ec08325a968033194144fb32d11cb9e25db",
       "snapshot_date": "2026-07-06",
       "source_id": "jmdict-kaikki"
     },

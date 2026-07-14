@@ -1,14 +1,14 @@
 {
   "snapshots": [
     {
-      "downloaded_at": "2026-07-14T15:26:35Z",
-      "sha256": "8af95b75912396aa07b45fdf91f24473dfa86ea28bad7b8777e9150f0dccba44",
+      "downloaded_at": "2026-07-14T23:01:22Z",
+      "sha256": "f2d1c9bf6f3283ceb2342edee16a06e4e912bb3ff5d08cc2108cd4844392d3e3",
       "snapshot_date": "2026-07-13",
       "source_id": "jmdict-kaikki"
     },
     {
-      "downloaded_at": "2026-07-14T15:26:35Z",
-      "sha256": "2e67f84a8ba4dc15f55638cd61fb775875b3b2f61b118e1550d0f13c78f5d48f",
+      "downloaded_at": "2026-07-14T23:01:22Z",
+      "sha256": "0bbfb811f6abfd0a10c829908d5e9ec08325a968033194144fb32d11cb9e25db",
       "snapshot_date": "2026-07-06",
       "source_id": "jmdict-kaikki"
     },

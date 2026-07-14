@@ -12,7 +12,7 @@ from scripts.content.fetch_sources import sha256_file
 
 
 ROOT = Path(__file__).resolve().parents[2]
-GRAMMAR = ROOT / "data/content/grammar/tae-kim-foundation.zh.json"
+GRAMMAR = ROOT / "data/content/grammar"
 KANA = ROOT / "data/content/kana/gojuon.json"
 
 
@@ -137,7 +137,7 @@ def test_bundle_manifest_hashes_match_files(tmp_path: Path) -> None:
         built_at=datetime(2026, 7, 14, tzinfo=timezone.utc),
     )
 
-    assert manifest.counts == {"vocabulary": 500, "grammar": 30, "kana": 46, "invalid": 0}
+    assert manifest.counts == {"vocabulary": 500, "grammar": 120, "kana": 46, "invalid": 0}
     for filename, digest in manifest.files.items():
         file_path = (
             tmp_path / "public/content/search-index.json"
@@ -149,6 +149,18 @@ def test_bundle_manifest_hashes_match_files(tmp_path: Path) -> None:
     assert verification["manifest_sha256"] == sha256_file(output / "manifest.json")
     assert verification["counts"] == manifest.counts
     assert verify_static_bundle(output, tmp_path / "public").counts == manifest.counts
+
+
+def test_bundle_rejects_an_incomplete_grammar_curriculum(tmp_path: Path) -> None:
+    inputs = bundle_inputs(tmp_path, vocabulary_count=500)
+    inputs["grammar_path"] = ROOT / "data/content/grammar/tae-kim-foundation.zh.json"
+
+    with pytest.raises(ValueError, match="exactly 120 grammar"):
+        build_static_bundle(
+            **inputs,
+            output_dir=tmp_path / "generated",
+            public_dir=tmp_path / "public",
+        )
 
 
 def test_bundle_verifies_public_search_index_hash(tmp_path: Path) -> None:

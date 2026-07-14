@@ -1,11 +1,11 @@
 {
   "counts": {
-    "grammar": 30,
+    "grammar": 120,
     "invalid": 0,
     "kana": 46,
-    "vocabulary": 2000
+    "vocabulary": 10000
   },
-  "manifest_sha256": "fc7dd8c7087417091c005a2a34d78fbfaddb0312b5ebe83ccdae281f44d88632",
-  "verified_at": "2026-07-14T15:26:35Z",
+  "manifest_sha256": "0d3aa3c25cfc3ed7184eb8bb937784297ca90698a10b2e98329f743c172685c4",
+  "verified_at": "2026-07-14T23:01:22Z",
   "verifier_version": 1
 }
