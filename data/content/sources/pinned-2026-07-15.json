@@ -6,6 +6,16 @@
       "url": "https://kaikki.org/zhwiktionary/rawdata.html",
       "license_name": "JMdict: EDRDG redistribution terms; Kaikki/Wiktionary Chinese glosses: CC BY-SA 4.0",
       "license_url": "https://www.edrdg.org/edrdg/licence.html",
+      "license_components": [
+        {
+          "label": "JMdict — EDRDG redistribution terms",
+          "url": "https://www.edrdg.org/edrdg/licence.html"
+        },
+        {
+          "label": "Kaikki/Wiktionary Chinese glosses — CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+        }
+      ],
       "enabled": true
     },
     {

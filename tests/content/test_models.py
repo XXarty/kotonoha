@@ -11,6 +11,7 @@ from scripts.content.models import (
     ExampleRecord,
     GrammarRecord,
     KanaRecord,
+    SourceLicenseComponent,
     SourceSnapshot,
     VocabularyRecord,
     grammar_id,
@@ -325,6 +326,34 @@ def test_sources_and_manifest_require_valid_hashes_and_counts() -> None:
         repository_path="data/content/kana/gojuon.json",
     )
     assert local_snapshot.repository_path == "data/content/kana/gojuon.json"
+
+
+def test_combined_source_supports_separate_https_license_components() -> None:
+    source = ContentSource(
+        id="jmdict-kaikki",
+        title="JMdict + Kaikki 中文维基词典",
+        url="https://kaikki.org/zhwiktionary/rawdata.html",
+        license_name="JMdict terms + Kaikki CC BY-SA 4.0",
+        license_url="https://www.edrdg.org/edrdg/licence.html",
+        license_components=[
+            SourceLicenseComponent(
+                label="JMdict — EDRDG redistribution terms",
+                url="https://www.edrdg.org/edrdg/licence.html",
+            ),
+            SourceLicenseComponent(
+                label="Kaikki/Wiktionary Chinese glosses — CC BY-SA 4.0",
+                url="https://creativecommons.org/licenses/by-sa/4.0/",
+            ),
+        ],
+        enabled=True,
+    )
+
+    assert [component.url for component in source.license_components] == [
+        "https://www.edrdg.org/edrdg/licence.html",
+        "https://creativecommons.org/licenses/by-sa/4.0/",
+    ]
+    with pytest.raises(ValidationError):
+        SourceLicenseComponent(label="Kaikki", url="http://example.com/license")
 
 
 def test_normalization_and_ids_are_deterministic() -> None:

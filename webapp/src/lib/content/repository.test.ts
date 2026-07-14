@@ -8,6 +8,17 @@ vi.mock("@/content/generated/grammar.json", () => ({ default: [] }));
 vi.mock("@/content/generated/kana.json", () => ({ default: [] }));
 
 import { createContentRepository } from "./repository";
+import type { SourceSnapshot } from "./types";
+
+const invalidNullableSnapshot: SourceSnapshot = {
+  source_id: "jmdict-kaikki",
+  snapshot_date: "2026-07-13",
+  downloaded_at: "2026-07-14T00:00:00Z",
+  sha256: "a".repeat(64),
+  // @ts-expect-error generated snapshot fields are absent or nonempty, never null
+  artifact_name: null,
+};
+void invalidNullableSnapshot;
 
 function fixtures(sourceEnabled = true) {
   return {
@@ -19,6 +30,16 @@ function fixtures(sourceEnabled = true) {
           url: "https://kaikki.org/zhwiktionary/rawdata.html",
           license_name: "CC BY-SA 4.0",
           license_url: "https://creativecommons.org/licenses/by-sa/4.0/",
+          license_components: [
+            {
+              label: "JMdict — EDRDG redistribution terms",
+              url: "https://www.edrdg.org/edrdg/licence.html",
+            },
+            {
+              label: "Kaikki/Wiktionary Chinese glosses — CC BY-SA 4.0",
+              url: "https://creativecommons.org/licenses/by-sa/4.0/",
+            },
+          ],
           enabled: sourceEnabled,
         },
         {
@@ -324,6 +345,33 @@ describe("static content repository", () => {
       asset_url:
         "https://github.com/scriptin/jmdict-simplified/releases/download/v1/jmdict-eng.json.tgz",
     });
+  });
+
+  it("rejects explicit null snapshot provenance instead of treating it as absent", () => {
+    const input = fixtures();
+    const snapshot = { ...input.sources.snapshots[0], artifact_name: null };
+
+    expect(() =>
+      createContentRepository({
+        ...input,
+        sources: { ...input.sources, snapshots: [snapshot] },
+      }),
+    ).toThrow();
+  });
+
+  it("retains separate license components for combined sources", () => {
+    const repository = createContentRepository(fixtures());
+
+    expect(repository.getSourceAttributions().sources[0].license_components).toEqual([
+      {
+        label: "JMdict — EDRDG redistribution terms",
+        url: "https://www.edrdg.org/edrdg/licence.html",
+      },
+      {
+        label: "Kaikki/Wiktionary Chinese glosses — CC BY-SA 4.0",
+        url: "https://creativecommons.org/licenses/by-sa/4.0/",
+      },
+    ]);
   });
 
   it("normalizes NFKC search across Japanese, kana, romaji, and Chinese", () => {

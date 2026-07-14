@@ -11,7 +11,7 @@
     "grammar.json": "f8b5b6dc8f58a61bc41f70ca90d5bf6787437794655466fa5e1349ae0eb66574",
     "kana.json": "f1cda2a4908d60ffb9e88b8437eeb0c43875472a38fdc036dd58a9f58f71cd01",
     "public/content/search-index.json": "2b435bb6c638674864c9183556e169c4ee713aadd4d3a710959f854c827b1179",
-    "sources.json": "3c92fc866fdc9680a6b489fd86d7025068e68b58c4f559e21058dd34819be75d",
+    "sources.json": "65b46ef14066532cc6cd2e7b17cee38f93c477dd6a769ee6612f7e0a430fa7d5",
     "vocabulary-retirements.json": "631746d1f1ff86e6f10c2726b0c3f5fbc4f8c9b16bf4d7ab9f0da246d314541c",
     "vocabulary.json": "b27e89a91495e2cbc2a16b67d2b002282c8e00015b7a2fd632d98d0c02e93115"
   },
@@ -60,6 +60,16 @@
     {
       "enabled": true,
       "id": "jmdict-kaikki",
+      "license_components": [
+        {
+          "label": "JMdict — EDRDG redistribution terms",
+          "url": "https://www.edrdg.org/edrdg/licence.html"
+        },
+        {
+          "label": "Kaikki/Wiktionary Chinese glosses — CC BY-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+        }
+      ],
       "license_name": "JMdict: EDRDG redistribution terms; Kaikki/Wiktionary Chinese glosses: CC BY-SA 4.0",
       "license_url": "https://www.edrdg.org/edrdg/licence.html",
       "title": "JMdict + Kaikki 中文维基词典",

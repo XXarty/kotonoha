@@ -61,6 +61,10 @@ def _write_json(path: Path, value: object) -> None:
     path.write_bytes(canonical_json_bytes(value))
 
 
+def _source_json(source: ContentSource) -> dict[str, Any]:
+    return source.model_dump(mode="json", exclude_defaults=True)
+
+
 def _validate_retirement_evidence(
     payload: object,
     vocabulary_ids: set[str],
@@ -170,7 +174,7 @@ def build_static_bundle(
     (temporary_public / "content").mkdir(parents=True)
     try:
         source_payload = {
-            "sources": [source.model_dump(mode="json") for source in sources],
+            "sources": [_source_json(source) for source in sources],
             "snapshots": [
                 snapshot.model_dump(mode="json", exclude_none=True)
                 for snapshot in snapshots
@@ -221,10 +225,9 @@ def build_static_bundle(
             files=files,
             built_at=built_at or _default_built_at(snapshots),
         )
-        _write_json(
-            temporary / "manifest.json",
-            manifest.model_dump(mode="json", exclude_none=True),
-        )
+        manifest_payload = manifest.model_dump(mode="json", exclude_none=True)
+        manifest_payload["sources"] = [_source_json(source) for source in sources]
+        _write_json(temporary / "manifest.json", manifest_payload)
         _write_json(
             temporary / "verification.json",
             {

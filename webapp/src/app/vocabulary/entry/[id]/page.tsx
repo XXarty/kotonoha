@@ -61,7 +61,13 @@ export default async function VocabularyEntryPage({ params }: { params: Promise<
               <h2 className="detail-section-title" id="source-heading">来源</h2>
               <p className="source-link-row">
                 <a href={source.url}>{source.title}</a>
-                <a href={source.license_url}>{source.license_name}</a>
+                {source.license_components?.length ? (
+                  source.license_components.map((component) => (
+                    <a href={component.url} key={component.url}>{component.label}</a>
+                  ))
+                ) : (
+                  <a href={source.license_url}>{source.license_name}</a>
+                )}
               </p>
               <p>内容版本：{entry.content_version}</p>
             </section>

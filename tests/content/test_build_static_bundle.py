@@ -343,6 +343,9 @@ def test_committed_pinned_metadata_rebuilds_the_committed_release_evidence(
 def test_pinned_metadata_links_exact_assets_and_hashes_local_sources() -> None:
     metadata = json.loads(PINNED_SOURCES.read_text(encoding="utf-8"))
     snapshots = metadata["snapshots"]
+    vocabulary_source = next(
+        source for source in metadata["sources"] if source["id"] == "jmdict-kaikki"
+    )
 
     assert snapshots[0]["asset_url"].endswith(
         "/3.6.2%2B20260713141310/jmdict-eng-3.6.2%2B20260713141310.json.tgz"
@@ -358,3 +361,13 @@ def test_pinned_metadata_links_exact_assets_and_hashes_local_sources() -> None:
     )
     assert snapshots[2]["sha256"] == hashlib.sha256(grammar_bytes).hexdigest()
     assert snapshots[3]["sha256"] == sha256_file(KANA)
+    assert vocabulary_source["license_components"] == [
+        {
+            "label": "JMdict — EDRDG redistribution terms",
+            "url": "https://www.edrdg.org/edrdg/licence.html",
+        },
+        {
+            "label": "Kaikki/Wiktionary Chinese glosses — CC BY-SA 4.0",
+            "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        },
+    ]

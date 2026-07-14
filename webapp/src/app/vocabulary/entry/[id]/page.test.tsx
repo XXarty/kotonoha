@@ -57,6 +57,16 @@ describe("VocabularyEntryPage", () => {
           url: "https://kaikki.org/zhwiktionary/rawdata.html",
           license_name: "JMdict redistribution terms + CC BY-SA 4.0",
           license_url: "https://www.edrdg.org/edrdg/licence.html",
+          license_components: [
+            {
+              label: "JMdict — EDRDG redistribution terms",
+              url: "https://www.edrdg.org/edrdg/licence.html",
+            },
+            {
+              label: "Kaikki/Wiktionary Chinese glosses — CC BY-SA 4.0",
+              url: "https://creativecommons.org/licenses/by-sa/4.0/",
+            },
+          ],
           enabled: true,
         },
       ],
@@ -106,6 +116,50 @@ describe("VocabularyEntryPage", () => {
     );
 
     expect(screen.queryByRole("heading", { name: "例句" })).not.toBeInTheDocument();
+  });
+
+  it("renders each data-driven license component with its exact label and href", async () => {
+    render(
+      await VocabularyEntryPage({
+        params: Promise.resolve({ id: "vocabulary%3Ajmdict%3A1436730" }),
+      }),
+    );
+
+    expect(
+      screen.getByRole("link", { name: "JMdict — EDRDG redistribution terms" }),
+    ).toHaveAttribute("href", "https://www.edrdg.org/edrdg/licence.html");
+    expect(
+      screen.getByRole("link", {
+        name: "Kaikki/Wiktionary Chinese glosses — CC BY-SA 4.0",
+      }),
+    ).toHaveAttribute("href", "https://creativecommons.org/licenses/by-sa/4.0/");
+  });
+
+  it("falls back to the source's single license when no components exist", async () => {
+    getSourceAttributions.mockReturnValue({
+      sources: [
+        {
+          id: "jmdict-kaikki",
+          title: "单一来源",
+          url: "https://example.com/source",
+          license_name: "单一许可",
+          license_url: "https://example.com/license",
+          enabled: true,
+        },
+      ],
+      snapshots: [],
+    });
+
+    render(
+      await VocabularyEntryPage({
+        params: Promise.resolve({ id: "vocabulary%3Ajmdict%3A1436730" }),
+      }),
+    );
+
+    expect(screen.getByRole("link", { name: "单一许可" })).toHaveAttribute(
+      "href",
+      "https://example.com/license",
+    );
   });
 
   it("renders every structured Japanese and Chinese example pair", async () => {

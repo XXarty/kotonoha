@@ -19,12 +19,18 @@ import type {
   VocabularyEntry,
 } from "./types";
 
+const licenseComponentSchema = z.object({
+  label: z.string().trim().min(1),
+  url: z.url(),
+});
+
 const sourceSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1),
   url: z.url(),
   license_name: z.string().min(1),
   license_url: z.url(),
+  license_components: z.array(licenseComponentSchema).optional(),
   enabled: z.boolean(),
 });
 

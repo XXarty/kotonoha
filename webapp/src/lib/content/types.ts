@@ -2,12 +2,18 @@ export type ContentItemId = string;
 export type ContentKind = "vocabulary" | "grammar" | "kana";
 export type ReviewRating = "forgot" | "unsure" | "known";
 
+export interface SourceLicenseComponent {
+  label: string;
+  url: string;
+}
+
 export interface ContentSource {
   id: string;
   title: string;
   url: string;
   license_name: string;
   license_url: string;
+  license_components?: SourceLicenseComponent[];
   enabled: boolean;
 }
 
@@ -16,9 +22,9 @@ export interface SourceSnapshot {
   snapshot_date: string;
   downloaded_at: string;
   sha256: string;
-  artifact_name?: string | null;
-  asset_url?: string | null;
-  repository_path?: string | null;
+  artifact_name?: string;
+  asset_url?: string;
+  repository_path?: string;
 }
 
 export interface ContentExample {

@@ -204,18 +204,40 @@ class KanaRecord(ContentRecord):
         return self
 
 
+class SourceLicenseComponent(ContentRecord):
+    label: NonBlankText
+    url: str
+
+    @field_validator("url")
+    @classmethod
+    def validate_https_url(cls, value: str) -> str:
+        return _require_https(value)
+
+
 class ContentSource(ContentRecord):
     id: str = Field(pattern=r"^[a-z0-9-]+$")
     title: NonBlankText
     url: str
     license_name: NonBlankText
     license_url: str
+    license_components: list[SourceLicenseComponent] = Field(default_factory=list)
     enabled: bool
 
     @field_validator("url", "license_url")
     @classmethod
     def validate_https_url(cls, value: str) -> str:
         return _require_https(value)
+
+    @field_validator("license_components")
+    @classmethod
+    def validate_license_components(
+        cls, value: list[SourceLicenseComponent]
+    ) -> list[SourceLicenseComponent]:
+        if len({component.label for component in value}) != len(value):
+            raise ValueError("license component labels must be unique")
+        if len({component.url for component in value}) != len(value):
+            raise ValueError("license component URLs must be unique")
+        return value
 
 
 class SourceSnapshot(ContentRecord):
