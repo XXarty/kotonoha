@@ -1,4 +1,7 @@
-{"word":"食べる","lang":"日语","lang_code":"ja","pos":"verb","senses":[{"glosses":["吃","进食"]}]}
-{"word":"会う","lang":"日语","lang_code":"ja","pos":"verb","senses":[{"glosses":["见面"]}]}
-{"word":"会う","lang":"日语","lang_code":"ja","pos":"verb","senses":[{"glosses":["偶然遇见"]}]}
+{"word":"食べる","lang":"日语","lang_code":"ja","pos":"verb","forms":[{"form":"たべる","tags":["hiragana"]}],"senses":[{"glosses":["吃","进食"]}]}
+{"word":"会う","lang":"日语","lang_code":"ja","pos":"verb","forms":[{"form":"あう","tags":["reading"]}],"senses":[{"glosses":["见面"]}]}
+{"word":"会う","lang":"日语","lang_code":"ja","pos":"verb","forms":[{"form":"あう","tags":["kana"]}],"senses":[{"glosses":["偶然遇见"]}]}
+{"word":"橋","lang":"日语","lang_code":"ja","pos":"noun","forms":[{"form":"はし","tags":["hiragana"]}],"senses":[{"glosses":["桥"]}]}
+{"word":"橋","lang":"日语","lang_code":"ja","pos":"noun","forms":[{"form":"きょう","tags":["reading"]}],"senses":[{"glosses":["桥梁"]}]}
+{"word":"静か","lang":"日语","lang_code":"ja","pos":"unknown","forms":[{"form":"しずか","tags":["kana"]}],"senses":[{"pos":["adjective"],"glosses":["安静"]}]}
 {"word":"食べる","lang":"英语","lang_code":"en","pos":"verb","senses":[{"glosses":["not Japanese"]}]}

@@ -1,10 +1,12 @@
 {
   "version": "3.6.2",
   "dictDate": "2026-07-13",
-  "commonOnly": true,
+  "commonOnly": false,
   "tags": {
     "v1": "Ichidan verb",
-    "v5u": "Godan verb with u ending"
+    "v5u": "Godan verb with u ending",
+    "n": "noun",
+    "adj-na": "adjectival noun"
   },
   "words": [
     {
@@ -49,6 +51,36 @@
         {
           "partOfSpeech": ["v5u"],
           "gloss": [{"lang": "eng", "text": "to walk", "gender": null, "type": null}]
+        }
+      ]
+    },
+    {
+      "id": "1000004",
+      "kanji": [
+        {"common": true, "text": "橋", "tags": []}
+      ],
+      "kana": [
+        {"common": true, "text": "はし", "tags": [], "appliesToKanji": ["*"]}
+      ],
+      "sense": [
+        {
+          "partOfSpeech": ["n"],
+          "gloss": [{"lang": "eng", "text": "bridge", "gender": null, "type": null}]
+        }
+      ]
+    },
+    {
+      "id": "1000005",
+      "kanji": [
+        {"common": false, "text": "静か", "tags": []}
+      ],
+      "kana": [
+        {"common": false, "text": "しずか", "tags": [], "appliesToKanji": ["*"]}
+      ],
+      "sense": [
+        {
+          "partOfSpeech": ["adj-na"],
+          "gloss": [{"lang": "eng", "text": "quiet", "gender": null, "type": null}]
         }
       ]
     }

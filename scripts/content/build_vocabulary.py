@@ -24,10 +24,20 @@ _KAIKKI_SECTION_MARKER = re.compile(r"={2,}\s*日[语語]\s*={2,}")
 @dataclass(frozen=True)
 class JMdictCandidate:
     entry_id: str
+    common: bool
+    priority_tags: tuple[str, ...]
     japanese: str
     kana: str
     part_of_speech: tuple[str, ...]
     meaning_en: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class KaikkiCandidate:
+    word: str
+    readings: tuple[str, ...]
+    part_of_speech: tuple[str, ...]
+    glosses: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -82,21 +92,71 @@ def _pick_candidate(word: dict[str, Any]) -> JMdictCandidate | None:
             )
         )
         if part_of_speech and english:
-            return JMdictCandidate(entry_id, japanese, kana, part_of_speech, english)
+            common = bool(
+                (chosen_kanji and chosen_kanji.get("common") is True)
+                or chosen_reading.get("common") is True
+            )
+            return JMdictCandidate(
+                entry_id=entry_id,
+                common=common,
+                priority_tags=("common",) if common else (),
+                japanese=japanese,
+                kana=kana,
+                part_of_speech=part_of_speech,
+                meaning_en=english,
+            )
     return None
 
 
 def select_jmdict_candidates(root: dict[str, Any]) -> list[JMdictCandidate]:
-    if root.get("commonOnly") is not True:
-        raise ValueError("JMdict input must be a common-only distribution")
+    if root.get("commonOnly") not in {True, False}:
+        raise ValueError("JMdict input must declare commonOnly as true or false")
     return [candidate for word in root.get("words", []) if (candidate := _pick_candidate(word))]
+
+
+_READING_TAGS = frozenset({"hiragana", "katakana", "kana", "reading"})
+
+
+def _normalized_strings(value: object) -> tuple[str, ...]:
+    values = (value,) if isinstance(value, str) else value if isinstance(value, list) else ()
+    return tuple(
+        dict.fromkeys(
+            normalized
+            for item in values
+            if isinstance(item, str) and (normalized := normalize_text(item).casefold())
+        )
+    )
+
+
+def _kaikki_readings(row: dict[str, Any]) -> tuple[str, ...]:
+    readings: list[str] = []
+    for form in row.get("forms", []):
+        if not isinstance(form, dict):
+            continue
+        tags = set(_normalized_strings(form.get("tags", [])))
+        reading = normalize_text(str(form.get("form", "")))
+        if reading and tags.intersection(_READING_TAGS):
+            readings.append(reading)
+    return tuple(dict.fromkeys(readings))
+
+
+def _kaikki_part_of_speech(row: dict[str, Any]) -> tuple[str, ...]:
+    values = list(_normalized_strings(row.get("pos", [])))
+    for sense in row.get("senses", []):
+        if isinstance(sense, dict):
+            values.extend(_normalized_strings(sense.get("pos", [])))
+    return tuple(dict.fromkeys(values))
 
 
 def index_kaikki_glosses(
     path: Path,
     wanted_spellings: set[str],
-) -> dict[str, set[tuple[str, ...]]]:
-    index: dict[str, set[tuple[str, ...]]] = defaultdict(set)
+) -> tuple[
+    dict[tuple[str, str], set[KaikkiCandidate]],
+    dict[str, set[KaikkiCandidate]],
+]:
+    exact: dict[tuple[str, str], set[KaikkiCandidate]] = defaultdict(set)
+    spelling_only: dict[str, set[KaikkiCandidate]] = defaultdict(set)
     open_text = gzip.open if path.suffix == ".gz" else Path.open
     with open_text(path, "rt", encoding="utf-8") as handle:
         for line_number, line in enumerate(handle, 1):
@@ -118,8 +178,16 @@ def index_kaikki_glosses(
                 )
             )
             if glosses:
-                index[word].add(glosses)
-    return dict(index)
+                candidate = KaikkiCandidate(
+                    word=word,
+                    readings=_kaikki_readings(row),
+                    part_of_speech=_kaikki_part_of_speech(row),
+                    glosses=glosses,
+                )
+                spelling_only[word].add(candidate)
+                for reading in candidate.readings:
+                    exact[(word, reading)].add(candidate)
+    return dict(exact), dict(spelling_only)
 
 
 def _clean_kaikki_gloss(value: object) -> str:
@@ -136,6 +204,28 @@ def _category(part_of_speech: tuple[str, ...]) -> str:
     if any(tag.startswith("adj") for tag in tags):
         return "adjectives"
     return "other"
+
+
+def _pos_family(tag: str) -> str:
+    normalized = normalize_text(tag).casefold()
+    if "adjective" in normalized or normalized.startswith("adj"):
+        return "adjective"
+    if "adverb" in normalized or normalized.startswith("adv"):
+        return "adverb"
+    if "verb" in normalized or normalized.startswith("v"):
+        return "verb"
+    if (
+        "noun" in normalized
+        or normalized.startswith(("n", "pron", "num", "ctr"))
+    ):
+        return "noun"
+    return normalized
+
+
+def _compatible_pos(jmdict: JMdictCandidate, kaikki: KaikkiCandidate) -> bool:
+    jmdict_families = {_pos_family(tag) for tag in jmdict.part_of_speech}
+    kaikki_families = {_pos_family(tag) for tag in kaikki.part_of_speech}
+    return bool(jmdict_families.intersection(kaikki_families))
 
 
 _ROMANIZER = kakasi()
@@ -178,18 +268,44 @@ def limit_balanced_records(
     return sorted(selected, key=lambda item: (item.category, item.kana, item.japanese, item.id))
 
 
-def build_vocabulary(jmdict_path: Path, kaikki_path: Path, limit: int) -> VocabularyBuild:
+def build_vocabulary(
+    jmdict_path: Path,
+    kaikki_path: Path,
+    limit: int = 10_000,
+    core_limit: int = 5_000,
+) -> VocabularyBuild:
     if limit < 1:
         raise ValueError("limit must be positive")
+    if core_limit < 0:
+        raise ValueError("core_limit must be nonnegative")
+    core_limit = min(core_limit, limit)
     root = json.loads(jmdict_path.read_text(encoding="utf-8"))
     candidates = select_jmdict_candidates(root)
-    gloss_index = index_kaikki_glosses(kaikki_path, {item.japanese for item in candidates})
+    exact_index, spelling_index = index_kaikki_glosses(
+        kaikki_path,
+        {item.japanese for item in candidates},
+    )
     rejections: Counter[str] = Counter()
     records: list[VocabularyRecord] = []
     content_version = normalize_text(str(root.get("dictDate", "unknown")))
 
     for candidate in candidates:
-        gloss_sets = gloss_index.get(candidate.japanese, set())
+        matches = exact_index.get((candidate.japanese, candidate.kana), set())
+        if not matches:
+            spelling_matches = spelling_index.get(candidate.japanese, set())
+            if not spelling_matches:
+                rejections["missing_chinese"] += 1
+                continue
+            matches = {item for item in spelling_matches if not item.readings}
+            if not matches:
+                rejections["reading_mismatch"] += 1
+                continue
+
+        compatible_matches = {item for item in matches if _compatible_pos(candidate, item)}
+        if not compatible_matches:
+            rejections["pos_mismatch"] += 1
+            continue
+        gloss_sets = {item.glosses for item in compatible_matches}
         if not gloss_sets:
             rejections["missing_chinese"] += 1
             continue
@@ -198,13 +314,14 @@ def build_vocabulary(jmdict_path: Path, kaikki_path: Path, limit: int) -> Vocabu
             continue
         meaning_zh = list(next(iter(gloss_sets)))
         category = _category(candidate.part_of_speech)
+        tier = "core" if candidate.common else "extended"
         records.append(
             VocabularyRecord(
                 id=vocabulary_id(candidate.entry_id),
                 source_id="jmdict-kaikki",
                 source_key=f"jmdict:{candidate.entry_id}",
                 category=category,
-                list_name=f"common-{category}",
+                list_name=f"{tier}-{category}",
                 japanese=candidate.japanese,
                 kana=candidate.kana,
                 romaji=romanize_kana(candidate.kana),
@@ -212,12 +329,24 @@ def build_vocabulary(jmdict_path: Path, kaikki_path: Path, limit: int) -> Vocabu
                 meaning_zh=meaning_zh,
                 meaning_en=list(candidate.meaning_en),
                 meaning_zh_source="kaikki-zhwiktionary",
+                tier=tier,
+                priority_tags=list(candidate.priority_tags),
                 content_version=content_version,
                 published=True,
             )
         )
 
-    selected = limit_balanced_records(records, limit)
+    core_records = sorted(
+        (record for record in records if record.tier == "core"),
+        key=lambda item: (item.category, item.kana, item.japanese, item.id),
+    )
+    extended_records = sorted(
+        (record for record in records if record.tier == "extended"),
+        key=lambda item: (item.category, item.kana, item.japanese, item.id),
+    )
+    selected_core = limit_balanced_records(core_records, core_limit)
+    selected_extended = limit_balanced_records(extended_records, limit - len(selected_core))
+    selected = selected_core + selected_extended
     return VocabularyBuild(tuple(selected), dict(sorted(rejections.items())))
 
 
@@ -225,7 +354,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build a validated JMdict/Kaikki vocabulary bundle.")
     parser.add_argument("--jmdict", type=Path, required=True)
     parser.add_argument("--kaikki", type=Path, required=True)
-    parser.add_argument("--limit", type=int, default=2000)
+    parser.add_argument("--limit", type=int, default=10_000)
+    parser.add_argument("--core-limit", type=int, default=5_000)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--rejections", type=Path, required=True)
     return parser.parse_args(argv)
@@ -233,7 +363,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
-    result = build_vocabulary(args.jmdict, args.kaikki, args.limit)
+    result = build_vocabulary(args.jmdict, args.kaikki, args.limit, args.core_limit)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.rejections.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_bytes(result.json_bytes())
