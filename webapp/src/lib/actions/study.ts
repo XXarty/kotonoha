@@ -1,8 +1,8 @@
 "use server";
 
 import { requireUser } from "@/lib/auth/require-user";
-import { getContentItem } from "@/lib/content/repository";
-import { getItemProgress, saveItemProgress } from "@/lib/db/queries";
+import { getContentItem, hydrateReviewQueue } from "@/lib/content/repository";
+import { getDueProgress, getItemProgress, saveItemProgress } from "@/lib/db/queries";
 import { calculateNextReview } from "@/lib/study/review";
 import { z } from "zod";
 
@@ -46,4 +46,15 @@ export async function rateStudyAction(rawInput: z.input<typeof ratingSchema>) {
   });
 
   return { status, nextReviewAt: next.nextReviewAt };
+}
+
+export async function getDueReviewAction() {
+  const userId = await requireUser();
+  const rows = await getDueProgress(userId);
+  return hydrateReviewQueue(rows)
+    .slice(0, 50)
+    .map((item) => ({
+      ...item,
+      nextReviewAt: item.nextReviewAt.toISOString(),
+    }));
 }

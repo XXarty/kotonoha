@@ -5,6 +5,7 @@ import { useState, useTransition } from "react";
 
 import { setFavoriteAction } from "@/lib/actions/favorites";
 import { rateStudyAction } from "@/lib/actions/study";
+import { authClient } from "@/lib/auth/client";
 import type { ReviewRating } from "@/lib/content/types";
 
 const ratings: { label: string; value: ReviewRating }[] = [
@@ -76,4 +77,13 @@ export function StudyRater({ itemId, signedIn = false }: { itemId: string; signe
       {!signedIn ? <p className="text-xs text-[var(--ink-soft)]">访客记录只保存在这台设备；登录后可跨设备同步。</p> : null}
     </section>
   );
+}
+
+export function ConnectedStudyRater({ itemId, authEnabled }: { itemId: string; authEnabled: boolean }) {
+  return authEnabled ? <SessionStudyRater itemId={itemId} /> : <StudyRater itemId={itemId} />;
+}
+
+function SessionStudyRater({ itemId }: { itemId: string }) {
+  const session = authClient.useSession();
+  return <StudyRater itemId={itemId} signedIn={Boolean(session.data?.user)} />;
 }
