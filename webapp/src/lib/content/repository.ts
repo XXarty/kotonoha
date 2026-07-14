@@ -214,12 +214,37 @@ const VOCABULARY_LABELS: Record<VocabularyEntry["category"], [string, string]> =
   other: ["常用表达", "副词、接续词与其他常见表达"],
 };
 
-const GRAMMAR_LABELS: Record<GrammarEntry["path"], [string, string, ContentDirectoryItem["tone"]]> = {
-  foundation: ["基础", "句子结构、形容词、动词和基本助词。", "mist"],
-  core: ["核心", "时态、连接、条件、愿望、请求和授受。", "paper"],
-  expressions: ["常用表达", "推测、比较、原因、目的、变化和口语表达。", "mist"],
-  advanced: ["进阶", "被动、使役、敬语、正式表达和复杂句型。", "paper"],
-};
+const GRAMMAR_PATHS: ReadonlyArray<{
+  slug: GrammarEntry["path"];
+  title: string;
+  description: string;
+  tone: ContentDirectoryItem["tone"];
+}> = [
+  {
+    slug: "foundation",
+    title: "基础",
+    description: "句子结构、形容词、动词和基本助词。",
+    tone: "mist",
+  },
+  {
+    slug: "core",
+    title: "核心",
+    description: "时态、连接、条件、愿望、请求和授受。",
+    tone: "paper",
+  },
+  {
+    slug: "expressions",
+    title: "常用表达",
+    description: "推测、比较、原因、目的、变化和口语表达。",
+    tone: "mist",
+  },
+  {
+    slug: "advanced",
+    title: "进阶",
+    description: "被动、使役、敬语、正式表达和复杂句型。",
+    tone: "paper",
+  },
+];
 
 function normalizeSearch(value: string): string {
   return value.normalize("NFKC").trim().replace(/\s+/g, " ").toLocaleLowerCase("ja");
@@ -265,12 +290,26 @@ export function createContentRepository(rawInput: unknown) {
   }
 
   function getGrammarDirectory(): ContentDirectoryItem[] {
-    return Object.entries(GRAMMAR_LABELS)
-      .map(([slug, [title, description, tone]]) => {
-        const count = grammar.filter((item) => item.path === slug).length;
-        return { slug, title, description, count, meta: `${count} 个单元`, tone };
-      })
-      .filter((item) => item.count > 0);
+    return GRAMMAR_PATHS.map(({ slug, title, description, tone }) => {
+      const count = grammar.filter((item) => item.path === slug).length;
+      return { slug, title, description, count, meta: `${count} 个单元`, tone };
+    }).filter((item) => item.count > 0);
+  }
+
+  function getGrammarList(path: string): GrammarEntry[] {
+    return grammar
+      .filter((item) => item.path === path)
+      .sort((left, right) => left.display_order - right.display_order);
+  }
+
+  function getRelatedGrammar(ids: readonly string[]): GrammarEntry[] {
+    const seen = new Set<string>();
+    return ids.flatMap((id) => {
+      if (seen.has(id)) return [];
+      seen.add(id);
+      const item = itemMap.get(id);
+      return item?.kind === "grammar" ? [item] : [];
+    });
   }
 
   function searchContent(query: string, perKindLimit = 50): SearchResultGroups {
@@ -325,7 +364,8 @@ export function createContentRepository(rawInput: unknown) {
     getVocabularyEntry: (id: string) =>
       (itemMap.get(id)?.kind === "vocabulary" ? itemMap.get(id) : null) as VocabularyEntry | null,
     getGrammarDirectory,
-    getGrammarList: (path: string) => grammar.filter((item) => item.path === path),
+    getGrammarList,
+    getRelatedGrammar,
     getGrammarEntry: (slug: string) => grammarSlugMap.get(slug) ?? null,
     getKanaTable: () => kana,
     searchContent,
@@ -370,6 +410,7 @@ export const {
   getVocabularyEntry,
   getGrammarDirectory,
   getGrammarList,
+  getRelatedGrammar,
   getGrammarEntry,
   getKanaTable,
   searchContent,

@@ -4,8 +4,8 @@ import { notFound } from "next/navigation";
 import { ConnectedStudyRater } from "@/components/study-rater";
 import { isAuthConfigured } from "@/lib/auth/enabled";
 import {
-  getContentItem,
   getGrammarEntry,
+  getRelatedGrammar,
   getSourceAttributions,
 } from "@/lib/content/repository";
 import { contentRoute } from "@/lib/content/routes";
@@ -17,10 +17,7 @@ export default async function GrammarEntryPage({ params }: { params: Promise<{ s
   const source = getSourceAttributions().sources.find(
     (item) => item.id === entry.source_id && item.enabled,
   );
-  const relatedEntries = entry.related_entries.flatMap((id) => {
-    const related = getContentItem(id);
-    return related?.kind === "grammar" ? [related] : [];
-  });
+  const relatedEntries = getRelatedGrammar(entry.related_entries);
 
   return (
     <main className="detail-page page shell">

@@ -1,9 +1,10 @@
 import { render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { getContentItem, getGrammarEntry, getSourceAttributions, notFound } = vi.hoisted(() => ({
+const { getContentItem, getGrammarEntry, getRelatedGrammar, getSourceAttributions, notFound } = vi.hoisted(() => ({
   getContentItem: vi.fn(),
   getGrammarEntry: vi.fn(),
+  getRelatedGrammar: vi.fn(),
   getSourceAttributions: vi.fn(),
   notFound: vi.fn(),
 }));
@@ -18,6 +19,7 @@ vi.mock("@/components/study-rater", () => ({
 vi.mock("@/lib/content/repository", () => ({
   getContentItem,
   getGrammarEntry,
+  getRelatedGrammar,
   getSourceAttributions,
 }));
 
@@ -83,6 +85,10 @@ describe("GrammarEntryPage", () => {
     });
     getGrammarEntry.mockReturnValue(baseEntry);
     getContentItem.mockImplementation((id: keyof typeof related) => related[id] ?? null);
+    getRelatedGrammar.mockReturnValue([
+      related["grammar:tae-kim:ga-subject"],
+      related["grammar:tae-kim:mo-also"],
+    ]);
     getSourceAttributions.mockReturnValue({
       sources: [
         {
@@ -114,6 +120,7 @@ describe("GrammarEntryPage", () => {
     ).rejects.toThrow("NEXT_NOT_FOUND");
 
     expect(notFound).toHaveBeenCalledOnce();
+    expect(getRelatedGrammar).not.toHaveBeenCalled();
     expect(getContentItem).not.toHaveBeenCalled();
     expect(getSourceAttributions).not.toHaveBeenCalled();
   });
@@ -133,6 +140,9 @@ describe("GrammarEntryPage", () => {
 
   it("keeps only public grammar relations in their stored order", async () => {
     render(await GrammarEntryPage({ params: Promise.resolve({ slug: "wa-topic" }) }));
+
+    expect(getRelatedGrammar).toHaveBeenCalledExactlyOnceWith(baseEntry.related_entries);
+    expect(getContentItem).not.toHaveBeenCalled();
 
     const section = screen.getByRole("heading", { name: "一起比较" }).closest("section");
     expect(section).not.toBeNull();

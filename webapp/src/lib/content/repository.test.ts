@@ -290,6 +290,39 @@ describe("static content repository", () => {
     expect(repository.getGrammarList("core")).toHaveLength(1);
     expect(repository.getGrammarList("expressions")).toHaveLength(2);
     expect(repository.getGrammarList("advanced")).toEqual([]);
+    expect(repository.getGrammarDirectory().some((item) => item.slug === "advanced")).toBe(false);
+  });
+
+  it("sorts every grammar path explicitly by display order", () => {
+    const input = productionContractFixtures();
+    const repository = createContentRepository({
+      ...input,
+      grammar: [...input.grammar].reverse(),
+    });
+
+    expect(repository.getGrammarList("expressions").map((item) => item.display_order)).toEqual([
+      4, 5, 6,
+    ]);
+  });
+
+  it("resolves enabled grammar relations once in first-request order", () => {
+    const repository = createContentRepository(productionContractFixtures(true));
+
+    expect(
+      repository
+        .getRelatedGrammar([
+          "grammar:tae-kim:core-direct",
+          "grammar:tae-kim:expression-original",
+          "grammar:tae-kim:missing",
+          "kana:gojuon:a",
+          "grammar:tae-kim:foundation-direct",
+          "grammar:tae-kim:core-direct",
+        ])
+        .map((item) => item.id),
+    ).toEqual([
+      "grammar:tae-kim:core-direct",
+      "grammar:tae-kim:foundation-direct",
+    ]);
   });
 
   it("makes vocabulary directory counts sum to all enabled mixed-tier records", () => {
