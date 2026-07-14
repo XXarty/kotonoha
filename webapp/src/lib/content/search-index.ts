@@ -23,6 +23,28 @@ function score(entry: SearchIndexEntry, query: string): number | null {
   return null;
 }
 
+function compareCodePoints(left: string, right: string): number {
+  const leftPoints = Array.from(left);
+  const rightPoints = Array.from(right);
+  const sharedLength = Math.min(leftPoints.length, rightPoints.length);
+
+  for (let index = 0; index < sharedLength; index += 1) {
+    const order =
+      (leftPoints[index]?.codePointAt(0) ?? 0) - (rightPoints[index]?.codePointAt(0) ?? 0);
+    if (order) return order;
+  }
+
+  return leftPoints.length - rightPoints.length;
+}
+
+function normalizeResultLimit(limit: number): number {
+  // NaN uses the default; infinities clamp to a bound; finite fractions truncate before clamping.
+  if (Number.isNaN(limit)) return 8;
+  if (limit === Number.POSITIVE_INFINITY) return 8;
+  if (limit === Number.NEGATIVE_INFINITY) return 1;
+  return Math.min(8, Math.max(1, Math.trunc(limit)));
+}
+
 export function rankSearchResults(
   entries: readonly SearchIndexEntry[],
   query: string,
@@ -31,7 +53,7 @@ export function rankSearchResults(
   const normalizedQuery = normalizeSearch(query);
   if (!normalizedQuery) return [];
 
-  const resultLimit = Math.min(8, Math.max(1, limit));
+  const resultLimit = normalizeResultLimit(limit);
 
   return entries
     .map((entry) => ({ entry, score: score(entry, normalizedQuery) }))
@@ -45,7 +67,7 @@ export function rankSearchResults(
       const primaryOrder = left.entry.primary.localeCompare(right.entry.primary, "ja");
       if (primaryOrder) return primaryOrder;
 
-      return left.entry.id.localeCompare(right.entry.id);
+      return compareCodePoints(left.entry.id, right.entry.id);
     })
     .slice(0, resultLimit)
     .map(({ entry }) => entry);
@@ -55,7 +77,13 @@ export async function loadSearchIndex(signal?: AbortSignal): Promise<SearchIndex
   const response = await fetch("/content/search-index.json", { signal });
   if (!response.ok) throw new Error("search index unavailable");
 
-  const payload: unknown = await response.json();
+  let payload: unknown;
+  try {
+    payload = await response.json();
+  } catch (error) {
+    if (!(error instanceof SyntaxError)) throw error;
+    throw new Error("search index unavailable");
+  }
   if (!Array.isArray(payload)) throw new Error("search index unavailable");
 
   return payload as SearchIndexEntry[];

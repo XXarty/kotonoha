@@ -61,24 +61,31 @@ describe("rankSearchResults", () => {
     ]);
   });
 
-  it("sorts equal-score matches by Japanese primary collation and then stable id", () => {
+  it("sorts equal-score matches by Japanese primary collation and then code-point id", () => {
     const entries = [
       entry("vocabulary:z", "安い", { meaning: "common result" }),
-      entry("vocabulary:b", "あい", { meaning: "common result" }),
       entry("vocabulary:a", "あい", { meaning: "common result" }),
+      entry("vocabulary:Z", "あい", { meaning: "common result" }),
     ];
 
-    const expected = [...entries]
-      .sort((left, right) => {
-        const primaryOrder = left.primary.localeCompare(right.primary, "ja");
-        return primaryOrder || left.id.localeCompare(right.id);
-      })
-      .map((item) => item.id);
+    const expected = ["vocabulary:Z", "vocabulary:a", "vocabulary:z"];
 
     expect(rankSearchResults(entries, "result").map((item) => item.id)).toEqual(expected);
     expect(rankSearchResults([...entries].reverse(), "result").map((item) => item.id)).toEqual(
       expected,
     );
+  });
+
+  it("orders non-BMP id characters by Unicode code point", () => {
+    const entries = [
+      entry("vocabulary:😀", "同じ", { meaning: "common result" }),
+      entry("vocabulary:", "同じ", { meaning: "common result" }),
+    ];
+
+    expect(rankSearchResults(entries, "result").map((item) => item.id)).toEqual([
+      "vocabulary:",
+      "vocabulary:😀",
+    ]);
   });
 
   it("normalizes whitespace in the query before matching", () => {
@@ -91,15 +98,20 @@ describe("rankSearchResults", () => {
     expect(rankSearchResults([entry("one", "灯")], " \t\n ")).toEqual([]);
   });
 
-  it("defaults to eight results and clamps explicit limits to one through eight", () => {
+  it("defaults NaN to eight and deterministically truncates and clamps numeric limits", () => {
     const entries = Array.from({ length: 10 }, (_, index) =>
       entry(`entry:${index}`, `灯${index}`, { meaning: "light" }),
     );
 
     expect(rankSearchResults(entries, "light")).toHaveLength(8);
+    expect(rankSearchResults(entries, "light", Number.NaN)).toHaveLength(8);
+    expect(rankSearchResults(entries, "light", Number.POSITIVE_INFINITY)).toHaveLength(8);
+    expect(rankSearchResults(entries, "light", Number.NEGATIVE_INFINITY)).toHaveLength(1);
     expect(rankSearchResults(entries, "light", 99)).toHaveLength(8);
+    expect(rankSearchResults(entries, "light", -5)).toHaveLength(1);
     expect(rankSearchResults(entries, "light", 0)).toHaveLength(1);
-    expect(rankSearchResults(entries, "light", 3)).toHaveLength(3);
+    expect(rankSearchResults(entries, "light", 0.9)).toHaveLength(1);
+    expect(rankSearchResults(entries, "light", 3.9)).toHaveLength(3);
   });
 });
 
@@ -143,5 +155,18 @@ describe("loadSearchIndex", () => {
     );
 
     await expect(loadSearchIndex()).rejects.toEqual(new Error("search index unavailable"));
+  });
+
+  it("normalizes malformed JSON to the exact unavailable error", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("{invalid json")));
+
+    await expect(loadSearchIndex()).rejects.toEqual(new Error("search index unavailable"));
+  });
+
+  it("preserves fetch and abort rejections raised before a response exists", async () => {
+    const abortError = new DOMException("The operation was aborted", "AbortError");
+    vi.stubGlobal("fetch", vi.fn(async () => Promise.reject(abortError)));
+
+    await expect(loadSearchIndex(new AbortController().signal)).rejects.toBe(abortError);
   });
 });
