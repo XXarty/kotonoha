@@ -2,6 +2,13 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+Use Node.js 20.19+, 22.13+, or 24+; the repository defaults to Node 22.13 through `.nvmrc`, and npm rejects unsupported runtimes through `engine-strict`.
+
+```bash
+nvm use
+npm install
+```
+
 First, run the development server:
 
 ```bash
