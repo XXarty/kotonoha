@@ -222,7 +222,12 @@ export function createContentRepository(rawInput: unknown) {
       rows.flatMap((row) => {
         const item = itemMap.get(row.itemId);
         if (!item || item.kind !== row.kind) return [];
-        const { kind: _progressKind, ...progress } = row;
+        const progress = {
+          progressId: row.progressId,
+          itemId: row.itemId,
+          status: row.status,
+          nextReviewAt: row.nextReviewAt,
+        };
         return [{ ...item, ...progress } as HydratedReviewItem];
       }),
   };

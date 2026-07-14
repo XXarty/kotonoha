@@ -176,7 +176,7 @@ export const userItemProgress = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     userId: text("user_id").notNull(),
     kind: text("kind").$type<ContentKind>().notNull(),
-    itemId: uuid("item_id").notNull(),
+    itemId: text("item_id").notNull(),
     status: text("status")
       .$type<"new" | "learning" | "reviewing" | "mastered">()
       .default("new")
@@ -203,7 +203,7 @@ export const favorites = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     userId: text("user_id").notNull(),
     kind: text("kind").$type<ContentKind>().notNull(),
-    itemId: uuid("item_id").notNull(),
+    itemId: text("item_id").notNull(),
     createdAt: timestamps().createdAt,
   },
   (table) => [

@@ -22,6 +22,13 @@
       "when": 1784029372148,
       "tag": "0002_magical_gideon",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1784043312431,
+      "tag": "0003_text_content_ids",
+      "breakpoints": true
     }
   ]
 }

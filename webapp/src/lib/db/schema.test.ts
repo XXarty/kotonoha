@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { getTableConfig } from "drizzle-orm/pg-core";
 import { describe, expect, it } from "vitest";
 
@@ -93,6 +95,28 @@ describe("database schema contracts", () => {
       "item_id",
     ]);
     expect(favoriteIndex?.unique).toBe(true);
+  });
+
+  it("stores static content IDs as text", () => {
+    const progressItemId = getTableConfig(userItemProgress).columns.find(
+      (column) => column.name === "item_id",
+    );
+    const favoriteItemId = getTableConfig(favorites).columns.find(
+      (column) => column.name === "item_id",
+    );
+
+    expect(progressItemId?.getSQLType()).toBe("text");
+    expect(favoriteItemId?.getSQLType()).toBe("text");
+  });
+
+  it("migrates UUID content IDs to text without dropping user data", () => {
+    const migration = readFileSync(
+      path.join(process.cwd(), "drizzle/0003_text_content_ids.sql"),
+      "utf8",
+    );
+
+    expect(migration.match(/SET DATA TYPE text USING "item_id"::text/g)).toHaveLength(2);
+    expect(migration).not.toMatch(/DROP TABLE|DROP COLUMN|TRUNCATE/i);
   });
 
   it("uses a globally unique client event id for sync idempotency", () => {
