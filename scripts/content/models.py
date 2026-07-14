@@ -64,6 +64,12 @@ class ContentRecord(BaseModel):
         return normalize_text(value) if isinstance(value, str) else value
 
 
+class ExampleRecord(ContentRecord):
+    ja: NonBlankText
+    zh: NonBlankText
+    source: Literal["tae-kim", "kotonoha-original"]
+
+
 class VocabularyRecord(ContentRecord):
     kind: Literal["vocabulary"] = "vocabulary"
     id: str = Field(pattern=r"^vocabulary:jmdict:[0-9]+$")
@@ -78,6 +84,9 @@ class VocabularyRecord(ContentRecord):
     meaning_zh: list[NonBlankText] = Field(min_length=1)
     meaning_en: list[NonBlankText] = Field(min_length=1)
     meaning_zh_source: Literal["kaikki-zhwiktionary"]
+    tier: Literal["core", "extended"]
+    priority_tags: list[NonBlankText] = Field(default_factory=list)
+    examples: list[ExampleRecord] = Field(default_factory=list)
     content_version: NonBlankText
     published: Literal[True]
 
@@ -100,10 +109,11 @@ class GrammarRecord(ContentRecord):
     expression: NonBlankText
     connection: NonBlankText
     explanation_zh: NonBlankText
-    example_ja: NonBlankText
-    example_zh: NonBlankText
+    path: Literal["foundation", "core", "expressions", "advanced"]
+    examples: list[ExampleRecord] = Field(min_length=1)
+    common_mistakes: list[NonBlankText] = Field(min_length=1)
+    related_entries: list[str] = Field(default_factory=list)
     source_url: str
-    example_source: Literal["tae-kim", "kotonoha-original"]
     license_key: Literal["cc-by-nc-sa-3.0"]
     content_version: NonBlankText
     display_order: int = Field(gt=0)
@@ -118,11 +128,23 @@ class GrammarRecord(ContentRecord):
             raise ValueError("grammar source URL must use guidetojapanese.org")
         return value
 
+    @field_validator("related_entries")
+    @classmethod
+    def validate_related_entries(cls, value: list[str]) -> list[str]:
+        pattern = re.compile(r"^grammar:tae-kim:[a-z0-9-]+$")
+        if any(pattern.fullmatch(related_id) is None for related_id in value):
+            raise ValueError("related entries must use stable Tae Kim grammar IDs")
+        if len(set(value)) != len(value):
+            raise ValueError("related entries must not contain duplicates")
+        return value
+
     @model_validator(mode="after")
     def validate_identity(self) -> GrammarRecord:
         expected = grammar_id(self.slug)
         if self.id != expected or self.source_key != f"tae-kim:{self.slug}":
             raise ValueError("grammar identity fields must match slug")
+        if self.id in self.related_entries:
+            raise ValueError("grammar entry cannot relate to itself")
         return self
 
 

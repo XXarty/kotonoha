@@ -18,6 +18,12 @@ export interface SourceSnapshot {
   sha256: string;
 }
 
+export interface ContentExample {
+  ja: string;
+  zh: string;
+  source: "tae-kim" | "kotonoha-original";
+}
+
 export interface VocabularyEntry {
   kind: "vocabulary";
   id: ContentItemId;
@@ -32,6 +38,9 @@ export interface VocabularyEntry {
   meaning_zh: string[];
   meaning_en: string[];
   meaning_zh_source: "kaikki-zhwiktionary";
+  tier: "core" | "extended";
+  priority_tags: string[];
+  examples: ContentExample[];
   content_version: string;
   published: true;
 }
@@ -47,10 +56,11 @@ export interface GrammarEntry {
   expression: string;
   connection: string;
   explanation_zh: string;
-  example_ja: string;
-  example_zh: string;
+  path: "foundation" | "core" | "expressions" | "advanced";
+  examples: ContentExample[];
+  common_mistakes: string[];
+  related_entries: string[];
   source_url: string;
-  example_source: "tae-kim" | "kotonoha-original";
   license_key: "cc-by-nc-sa-3.0";
   content_version: string;
   display_order: number;

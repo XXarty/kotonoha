@@ -8,6 +8,7 @@ from pydantic import ValidationError
 from scripts.content.models import (
     BuildManifest,
     ContentSource,
+    ExampleRecord,
     GrammarRecord,
     KanaRecord,
     SourceSnapshot,
@@ -33,6 +34,9 @@ def vocabulary_payload(**overrides: object) -> dict[str, object]:
         "meaning_zh": ["吃"],
         "meaning_en": ["to eat"],
         "meaning_zh_source": "kaikki-zhwiktionary",
+        "tier": "core",
+        "priority_tags": [],
+        "examples": [],
         "content_version": "2026-07-13",
         "published": True,
     }
@@ -45,6 +49,33 @@ def test_vocabulary_has_stable_string_id_and_complete_provenance() -> None:
 
     assert record.id == "vocabulary:jmdict:1000001"
     assert record.meaning_zh_source == "kaikki-zhwiktionary"
+
+
+def test_vocabulary_supports_tier_priority_and_optional_examples() -> None:
+    record = VocabularyRecord.model_validate(
+        vocabulary_payload(
+            tier="core",
+            priority_tags=["common"],
+            examples=[
+                {
+                    "ja": "灯をつける。",
+                    "zh": "开灯。",
+                    "source": "kotonoha-original",
+                }
+            ],
+        )
+    )
+
+    assert record.tier == "core"
+    assert record.priority_tags == ["common"]
+    assert record.examples[0].ja == "灯をつける。"
+
+
+def test_example_record_rejects_blank_text_and_unknown_provenance() -> None:
+    with pytest.raises(ValidationError):
+        ExampleRecord(ja=" ", zh="开灯。", source="kotonoha-original")
+    with pytest.raises(ValidationError):
+        ExampleRecord(ja="灯をつける。", zh="开灯。", source="unknown")
 
 
 @pytest.mark.parametrize(
@@ -65,32 +96,91 @@ def test_vocabulary_rejects_unpublishable_values(field: str, value: object) -> N
         VocabularyRecord.model_validate(vocabulary_payload(**{field: value}))
 
 
+def grammar_payload(**overrides: object) -> dict[str, object]:
+    payload: dict[str, object] = {
+        "id": "grammar:tae-kim:te-form",
+        "source_id": "tae-kim-grammar",
+        "source_key": "tae-kim:te-form",
+        "slug": "te-form",
+        "category": "verbs",
+        "list_name": "verb-basics",
+        "expression": "て形",
+        "connection": "动词变为て形",
+        "explanation_zh": "连接动作或构成其他表达。",
+        "path": "core",
+        "examples": [
+            {
+                "ja": "朝ご飯を食べて、学校へ行く。",
+                "zh": "吃完早饭去学校。",
+                "source": "kotonoha-original",
+            }
+        ],
+        "common_mistakes": ["前后动作的先后关系需要结合语境判断。"],
+        "related_entries": ["grammar:tae-kim:verb-basics"],
+        "source_url": "https://guidetojapanese.org/learn/grammar/teform",
+        "license_key": "cc-by-nc-sa-3.0",
+        "content_version": "2026-07-14",
+        "display_order": 11,
+        "published": True,
+    }
+    payload.update(overrides)
+    return payload
+
+
 def test_grammar_requires_official_source_and_noncommercial_license() -> None:
-    record = GrammarRecord(
-        id="grammar:tae-kim:te-form",
-        source_id="tae-kim-grammar",
-        source_key="tae-kim:te-form",
-        slug="te-form",
-        category="verbs",
-        list_name="verb-basics",
-        expression="て形",
-        connection="动词变为て形",
-        explanation_zh="连接动作或构成其他表达。",
-        example_ja="朝ご飯を食べて、学校へ行く。",
-        example_zh="吃完早饭去学校。",
-        source_url="https://guidetojapanese.org/learn/grammar/teform",
-        example_source="kotonoha-original",
-        license_key="cc-by-nc-sa-3.0",
-        content_version="2026-07-14",
-        display_order=11,
-        published=True,
-    )
+    record = GrammarRecord.model_validate(grammar_payload())
 
     assert record.slug == "te-form"
     with pytest.raises(ValidationError):
         GrammarRecord.model_validate(
             {**record.model_dump(), "source_url": "https://example.com/grammar"}
         )
+
+
+def test_grammar_requires_path_examples_mistakes_and_valid_related_ids() -> None:
+    record = GrammarRecord.model_validate(
+        grammar_payload(
+            path="foundation",
+            examples=[
+                {
+                    "ja": "私は学生です。",
+                    "zh": "我是学生。",
+                    "source": "kotonoha-original",
+                }
+            ],
+            common_mistakes=["名词普通形不能直接省略判断形式。"],
+            related_entries=["grammar:tae-kim:wa-topic"],
+        )
+    )
+
+    assert record.path == "foundation"
+    assert record.examples[0].zh == "我是学生。"
+
+
+@pytest.mark.parametrize(
+    "related_entries",
+    [
+        ["grammar:tae-kim:te-form"],
+        ["grammar:tae-kim:verb-basics", "grammar:tae-kim:verb-basics"],
+        ["vocabulary:jmdict:1000001"],
+        ["grammar:tae-kim:Uppercase"],
+    ],
+)
+def test_grammar_rejects_invalid_related_entries(related_entries: list[str]) -> None:
+    with pytest.raises(ValidationError):
+        GrammarRecord.model_validate(grammar_payload(related_entries=related_entries))
+
+
+def test_grammar_rejects_legacy_scalar_example_fields() -> None:
+    payload = grammar_payload()
+    payload.update(
+        example_ja="朝ご飯を食べて、学校へ行く。",
+        example_zh="吃完早饭去学校。",
+        example_source="kotonoha-original",
+    )
+
+    with pytest.raises(ValidationError):
+        GrammarRecord.model_validate(payload)
 
 
 def test_kana_uses_project_stable_identity() -> None:

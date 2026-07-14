@@ -35,44 +35,92 @@ const snapshotSchema = z.object({
   sha256: z.string().regex(/^[0-9a-f]{64}$/),
 });
 
-const vocabularySchema = z.object({
-  kind: z.literal("vocabulary"),
-  id: z.string().regex(/^vocabulary:jmdict:[0-9]+$/),
-  source_id: z.string().min(1),
-  source_key: z.string().min(1),
-  category: z.enum(["nouns", "verbs", "adjectives", "other"]),
-  list_name: z.string().min(1),
-  japanese: z.string().min(1),
-  kana: z.string().min(1),
-  romaji: z.string().min(1),
-  part_of_speech: z.array(z.string().min(1)).min(1),
-  meaning_zh: z.array(z.string().min(1)).min(1),
-  meaning_en: z.array(z.string().min(1)).min(1),
-  meaning_zh_source: z.literal("kaikki-zhwiktionary"),
-  content_version: z.string().min(1),
-  published: z.literal(true),
+const contentExampleSchema = z.object({
+  ja: z.string().trim().min(1),
+  zh: z.string().trim().min(1),
+  source: z.enum(["tae-kim", "kotonoha-original"]),
 });
 
-const grammarSchema = z.object({
-  kind: z.literal("grammar"),
-  id: z.string().regex(/^grammar:tae-kim:[a-z0-9-]+$/),
-  source_id: z.string().min(1),
-  source_key: z.string().min(1),
-  slug: z.string().min(1),
-  category: z.string().min(1),
-  list_name: z.string().min(1),
-  expression: z.string().min(1),
-  connection: z.string().min(1),
-  explanation_zh: z.string().min(1),
-  example_ja: z.string().min(1),
-  example_zh: z.string().min(1),
-  source_url: z.url(),
-  example_source: z.enum(["tae-kim", "kotonoha-original"]),
-  license_key: z.literal("cc-by-nc-sa-3.0"),
-  content_version: z.string().min(1),
-  display_order: z.number().int().positive(),
-  published: z.literal(true),
-});
+const vocabularySchema = z
+  .object({
+    kind: z.literal("vocabulary"),
+    id: z.string().regex(/^vocabulary:jmdict:[0-9]+$/),
+    source_id: z.literal("jmdict-kaikki"),
+    source_key: z.string().regex(/^jmdict:[0-9]+$/),
+    category: z.enum(["nouns", "verbs", "adjectives", "other"]),
+    list_name: z.string().min(1),
+    japanese: z.string().min(1),
+    kana: z.string().min(1),
+    romaji: z.string().min(1),
+    part_of_speech: z.array(z.string().min(1)).min(1),
+    meaning_zh: z.array(z.string().min(1)).min(1),
+    meaning_en: z.array(z.string().min(1)).min(1),
+    meaning_zh_source: z.literal("kaikki-zhwiktionary"),
+    tier: z.enum(["core", "extended"]),
+    priority_tags: z.array(z.string().trim().min(1)),
+    examples: z.array(contentExampleSchema),
+    content_version: z.string().min(1),
+    published: z.literal(true),
+  })
+  .superRefine((entry, context) => {
+    const upstreamId = entry.source_key.replace(/^jmdict:/, "");
+    if (entry.id !== `vocabulary:jmdict:${upstreamId}`) {
+      context.addIssue({
+        code: "custom",
+        path: ["id"],
+        message: "Vocabulary ID must match source key",
+      });
+    }
+  });
+
+const grammarSchema = z
+  .object({
+    kind: z.literal("grammar"),
+    id: z.string().regex(/^grammar:tae-kim:[a-z0-9-]+$/),
+    source_id: z.literal("tae-kim-grammar"),
+    source_key: z.string().regex(/^tae-kim:[a-z0-9-]+$/),
+    slug: z.string().regex(/^[a-z0-9-]+$/),
+    category: z.string().min(1),
+    list_name: z.string().min(1),
+    expression: z.string().min(1),
+    connection: z.string().min(1),
+    explanation_zh: z.string().min(1),
+    path: z.enum(["foundation", "core", "expressions", "advanced"]),
+    examples: z.array(contentExampleSchema).min(1),
+    common_mistakes: z.array(z.string().trim().min(1)).min(1),
+    related_entries: z.array(z.string().regex(/^grammar:tae-kim:[a-z0-9-]+$/)),
+    source_url: z.url(),
+    license_key: z.literal("cc-by-nc-sa-3.0"),
+    content_version: z.string().min(1),
+    display_order: z.number().int().positive(),
+    published: z.literal(true),
+  })
+  .superRefine((entry, context) => {
+    if (
+      entry.id !== `grammar:tae-kim:${entry.slug}` ||
+      entry.source_key !== `tae-kim:${entry.slug}`
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["id"],
+        message: "Grammar identity fields must match slug",
+      });
+    }
+    if (new Set(entry.related_entries).size !== entry.related_entries.length) {
+      context.addIssue({
+        code: "custom",
+        path: ["related_entries"],
+        message: "Related grammar IDs must be unique",
+      });
+    }
+    if (entry.related_entries.includes(entry.id)) {
+      context.addIssue({
+        code: "custom",
+        path: ["related_entries"],
+        message: "A grammar entry cannot relate to itself",
+      });
+    }
+  });
 
 const kanaSchema = z.object({
   kind: z.literal("kana"),
@@ -167,7 +215,14 @@ export function createContentRepository(rawInput: unknown) {
       vocabulary: vocabulary
         .filter((item) =>
           includesNormalized(
-            [item.japanese, item.kana, item.romaji, ...item.meaning_zh, ...item.meaning_en],
+            [
+              item.japanese,
+              item.kana,
+              item.romaji,
+              ...item.meaning_zh,
+              ...item.meaning_en,
+              ...item.examples.flatMap(({ ja, zh }) => [ja, zh]),
+            ],
             normalized,
           ),
         )
@@ -179,8 +234,7 @@ export function createContentRepository(rawInput: unknown) {
               item.expression,
               item.connection,
               item.explanation_zh,
-              item.example_ja,
-              item.example_zh,
+              ...item.examples.flatMap(({ ja, zh }) => [ja, zh]),
             ],
             normalized,
           ),

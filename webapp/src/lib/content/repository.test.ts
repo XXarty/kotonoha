@@ -1,4 +1,11 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("@/content/generated/sources.json", () => ({
+  default: { sources: [], snapshots: [] },
+}));
+vi.mock("@/content/generated/vocabulary.json", () => ({ default: [] }));
+vi.mock("@/content/generated/grammar.json", () => ({ default: [] }));
+vi.mock("@/content/generated/kana.json", () => ({ default: [] }));
 
 import { createContentRepository } from "./repository";
 
@@ -55,6 +62,15 @@ function fixtures(sourceEnabled = true) {
         meaning_zh: ["吃"],
         meaning_en: ["to eat"],
         meaning_zh_source: "kaikki-zhwiktionary",
+        tier: "core",
+        priority_tags: ["common"],
+        examples: [
+          {
+            ja: "毎朝パンを食べる。",
+            zh: "每天早上吃面包。",
+            source: "kotonoha-original",
+          },
+        ],
         content_version: "2026-07-13",
         published: true,
       },
@@ -71,10 +87,17 @@ function fixtures(sourceEnabled = true) {
         expression: "〜は",
         connection: "名词 + は",
         explanation_zh: "提示主题。",
-        example_ja: "私は学生です。",
-        example_zh: "我是学生。",
+        path: "foundation",
+        examples: [
+          {
+            ja: "私は学生です。",
+            zh: "我是学生。",
+            source: "kotonoha-original",
+          },
+        ],
+        common_mistakes: ["不要把主题助词和主语标记完全等同。"],
+        related_entries: ["grammar:tae-kim:wa-topic"],
         source_url: "https://guidetojapanese.org/learn/grammar/particlesintro",
-        example_source: "kotonoha-original",
         license_key: "cc-by-nc-sa-3.0",
         content_version: "2026-07-14",
         display_order: 1,
@@ -114,6 +137,42 @@ describe("static content repository", () => {
       "vocabulary:jmdict:1000001",
     );
     expect(repository.searchContent("吃").vocabulary).toHaveLength(1);
+  });
+
+  it("searches structured examples for vocabulary and grammar", () => {
+    const repository = createContentRepository(fixtures());
+
+    expect(repository.searchContent("面包").vocabulary[0]?.id).toBe(
+      "vocabulary:jmdict:1000001",
+    );
+    expect(repository.searchContent("学生").grammar[0]?.id).toBe(
+      "grammar:tae-kim:topic-particle",
+    );
+  });
+
+  it("rejects invalid, duplicate, and self-referential grammar relationships", () => {
+    for (const relatedEntries of [
+      ["vocabulary:jmdict:1000001"],
+      ["grammar:tae-kim:wa-topic", "grammar:tae-kim:wa-topic"],
+      ["grammar:tae-kim:topic-particle"],
+    ]) {
+      const input = fixtures();
+      const grammar = [{ ...input.grammar[0], related_entries: relatedEntries }];
+
+      expect(() => createContentRepository({ ...input, grammar })).toThrow();
+    }
+  });
+
+  it("preserves stable identities against source keys and grammar slugs", () => {
+    const vocabularyInput = fixtures();
+    const vocabulary = [
+      { ...vocabularyInput.vocabulary[0], source_key: "jmdict:1000002" },
+    ];
+    expect(() => createContentRepository({ ...vocabularyInput, vocabulary })).toThrow();
+
+    const grammarInput = fixtures();
+    const grammar = [{ ...grammarInput.grammar[0], slug: "different-slug" }];
+    expect(() => createContentRepository({ ...grammarInput, grammar })).toThrow();
   });
 
   it("hydrates due progress and silently omits missing static items", () => {
