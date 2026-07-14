@@ -8,6 +8,7 @@ describe("SiteHeader", () => {
     render(<SiteHeader />);
 
     const navigation = screen.getByRole("navigation", { name: "主导航" });
+    expect(within(navigation).getAllByRole("link")).toHaveLength(4);
     expect(within(navigation).getByRole("link", { name: "单词" })).toHaveAttribute(
       "href",
       "/vocabulary",

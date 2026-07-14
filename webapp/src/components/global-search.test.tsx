@@ -1,9 +1,19 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import type { SearchIndexEntry } from "@/lib/content/search-index";
 
 import { GlobalSearch } from "./global-search";
+
+const css = readFileSync(resolve(process.cwd(), "src/app/globals.css"), "utf8");
+
+function cssRule(selector: string) {
+  const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return css.match(new RegExp(`(?:^|\\n)${escapedSelector}\\s*\\{([^}]*)\\}`, "s"))?.[1] ?? "";
+}
 
 const fixtureIndex: SearchIndexEntry[] = [
   {
@@ -135,8 +145,10 @@ describe("GlobalSearch", () => {
   });
 
   it("wraps active results with arrows, syncs pointer and focus, and activates on Enter", async () => {
+    document.body.style.overflow = "clip";
     render(<GlobalSearch loader={async () => fixtureIndex} />);
-    fireEvent.click(screen.getByRole("button", { name: "搜索全站内容" }));
+    const trigger = screen.getByRole("button", { name: "搜索全站内容" });
+    fireEvent.click(trigger);
     const searchbox = screen.getByRole("searchbox");
     fireEvent.change(searchbox, { target: { value: "light" } });
 
@@ -162,6 +174,25 @@ describe("GlobalSearch", () => {
     });
     fireEvent.keyDown(searchbox, { key: "Enter" });
     expect(activated).toHaveBeenCalledOnce();
+    expect(screen.queryByRole("dialog", { name: "搜索日语内容" })).not.toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("clip");
+    expect(trigger).not.toHaveFocus();
+  });
+
+  it("closes and releases the body lock before pointer result navigation", async () => {
+    document.body.style.overflow = "clip";
+    render(<GlobalSearch loader={async () => fixtureIndex} />);
+    const trigger = screen.getByRole("button", { name: "搜索全站内容" });
+
+    fireEvent.click(trigger);
+    fireEvent.change(screen.getByRole("searchbox"), { target: { value: "灯" } });
+    const result = await screen.findByRole("link", { name: /灯.*あかり.*灯光/ });
+    result.addEventListener("click", (event) => event.preventDefault());
+    fireEvent.click(result);
+
+    expect(screen.queryByRole("dialog", { name: "搜索日语内容" })).not.toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("clip");
+    expect(trigger).not.toHaveFocus();
   });
 
   it("shows a friendly error, exact directory links, and retries the loader", async () => {
@@ -188,6 +219,38 @@ describe("GlobalSearch", () => {
     expect(await screen.findByRole("link", { name: /灯.*あかり.*灯光/ })).toBeVisible();
   });
 
+  it("closes without trigger restoration when a directory link is clicked", async () => {
+    document.body.style.overflow = "clip";
+    render(<GlobalSearch loader={async () => { throw new Error("offline"); }} />);
+    const trigger = screen.getByRole("button", { name: "搜索全站内容" });
+
+    fireEvent.click(trigger);
+    const directoryLink = await screen.findByRole("link", { name: "去单词目录" });
+    directoryLink.addEventListener("click", (event) => event.preventDefault());
+    fireEvent.click(directoryLink);
+
+    expect(screen.queryByRole("dialog", { name: "搜索日语内容" })).not.toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("clip");
+    expect(trigger).not.toHaveFocus();
+  });
+
+  it("uses the same close path for Enter activation of a directory link", async () => {
+    document.body.style.overflow = "clip";
+    render(<GlobalSearch loader={async () => { throw new Error("offline"); }} />);
+    const trigger = screen.getByRole("button", { name: "搜索全站内容" });
+
+    fireEvent.click(trigger);
+    const directoryLink = await screen.findByRole("link", { name: "去语法目录" });
+    directoryLink.addEventListener("click", (event) => event.preventDefault());
+    directoryLink.focus();
+    fireEvent.keyDown(directoryLink, { key: "Enter" });
+    fireEvent.click(directoryLink, { detail: 0 });
+
+    expect(screen.queryByRole("dialog", { name: "搜索日语内容" })).not.toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("clip");
+    expect(trigger).not.toHaveFocus();
+  });
+
   it("ignores a loader that resolves after close and loads again on the next open", async () => {
     const first = deferred<SearchIndexEntry[]>();
     const loader = vi
@@ -207,15 +270,72 @@ describe("GlobalSearch", () => {
     expect(await screen.findByRole("link", { name: /灯.*あかり.*灯光/ })).toBeVisible();
   });
 
-  it("does not update state when a pending loader resolves after unmount", async () => {
+  it("does not mutate the detached UI or reacquire scroll lock after a late loader resolution", async () => {
     const pending = deferred<SearchIndexEntry[]>();
-    const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
-    const { unmount } = render(<GlobalSearch loader={() => pending.promise} />);
+    document.body.style.overflow = "clip";
+    const { container, unmount } = render(<GlobalSearch loader={() => pending.promise} />);
 
     fireEvent.click(screen.getByRole("button", { name: "搜索全站内容" }));
     unmount();
+    const mutations: MutationRecord[] = [];
+    const observer = new MutationObserver((records) => mutations.push(...records));
+    observer.observe(container, { attributes: true, childList: true, subtree: true });
     await act(async () => pending.resolve(fixtureIndex));
+    observer.disconnect();
 
-    expect(consoleError).not.toHaveBeenCalled();
+    expect(container).toBeEmptyDOMElement();
+    expect(mutations).toEqual([]);
+    expect(document.body.style.overflow).toBe("clip");
+  });
+
+  it.each([
+    ["older first", 0],
+    ["topmost first", 1],
+  ])("coordinates two open instances when closing the %s", async (_label, firstCloseIndex) => {
+    document.body.style.overflow = "clip";
+    render(
+      <>
+        <button type="button">搜索层外</button>
+        <GlobalSearch loader={async () => fixtureIndex} />
+        <GlobalSearch loader={async () => fixtureIndex} />
+      </>,
+    );
+    const triggers = screen.getAllByRole("button", { name: "搜索全站内容" });
+    fireEvent.click(triggers[0]!);
+    fireEvent.click(triggers[1]!);
+
+    const searchboxes = screen.getAllByRole("searchbox");
+    await waitFor(() => expect(searchboxes[1]).toHaveFocus());
+    screen.getByRole("button", { name: "搜索层外" }).focus();
+    expect(searchboxes[1]).toHaveFocus();
+    expect(searchboxes[0]).not.toHaveFocus();
+
+    const closeButtons = screen.getAllByRole("button", { name: "关闭搜索" });
+    fireEvent.click(closeButtons[firstCloseIndex]!);
+    expect(document.body.style.overflow).toBe("hidden");
+    fireEvent.click(screen.getByRole("button", { name: "关闭搜索" }));
+    expect(document.body.style.overflow).toBe("clip");
+  });
+
+  it("renders a full-viewport modal layer while keeping the panel below the header", () => {
+    render(<GlobalSearch loader={async () => fixtureIndex} />);
+    fireEvent.click(screen.getByRole("button", { name: "搜索全站内容" }));
+
+    const dialog = screen.getByRole("dialog", { name: "搜索日语内容" });
+    expect(dialog).toHaveClass("global-search-layer");
+    expect(dialog.querySelector(".global-search-panel")).toBeInstanceOf(HTMLElement);
+    expect(cssRule(".global-search-layer")).toMatch(/position:\s*fixed/);
+    expect(cssRule(".global-search-layer")).toMatch(/inset:\s*0/);
+    expect(cssRule(".global-search-layer")).toMatch(/z-index:\s*70/);
+    expect(cssRule(".site-header")).toMatch(/z-index:\s*50/);
+    expect(cssRule(".global-search-panel")).toMatch(/margin-top:\s*4\.5rem/);
+  });
+
+  it("keeps search, menu, and modal-close controls at the 44px target contract", () => {
+    expect(cssRule(".global-search-trigger")).toMatch(/min-height:\s*2\.75rem/);
+    expect(cssRule(".site-menu-toggle")).toMatch(/min-(?:width|inline-size):\s*2\.75rem/);
+    expect(cssRule(".site-menu-toggle")).toMatch(/min-height:\s*2\.75rem/);
+    expect(cssRule(".global-search-close")).toMatch(/min-(?:width|inline-size):\s*2\.75rem/);
+    expect(cssRule(".global-search-close")).toMatch(/min-height:\s*2\.75rem/);
   });
 });

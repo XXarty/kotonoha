@@ -133,7 +133,7 @@ input, select { min-height: 2.75rem; }
 .site-navigation { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.6rem); font-size: .92rem; }
 .site-navigation a { display: inline-flex; min-height: 2.75rem; align-items: center; white-space: nowrap; }
 .site-navigation a:hover { color: var(--moss-text); }
-.site-menu-toggle { display: none; border: 0; color: var(--ink); background: transparent; }
+.site-menu-toggle { display: none; min-width: 2.75rem; min-height: 2.75rem; border: 0; color: var(--ink); background: transparent; }
 .global-search-trigger {
   display: inline-flex;
   min-height: 2.75rem;
@@ -150,7 +150,7 @@ input, select { min-height: 2.75rem; }
 .global-search-layer {
   position: fixed;
   z-index: 70;
-  inset: 4.5rem 0 0;
+  inset: 0;
   overflow-y: auto;
   padding-inline: 1rem;
   background: color-mix(in srgb, var(--paper) 32%, transparent);
@@ -159,6 +159,7 @@ input, select { min-height: 2.75rem; }
   position: relative;
   width: min(78rem, 100%);
   max-height: calc(100vh - 5.5rem);
+  margin-top: 4.5rem;
   margin-inline: auto;
   overflow-y: auto;
   padding: clamp(1.25rem, 3.2vw, 2.5rem);
@@ -177,6 +178,8 @@ input, select { min-height: 2.75rem; }
   top: .75rem;
   right: .75rem;
   display: inline-flex;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
   align-items: center;
   justify-content: center;
   border: 0;

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Menu as MenuIcon, Search as SearchIcon, X } from "lucide-react";
+import { flushSync } from "react-dom";
 import {
   type KeyboardEvent,
   type MouseEvent,
@@ -32,6 +33,27 @@ const kindLabels: Record<SearchIndexEntry["kind"], string> = {
 const focusableSelector =
   'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+const openDialogStack: symbol[] = [];
+let bodyScrollLockCount = 0;
+let bodyOverflowBeforeLock: string | undefined;
+
+function acquireBodyScrollLock() {
+  if (bodyScrollLockCount === 0) {
+    bodyOverflowBeforeLock = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+  }
+  bodyScrollLockCount += 1;
+}
+
+function releaseBodyScrollLock() {
+  if (bodyScrollLockCount === 0) return;
+  bodyScrollLockCount -= 1;
+  if (bodyScrollLockCount === 0) {
+    document.body.style.overflow = bodyOverflowBeforeLock ?? "";
+    bodyOverflowBeforeLock = undefined;
+  }
+}
+
 export interface GlobalSearchProps {
   loader?: SearchLoader;
 }
@@ -46,11 +68,13 @@ export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const dialogTokenRef = useRef(Symbol("global-search-dialog"));
   const resultRefs = useRef<Array<HTMLAnchorElement | null>>([]);
   const requestIdRef = useRef(0);
   const mountedRef = useRef(true);
   const lastErrorRef = useRef<unknown>(null);
   const wasOpenRef = useRef(false);
+  const restoreFocusOnCloseRef = useRef(true);
   const isOpen = state !== "closed";
 
   const results = useMemo(
@@ -72,11 +96,12 @@ export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
   useEffect(() => {
     if (!isOpen) return;
 
-    const priorOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    inputRef.current?.focus();
+    const dialogToken = dialogTokenRef.current;
+    acquireBodyScrollLock();
+    openDialogStack.push(dialogToken);
 
     const keepFocusInside = (event: FocusEvent) => {
+      if (openDialogStack.at(-1) !== dialogToken) return;
       const dialog = dialogRef.current;
       if (dialog && event.target instanceof Node && !dialog.contains(event.target)) {
         inputRef.current?.focus();
@@ -84,9 +109,12 @@ export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
     };
 
     document.addEventListener("focusin", keepFocusInside);
+    inputRef.current?.focus();
     return () => {
       document.removeEventListener("focusin", keepFocusInside);
-      document.body.style.overflow = priorOverflow;
+      const stackIndex = openDialogStack.lastIndexOf(dialogToken);
+      if (stackIndex >= 0) openDialogStack.splice(stackIndex, 1);
+      releaseBodyScrollLock();
     };
   }, [isOpen]);
 
@@ -97,7 +125,8 @@ export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
     }
     if (wasOpenRef.current) {
       wasOpenRef.current = false;
-      triggerRef.current?.focus();
+      if (restoreFocusOnCloseRef.current) triggerRef.current?.focus();
+      restoreFocusOnCloseRef.current = true;
     }
   }, [isOpen]);
 
@@ -123,6 +152,7 @@ export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
 
   const openSearch = (event: MouseEvent<HTMLButtonElement>) => {
     triggerRef.current = event.currentTarget;
+    restoreFocusOnCloseRef.current = true;
     setQuery("");
     setActiveIndex(-1);
     if (index !== null) {
@@ -132,18 +162,24 @@ export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
     requestIndex();
   };
 
-  const closeSearch = useCallback(() => {
+  const closeSearch = useCallback((restoreFocus: boolean) => {
     requestIdRef.current += 1;
     lastErrorRef.current = null;
+    restoreFocusOnCloseRef.current = restoreFocus;
     setQuery("");
     setActiveIndex(-1);
     setState("closed");
   }, []);
 
+  const closeAndRestoreFocus = useCallback(() => closeSearch(true), [closeSearch]);
+  const closeForNavigation = useCallback(() => {
+    flushSync(() => closeSearch(false));
+  }, [closeSearch]);
+
   const handleDialogKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Escape") {
       event.preventDefault();
-      closeSearch();
+      closeAndRestoreFocus();
       return;
     }
     if (event.key !== "Tab") return;
@@ -215,7 +251,7 @@ export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
             <button
               aria-label="关闭搜索"
               className="global-search-close"
-              onClick={closeSearch}
+              onClick={closeAndRestoreFocus}
               type="button"
             >
               <X aria-hidden="true" size={24} strokeWidth={1.6} />
@@ -267,6 +303,7 @@ export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
                         data-active={activeIndex === resultIndex ? "true" : "false"}
                         href={result.href}
                         id={resultId}
+                        onClick={closeForNavigation}
                         onFocus={() => setActiveIndex(resultIndex)}
                         onMouseEnter={() => setActiveIndex(resultIndex)}
                         prefetch={false}
@@ -290,10 +327,20 @@ export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
                 <button className="button-primary" onClick={requestIndex} type="button">
                   重试
                 </button>
-                <Link className="button-quiet" href="/vocabulary" prefetch={false}>
+                <Link
+                  className="button-quiet"
+                  href="/vocabulary"
+                  onClick={closeForNavigation}
+                  prefetch={false}
+                >
                   去单词目录
                 </Link>
-                <Link className="button-quiet" href="/grammar" prefetch={false}>
+                <Link
+                  className="button-quiet"
+                  href="/grammar"
+                  onClick={closeForNavigation}
+                  prefetch={false}
+                >
                   去语法目录
                 </Link>
               </div>
