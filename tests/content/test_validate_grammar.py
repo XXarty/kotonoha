@@ -112,6 +112,39 @@ EXPECTED_EXPRESSIONS_SLUGS = [
     "dake-shika",
 ]
 
+EXPECTED_ADVANCED_SLUGS = [
+    "formal-de-aru",
+    "dewa-arumai",
+    "gozaru",
+    "wake-ga-nai",
+    "wake-ni-wa-ikanai",
+    "mono-da",
+    "mono-no",
+    "sae-minimum",
+    "sura-minimum",
+    "o-roka",
+    "garu-signs",
+    "sou-ni-mieru",
+    "kaneru",
+    "kanenai",
+    "shikata-ga-nai",
+    "gachi-tendency",
+    "gimi-tendency",
+    "ppoi-tendency",
+    "darou-volitional",
+    "mashou-ka",
+    "mama-covering",
+    "ppanashi",
+    "zuku-me",
+    "tokoro-timing",
+    "bakari-just-finished",
+    "kakeru-close-action",
+    "tsutsu-while",
+    "ni-kagiru",
+    "ni-yotte",
+    "ni-tsuite",
+]
+
 
 def _write(path: Path, payload: object) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
@@ -172,6 +205,80 @@ def test_expressions_path_has_thirty_expanded_entries() -> None:
         for entry in expressions
         for related_id in entry.related_entries
     )
+
+
+def test_final_curriculum_has_four_complete_ordered_paths() -> None:
+    entries = load_grammar_curriculum(GRAMMAR_DIR)
+    curriculum_ids = {entry.id for entry in entries}
+
+    assert len(entries) == 120
+    assert [entry.display_order for entry in entries] == list(range(1, 121))
+    for path in ("foundation", "core", "expressions", "advanced"):
+        path_entries = [entry for entry in entries if entry.path == path]
+        assert len(path_entries) == 30
+        assert len({entry.expression for entry in path_entries}) == len(path_entries)
+
+    advanced = [entry for entry in entries if entry.path == "advanced"]
+    assert [entry.slug for entry in advanced] == EXPECTED_ADVANCED_SLUGS
+    assert [entry.display_order for entry in advanced] == list(range(91, 121))
+    assert all(entry.id == f"grammar:tae-kim:{entry.slug}" for entry in entries)
+    assert all(
+        example.ja and example.zh
+        for entry in entries
+        for example in entry.examples
+    )
+    assert all(mistake for entry in entries for mistake in entry.common_mistakes)
+    assert all(
+        related_id in curriculum_ids
+        for entry in entries
+        for related_id in entry.related_entries
+    )
+
+
+def test_advanced_path_preserves_required_close_distinctions() -> None:
+    advanced = {
+        entry.slug: entry
+        for entry in load_grammar_curriculum(GRAMMAR_DIR)
+        if entry.path == "advanced"
+    }
+
+    assert all(1 <= len(entry.related_entries) <= 2 for entry in advanced.values())
+    assert all(
+        urlparse(entry.source_url).scheme == "https"
+        and urlparse(entry.source_url).hostname
+        in {"guidetojapanese.org", "www.guidetojapanese.org"}
+        for entry in advanced.values()
+    )
+
+    def guidance(slug: str) -> str:
+        entry = advanced[slug]
+        return " ".join(
+            [entry.connection, entry.explanation_zh, *entry.common_mistakes]
+        )
+
+    required_terms = {
+        "wake-ga-nai": ("わけにはいかない", "不可能"),
+        "wake-ni-wa-ikanai": ("わけがない", "责任"),
+        "sae-minimum": ("すら", "おろか"),
+        "sura-minimum": ("さえ", "おろか"),
+        "o-roka": ("さえ", "すら"),
+        "kaneru": ("かねない", "拒绝"),
+        "kanenai": ("かねる", "风险"),
+        "gachi-tendency": ("気味", "っぽい", "反复"),
+        "gimi-tendency": ("がち", "っぽい", "轻微"),
+        "ppoi-tendency": ("がち", "気味", "口语"),
+        "mama-covering": ("っぱなし", "状态"),
+        "ppanashi": ("まま", "疏忽"),
+        "tokoro-timing": ("ばかり", "かける", "时点"),
+        "bakari-just-finished": ("ところ", "かける", "主观"),
+        "kakeru-close-action": ("ところ", "ばかり", "未完成"),
+        "tsutsu-while": ("ながら", "书面"),
+        "ni-kagiru": ("によって", "について", "限定"),
+        "ni-yotte": ("に限る", "について", "依据"),
+        "ni-tsuite": ("に限る", "によって", "主题"),
+    }
+    for slug, terms in required_terms.items():
+        assert all(term in guidance(slug) for term in terms)
 
 
 def test_expressions_path_preserves_reviewed_grammar_distinctions() -> None:

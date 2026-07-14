@@ -1,0 +1,722 @@
+[
+  {
+    "id": "grammar:tae-kim:formal-de-aru",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:formal-de-aru",
+    "slug": "formal-de-aru",
+    "category": "register",
+    "list_name": "formal-reasoning",
+    "expression": "～である",
+    "connection": "名词／な形容词词干 + である；过去形为「であった」，否定形为「ではない」",
+    "explanation_zh": "用于论文、说明文和正式陈述，以较客观、断定的语气表达判断；它属于普通体，不等于礼貌体「です／ます」。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/formal",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 91,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "この制度の目的は、地域間の格差を減らすことである。", "zh": "这项制度的目的是缩小地区之间的差距。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「である」是正式的普通体，并不会自动使句子更尊敬；对客户礼貌陈述通常用「です／でございます」，不要在同一段落无目的地混用文体。"
+    ],
+    "related_entries": ["grammar:tae-kim:da-desu", "grammar:tae-kim:gozaru"]
+  },
+  {
+    "id": "grammar:tae-kim:dewa-arumai",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:dewa-arumai",
+    "slug": "dewa-arumai",
+    "category": "modality",
+    "list_name": "formal-reasoning",
+    "expression": "～ではあるまい",
+    "connection": "名词／な形容词词干 + ではあるまい；「あるまい」是「ある」的否定推量形式",
+    "explanation_zh": "以正式、书面语气推测某事大概并非如此，相当于较郑重的「～ではないだろう」。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/volitional2",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 92,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "彼の沈黙は、単なる偶然ではあるまい。", "zh": "他的沉默大概不只是偶然。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「ではあるまい」表示否定推量，不是直接断言「不是」；若要明确否定事实，用「ではない」，不要把两者当作只差正式程度。"
+    ],
+    "related_entries": ["grammar:tae-kim:formal-de-aru", "grammar:tae-kim:darou-volitional"]
+  },
+  {
+    "id": "grammar:tae-kim:gozaru",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:gozaru",
+    "slug": "gozaru",
+    "category": "politeness",
+    "list_name": "formal-reasoning",
+    "expression": "ござる／ございます",
+    "connection": "「ある」的郑重语为「ござる」；现代礼貌表达常用「ございます」，判断句用名词／な形容词词干 + でございます",
+    "explanation_zh": "「ございます」用于服务场景或郑重陈述存在与判断；辞书形「ござる」在现代日常会话中带古风或角色化色彩。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/honorific",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 93,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "ご予約のお席はこちらでございます。", "zh": "您预约的座位在这里。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "现代接待语通常说「ございます／でございます」，直接句末说「でござる」会显得古风；也不要把郑重语误当成所有场合都自然的尊敬语。"
+    ],
+    "related_entries": ["grammar:tae-kim:formal-de-aru", "grammar:tae-kim:honorific-verbs"]
+  },
+  {
+    "id": "grammar:tae-kim:wake-ga-nai",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:wake-ga-nai",
+    "slug": "wake-ga-nai",
+    "category": "reasoning",
+    "list_name": "formal-reasoning",
+    "expression": "～わけがない",
+    "connection": "动词／い形容词普通形 + わけがない；名词／な形容词词干 + なわけがない",
+    "explanation_zh": "根据常识、证据或前提强烈判断“绝不可能”。它否定的是结论的可能性；「わけにはいかない」则表示受责任或处境约束而不能做。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/reasoning",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 94,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "鍵は私が持っているのだから、彼が先に入れるわけがない。", "zh": "钥匙在我这里，所以他不可能先进去。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「わけがない」不是“因为义务所以不能”；要表达明知能做、但因责任不能做，应使用「わけにはいかない」。"
+    ],
+    "related_entries": ["grammar:tae-kim:wake-explanation", "grammar:tae-kim:wake-ni-wa-ikanai"]
+  },
+  {
+    "id": "grammar:tae-kim:wake-ni-wa-ikanai",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:wake-ni-wa-ikanai",
+    "slug": "wake-ni-wa-ikanai",
+    "category": "obligation",
+    "list_name": "formal-reasoning",
+    "expression": "～わけにはいかない",
+    "connection": "动词辞书形 + わけにはいかない；动词ない形 + わけにはいかない表示“不能不做”，即必须做",
+    "explanation_zh": "动作本身并非不可能，但因责任、立场或社会情理而不能选择去做；这与判断事情不可能成立的「わけがない」不同。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/reasoning",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 95,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "明日は私が責任者なので、休むわけにはいかない。", "zh": "明天我是负责人，所以不能请假。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "不要把「行かないわけにはいかない」理解成“不可能去”；双重否定表示因责任“不能不去”，也就是必须去。"
+    ],
+    "related_entries": ["grammar:tae-kim:wake-ga-nai", "grammar:tae-kim:te-wa-ikenai"]
+  },
+  {
+    "id": "grammar:tae-kim:mono-da",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:mono-da",
+    "slug": "mono-da",
+    "category": "discourse",
+    "list_name": "formal-reasoning",
+    "expression": "～ものだ",
+    "connection": "动词／い形容词普通形 + ものだ；名词／な形容词词干 + なものだ；回忆过去常用「～たものだ」",
+    "explanation_zh": "可把内容概括为一般常理、感叹，或用过去形回忆从前经常发生的事；这里的「もの」已语法化，不单指具体物品。",
+    "source_url": "https://www.guidetojapanese.org/blog/2014/08/20/%E6%9A%87%E3%81%A4%E3%81%B6%E3%81%97%E3%81%AE%E6%8A%95%E7%A8%BF/",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 96,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "子どものころは、暗くなるまで川で遊んだものだ。", "zh": "小时候常常在河边玩到天黑。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "回忆习惯时「～たものだ」表示过去反复发生，不宜只描述一次事件；也不要把句末语法一律按实体名词“东西”翻译。"
+    ],
+    "related_entries": ["grammar:tae-kim:generic-mono", "grammar:tae-kim:ta-koto-ga-aru"]
+  },
+  {
+    "id": "grammar:tae-kim:mono-no",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:mono-no",
+    "slug": "mono-no",
+    "category": "contrast",
+    "list_name": "formal-reasoning",
+    "expression": "～ものの",
+    "connection": "动词／い形容词普通形 + ものの；名词 + であるものの；な形容词词干 + なものの／であるものの",
+    "explanation_zh": "以较书面的语气承认前项事实，再说明后项出现不相称、未达预期或相反的结果。",
+    "source_url": "https://www.guidetojapanese.org/blog/2011/07/15/what-im-reading-today/",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 97,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "参加すると約束したものの、急な仕事で行けなくなった。", "zh": "虽然答应参加，却因为临时工作而去不了了。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「ものの」是连接两个小句的转折形式，不是实体名词「もの」加所属助词「の」；后项应体现与前项预期不一致。"
+    ],
+    "related_entries": ["grammar:tae-kim:noni-contrast", "grammar:tae-kim:mono-da"]
+  },
+  {
+    "id": "grammar:tae-kim:sae-minimum",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:sae-minimum",
+    "slug": "sae-minimum",
+    "category": "focus",
+    "list_name": "minimum-and-signs",
+    "expression": "（で）さえ",
+    "connection": "名词 + さえ／でさえ；动词ます形去掉ます + さえすれば；动词て形 + さえ + 补助动词",
+    "explanation_zh": "提出最低或极端项目，表示“连……都”或“只要……就”。「すら」较书面且以名词为主；「おろか」则先排除更高层项目，再强调较低层也不成立。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/even",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 98,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "申込書に名前さえ書けば、受付は完了します。", "zh": "申请表上只要写名字，受理就完成了。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「さえ」不只表示负面的“连……也不”，也可配合条件表示最低充分条件；不要把它与主要限于名词、语气较书面的「すら」完全等同。"
+    ],
+    "related_entries": ["grammar:tae-kim:sura-minimum", "grammar:tae-kim:o-roka"]
+  },
+  {
+    "id": "grammar:tae-kim:sura-minimum",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:sura-minimum",
+    "slug": "sura-minimum",
+    "category": "focus",
+    "list_name": "minimum-and-signs",
+    "expression": "（で）すら",
+    "connection": "名词 + すら／ですら；附着在含助词的名词项后时保留必要的格关系",
+    "explanation_zh": "以偏书面、强调的方式提出意外的最低项目，主要接名词。「さえ」适用范围更广；「おろか」采用“A姑且不论，连B也……”的两级结构。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/even",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 99,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "長年の専門家ですら、その原因を説明できなかった。", "zh": "就连多年的专家也无法解释其原因。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「すら」通常直接突出名词，不像「さえ」那样常构成「动词词干＋さえすれば」；日常口语也往往优先用「さえ」。"
+    ],
+    "related_entries": ["grammar:tae-kim:sae-minimum", "grammar:tae-kim:o-roka"]
+  },
+  {
+    "id": "grammar:tae-kim:o-roka",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:o-roka",
+    "slug": "o-roka",
+    "category": "focus",
+    "list_name": "minimum-and-signs",
+    "expression": "～はおろか",
+    "connection": "名词A + はおろか、名词B + も／さえ／すら + 谓语",
+    "explanation_zh": "先说较高门槛的A根本不必谈，再指出连较低门槛的B也不成立。它构造两个层级，不同于单独聚焦一个最低项的「さえ／すら」。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/even",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 100,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "海外旅行はおろか、県外にさえ出たことがない。", "zh": "别说出国旅行了，我甚至都没出过本县。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "A应是更高、更难达到的项目，B是更基础的项目；若把层级颠倒，句子的递进逻辑会不自然。"
+    ],
+    "related_entries": ["grammar:tae-kim:sae-minimum", "grammar:tae-kim:sura-minimum"]
+  },
+  {
+    "id": "grammar:tae-kim:garu-signs",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:garu-signs",
+    "slug": "garu-signs",
+    "category": "evidentiality",
+    "list_name": "minimum-and-signs",
+    "expression": "～がる",
+    "connection": "い形容词去掉い + がる；な形容词词干 + がる；「欲しい→欲しがる」，「～たい→～たがる」",
+    "explanation_zh": "根据可观察到的表情或行为描述他人的感受、欲望；接上「がる」后整体按五段动词变化。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/signs",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 101,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "弟は注射を見ると、いつも怖がる。", "zh": "弟弟一看到打针就总是显得害怕。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "自己的当下感受通常直接说「怖い／うれしい」，不说「怖がる」；「～がる」表示从外在迹象观察到的表现。"
+    ],
+    "related_entries": ["grammar:tae-kim:tagaru-desire", "grammar:tae-kim:sou-ni-mieru"]
+  },
+  {
+    "id": "grammar:tae-kim:sou-ni-mieru",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:sou-ni-mieru",
+    "slug": "sou-ni-mieru",
+    "category": "evidentiality",
+    "list_name": "minimum-and-signs",
+    "expression": "～そうに見える",
+    "connection": "动词ます形去掉ます／い形容词去掉い／な形容词词干 + そうに見える；「いい→よさそう」，「ない→なさそう」",
+    "explanation_zh": "根据眼前外观判断某状态似乎如此；「そう」变为副词形「そうに」来修饰「見える」。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/similarity",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 102,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "この椅子は丈夫そうに見えるが、とても軽い。", "zh": "这把椅子看起来很结实，却非常轻。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "外观样态的「そう」接词干，不能照搬传闻「普通形＋そうだ」；例如“看起来好”说「よさそうに見える」，不是「いいそうに見える」。"
+    ],
+    "related_entries": ["grammar:tae-kim:sou-appearance", "grammar:tae-kim:garu-signs"]
+  },
+  {
+    "id": "grammar:tae-kim:kaneru",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:kaneru",
+    "slug": "kaneru",
+    "category": "modality",
+    "list_name": "feasibility-and-tendency",
+    "expression": "～かねる",
+    "connection": "动词ます形去掉ます + かねる；礼貌场合常用「～かねます」",
+    "explanation_zh": "表示说话者因立场、判断或心理阻力难以做某事，常用于正式而克制的拒绝。「かねない」不是它的普通否定，而表示负面事情可能发生。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/feasibility",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 103,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "個別の審査結果については、お答えしかねます。", "zh": "关于个别审查结果，我们不便回答。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「かねる」多表达基于立场的困难或婉转拒绝，不宜替代所有身体能力上的“不会”；也不要按字面把「かねない」理解成“不能”。"
+    ],
+    "related_entries": ["grammar:tae-kim:kanenai", "grammar:tae-kim:potential-form"]
+  },
+  {
+    "id": "grammar:tae-kim:kanenai",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:kanenai",
+    "slug": "kanenai",
+    "category": "modality",
+    "list_name": "feasibility-and-tendency",
+    "expression": "～かねない",
+    "connection": "动词ます形去掉ます + かねない",
+    "explanation_zh": "指出某种不希望出现的结果有发生风险，可理解为“很可能会／恐怕会”。虽然外形带「ない」，意义并不是「かねる」的简单否定。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/feasibility",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 104,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "このまま確認を省けば、重大な事故につながりかねない。", "zh": "如果继续省略检查，可能会导致重大事故。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「かねない」通常提示不良后果的可能性或风险；要婉转拒绝“难以回答”应说「答えかねる」，不是「答えかねない」。"
+    ],
+    "related_entries": ["grammar:tae-kim:kaneru", "grammar:tae-kim:sou-appearance"]
+  },
+  {
+    "id": "grammar:tae-kim:shikata-ga-nai",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:shikata-ga-nai",
+    "slug": "shikata-ga-nai",
+    "category": "modality",
+    "list_name": "feasibility-and-tendency",
+    "expression": "仕方がない／しょうがない",
+    "connection": "完整句 + のは仕方がない；动词て形 + も仕方がない；也可作为固定句「仕方がない」独立使用",
+    "explanation_zh": "接受某个已经无法改变或没有现实办法避免的局面；口语常说「しょうがない」。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/feasibility",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 105,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "電車が止まったのだから、到着が遅れても仕方がない。", "zh": "既然电车停运了，晚到也是没办法的事。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「仕方がない」评价局面无可奈何，不等于因责任而“不能做”的「わけにはいかない」，也不是正式拒绝用的「かねる」。"
+    ],
+    "related_entries": ["grammar:tae-kim:wake-ni-wa-ikanai", "grammar:tae-kim:kaneru"]
+  },
+  {
+    "id": "grammar:tae-kim:gachi-tendency",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:gachi-tendency",
+    "slug": "gachi-tendency",
+    "category": "tendency",
+    "list_name": "feasibility-and-tendency",
+    "expression": "～がち",
+    "connection": "动词ます形去掉ます／名词 + がちだ；修饰名词用「がちの」或「がちな」",
+    "explanation_zh": "表示某种多为负面的行为或状态容易反复出现、所占比例偏高。「気味」描述当下轻微状态；「っぽい」则是口语中的性质或印象。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/tendency",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 106,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "忙しい時期は、昼食を抜きがちだ。", "zh": "忙的时候往往容易不吃午饭。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「がち」强调反复发生的倾向，不只是目前“有一点”；轻微的当前症状用「気味」，随口评价某物“很像／容易”常用「っぽい」。"
+    ],
+    "related_entries": ["grammar:tae-kim:gimi-tendency", "grammar:tae-kim:ppoi-tendency"]
+  },
+  {
+    "id": "grammar:tae-kim:gimi-tendency",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:gimi-tendency",
+    "slug": "gimi-tendency",
+    "category": "tendency",
+    "list_name": "feasibility-and-tendency",
+    "expression": "～気味",
+    "connection": "动词ます形去掉ます／名词 + 気味だ；修饰名词用「気味の」",
+    "explanation_zh": "表示当前略微呈现某种通常不理想的状态或进展，例如疲劳、感冒、延迟。「がち」偏反复倾向；「っぽい」偏口语性质或印象。",
+    "source_url": "https://www.guidetojapanese.org/blog/2013/12/04/japanese-study-2013-recap/",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 107,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "今週は残業が続いて、少し寝不足気味だ。", "zh": "这周连续加班，有点睡眠不足。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「気味」表示轻微、当前的偏向，不宜用来概括长期反复习惯；长期容易忘事可用「忘れがち」，口语说性格健忘则可用「忘れっぽい」。"
+    ],
+    "related_entries": ["grammar:tae-kim:gachi-tendency", "grammar:tae-kim:ppoi-tendency"]
+  },
+  {
+    "id": "grammar:tae-kim:ppoi-tendency",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:ppoi-tendency",
+    "slug": "ppoi-tendency",
+    "category": "tendency",
+    "list_name": "feasibility-and-tendency",
+    "expression": "～っぽい",
+    "connection": "名词／动词ます形去掉ます／部分い形容词词干 + っぽい；整体按い形容词变化",
+    "explanation_zh": "以口语表达某物带有某种感觉、某人容易出现某行为或看起来像某类事物。「がち」偏反复负面倾向，「気味」偏当下轻微状态。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/similarity",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 108,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "このかばんは便利だが、少し安っぽく見える。", "zh": "这个包很方便，但看起来有点廉价。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「っぽい」是较口语的性质判断，不是所有正式场合都合适；反复发生用「がち」，当前轻微不适用「気味」，不能只因中文都可译成“有点”就互换。"
+    ],
+    "related_entries": ["grammar:tae-kim:gachi-tendency", "grammar:tae-kim:gimi-tendency"]
+  },
+  {
+    "id": "grammar:tae-kim:darou-volitional",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:darou-volitional",
+    "slug": "darou-volitional",
+    "category": "modality",
+    "list_name": "volition-and-state",
+    "expression": "～だろう／～であろう",
+    "connection": "动词／い形容词普通形 + だろう；名词／な形容词词干 + だろう；正式书面语常用「であろう」",
+    "explanation_zh": "从「だ」的推量形发展而来，用于推测或带把握地提出判断；「であろう」语气更正式。它虽有意向形来源，通常不表示共同提议。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/volitional2",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 109,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "この技術は、今後さらに重要になるだろう。", "zh": "这项技术今后大概会变得更加重要。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「だろう」在这里表示推测，不等于“让我们……”；礼貌地提议或主动帮忙应使用「～ましょう（か）」。"
+    ],
+    "related_entries": ["grammar:tae-kim:dewa-arumai", "grammar:tae-kim:mashou-ka"]
+  },
+  {
+    "id": "grammar:tae-kim:mashou-ka",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:mashou-ka",
+    "slug": "mashou-ka",
+    "category": "volition",
+    "list_name": "volition-and-state",
+    "expression": "～ましょうか",
+    "connection": "动词ます形去掉ます + ましょうか",
+    "explanation_zh": "可礼貌地提出共同建议，也可询问是否由说话者主动为对方做某事；具体是谁行动由动词和语境决定。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/volitional2",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 110,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "その荷物、私がお持ちしましょうか。", "zh": "那件行李，要不要我来帮您拿？", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「私が～ましょうか」常是主动提供帮助；邀请对方一起做通常说「一緒に～ましょうか」。不要把它一律翻成同一种“要不要”。"
+    ],
+    "related_entries": ["grammar:tae-kim:volitional-form", "grammar:tae-kim:darou-volitional"]
+  },
+  {
+    "id": "grammar:tae-kim:mama-covering",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:mama-covering",
+    "slug": "mama-covering",
+    "category": "aspect",
+    "list_name": "volition-and-state",
+    "expression": "～まま",
+    "connection": "动词た形／ない形 + まま；名词 + のまま；な形容词词干 + なまま；い形容词 + まま",
+    "explanation_zh": "表示某个状态未经改变而持续到后续动作或时点，本身可中性描述，也可表示有意保持。「っぱなし」更常含动作后放任不管的疏忽语气。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/nochange",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 111,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "靴を履いたまま、部屋に入らないでください。", "zh": "请不要穿着鞋进入房间。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「まま」只说明状态维持，不一定带责备；若强调做完动作后因疏忽一直放着，通常用「っぱなし」。"
+    ],
+    "related_entries": ["grammar:tae-kim:ppanashi", "grammar:tae-kim:te-iru"]
+  },
+  {
+    "id": "grammar:tae-kim:ppanashi",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:ppanashi",
+    "slug": "ppanashi",
+    "category": "aspect",
+    "list_name": "volition-and-state",
+    "expression": "～っぱなし",
+    "connection": "动词ます形去掉ます + っぱなし；后续可接「だ／にする／で」等，整体按名词使用",
+    "explanation_zh": "表示动作完成后结果一直未处理，常暗示疏忽或放任；也可描述同一动作持续不断。「まま」只聚焦状态不变，语气更中性。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/nochange",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 112,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "窓を開けっぱなしで出かけたので、床がぬれてしまった。", "zh": "因为开着窗就出门了，地板被淋湿了。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「っぱなし」通常接动词词干并常带疏忽评价，不要写成动词た形；单纯说保持某种外观或心情时用「まま」更自然。"
+    ],
+    "related_entries": ["grammar:tae-kim:mama-covering", "grammar:tae-kim:te-shimau"]
+  },
+  {
+    "id": "grammar:tae-kim:zuku-me",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:zuku-me",
+    "slug": "zuku-me",
+    "category": "extent",
+    "list_name": "volition-and-state",
+    "expression": "～ずくめ",
+    "connection": "名词 + ずくめ；修饰名词时用「～ずくめの + 名词」",
+    "explanation_zh": "表示从头到尾、各方面全是同一种事物或性质，常见于颜色和固定搭配，如「黒ずくめ」「いいことずくめ」。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/covered",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 113,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "黒ずくめの男が、駅の前に立っていた。", "zh": "一个全身黑衣的男人站在车站前。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「ずくめ」不是一般的“沾满”；液体或尘土附着在表面常用「まみれ」，到处都是负面事物常用「だらけ」。"
+    ],
+    "related_entries": ["grammar:tae-kim:dake-shika", "grammar:tae-kim:mama-covering"]
+  },
+  {
+    "id": "grammar:tae-kim:tokoro-timing",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:tokoro-timing",
+    "slug": "tokoro-timing",
+    "category": "time",
+    "list_name": "timing-and-relations",
+    "expression": "～ところだ",
+    "connection": "动词辞书形 + ところだ（正要做）；动词ている形 + ところだ（正在做）；动词た形 + ところだ（刚做完）",
+    "explanation_zh": "把动作放在说话时附近的具体时点上。「たばかり」是说话者主观认为不久；「～かける」则表示动作尚未完成或险些发生。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/genericnouns",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 114,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "今から最終版を送るところです。", "zh": "我现在正要发送最终版。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「たところ」聚焦动作刚结束的客观时点，不能像「たばかり」那样宽泛地表达主观上的“还算最近”；未完成的动作则用「～かける」。"
+    ],
+    "related_entries": ["grammar:tae-kim:bakari-just-finished", "grammar:tae-kim:kakeru-close-action"]
+  },
+  {
+    "id": "grammar:tae-kim:bakari-just-finished",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:bakari-just-finished",
+    "slug": "bakari-just-finished",
+    "category": "time",
+    "list_name": "timing-and-relations",
+    "expression": "～たばかり",
+    "connection": "动词た形 + ばかりだ；口语可缩为「～たばっかり／～たばっか」",
+    "explanation_zh": "表示说话者主观上认为动作完成不久，实际可隔一段时间。「たところ」更贴近刚结束的具体时点；「～かける」表示尚未完成。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/timeactions",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 115,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "この会社に入ったばかりなので、まだ仕事の流れが分からない。", "zh": "我才刚进这家公司，还不了解工作流程。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "这里必须接动词た形，且“刚刚”由说话者主观判断；不要与表示数量偏多的「ばかり」混淆，也不要把未完成的「～かける」当成同义。"
+    ],
+    "related_entries": ["grammar:tae-kim:tokoro-timing", "grammar:tae-kim:kakeru-close-action"]
+  },
+  {
+    "id": "grammar:tae-kim:kakeru-close-action",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:kakeru-close-action",
+    "slug": "kakeru-close-action",
+    "category": "aspect",
+    "list_name": "timing-and-relations",
+    "expression": "～かける／～かけ",
+    "connection": "动词ます形去掉ます + かける；作名词修饰时用「～かけの + 名词」，状态叙述可用「～かけだ」",
+    "explanation_zh": "表示动作已经开始但未完成，或变化眼看要发生却停在途中。「ところ」标记动作时点；「たばかり」表示已经完成且主观上不久。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/immedate",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 116,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "読みかけの本を机の上に置いた。", "zh": "我把读到一半的书放在了桌上。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「～かける」的核心是未完成或险些发生，不表示“刚做完”；完成后的近期用「たばかり」，精确描述正要／正在／刚做完的时点用「ところ」。"
+    ],
+    "related_entries": ["grammar:tae-kim:tokoro-timing", "grammar:tae-kim:bakari-just-finished"]
+  },
+  {
+    "id": "grammar:tae-kim:tsutsu-while",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:tsutsu-while",
+    "slug": "tsutsu-while",
+    "category": "conjunctions",
+    "list_name": "timing-and-relations",
+    "expression": "～つつ",
+    "connection": "动词ます形去掉ます + つつ；两个动作通常由同一主体进行",
+    "explanation_zh": "以较书面的方式表示两个动作同时进行，主要动作通常放在后项；日常口语更常用「ながら」。另有「知りつつ」一类让步用法。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/tendency",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 117,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "古い記録を確認しつつ、報告書を修正した。", "zh": "我一边核对旧记录，一边修改了报告。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「つつ」接动词词干，不接て形；它比「ながら」书面，而且并行动作通常同一主体，不能只按中文“一边”机械替换。"
+    ],
+    "related_entries": ["grammar:tae-kim:nagara-while", "grammar:tae-kim:te-combinations"]
+  },
+  {
+    "id": "grammar:tae-kim:ni-kagiru",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:ni-kagiru",
+    "slug": "ni-kagiru",
+    "category": "limitation",
+    "list_name": "timing-and-relations",
+    "expression": "～に限る",
+    "connection": "名词／动词辞书形 + に限る；表示适用范围时也常见「～に限り／～に限って」",
+    "explanation_zh": "句末「～に限る」可断定某选择最好；相关形式也可限定对象范围。「によって」给出依据、手段或差异因素；「について」只引出讨论主题。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/other",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 118,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "疲れた日は、早く寝るに限る。", "zh": "累了的日子最好早点睡。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「に限る」表达最佳选择或限定范围，不表示“因人而异”的依据（によって），也不只是标记“关于某事”的主题（について）。"
+    ],
+    "related_entries": ["grammar:tae-kim:ni-yotte", "grammar:tae-kim:ni-tsuite"]
+  },
+  {
+    "id": "grammar:tae-kim:ni-yotte",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:ni-yotte",
+    "slug": "ni-yotte",
+    "category": "relations",
+    "list_name": "timing-and-relations",
+    "expression": "～によって",
+    "connection": "名词 + によって；修饰名词时用「名词 + による + 名词」，信息来源常用「～によると」",
+    "explanation_zh": "表示结果随某因素而异，也可在不同语境表示依据、手段、原因或被动句施事者。「に限る」是限定或最佳选择；「について」标记主题。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/comparison",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 119,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "地域によって、ごみの分別方法が異なる。", "zh": "垃圾分类方法因地区而异。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「によって」要表达差异的依据、手段等关系，不能用来单纯引出谈论主题；“关于制度”应说「制度について」，限定对象则用「に限る／に限り」。"
+    ],
+    "related_entries": ["grammar:tae-kim:ni-kagiru", "grammar:tae-kim:ni-tsuite"]
+  },
+  {
+    "id": "grammar:tae-kim:ni-tsuite",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:ni-tsuite",
+    "slug": "ni-tsuite",
+    "category": "relations",
+    "list_name": "timing-and-relations",
+    "expression": "～について",
+    "connection": "名词 + について + 谓语；修饰名词时用「名词 + についての + 名词」",
+    "explanation_zh": "把名词设为说明、调查、讨论等行为所围绕的主题。“关于”不包含限定意义，也不说明结果取决于某项依据。",
+    "source_url": "https://guidetojapanese.org/completeguide.html",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-15",
+    "display_order": 120,
+    "published": true,
+    "path": "advanced",
+    "examples": [
+      {"ja": "来年度の新制度について、担当者が説明します。", "zh": "负责人将说明下一年度的新制度。", "source": "kotonoha-original"}
+    ],
+    "common_mistakes": [
+      "「について」只标记讨论主题，不等于表示限定的「に限る」，也不等于表示依据、手段或因对象而异的「によって」。"
+    ],
+    "related_entries": ["grammar:tae-kim:ni-kagiru", "grammar:tae-kim:ni-yotte"]
+  }
+]
