@@ -79,9 +79,10 @@ describe("AuthForm", () => {
   });
 
   it("keeps the server error visible and actionable", async () => {
+    const sensitive = "host=database.internal schema=auth query=SELECT secret=better-auth-key";
     signInEmail.mockResolvedValue({
       data: null,
-      error: { code: "EMAIL_SIGN_IN_DISABLED", message: "Email sign-in is disabled" },
+      error: { code: "INTERNAL_SERVER_ERROR", message: sensitive },
     });
     render(<AuthForm />);
 
@@ -92,7 +93,9 @@ describe("AuthForm", () => {
     fireEvent.click(screen.getByRole("button", { name: "登录" }));
 
     expect(await screen.findByRole("alert")).toHaveTextContent(
-      "操作失败：Email sign-in is disabled。请检查信息后重试。",
+      "暂时无法登录，请检查网络后重试。",
     );
+    expect(screen.getByRole("alert")).not.toHaveTextContent("database.internal");
+    expect(screen.getByRole("alert")).not.toHaveTextContent("better-auth-key");
   });
 });

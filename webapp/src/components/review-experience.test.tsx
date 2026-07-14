@@ -23,14 +23,28 @@ it("uses the approved review prompt and guest storage guidance", () => {
   ).toBeVisible();
 });
 
-it("keeps the review service error visible and actionable", async () => {
+it("replaces internal review service errors with a safe actionable fallback", async () => {
+  const sensitive = "host=database.internal schema=progress query=SELECT secret=neon-key";
   useSession.mockReturnValue({ isPending: false, data: { user: { id: "user-1" } } });
-  getDueReviewAction.mockRejectedValue(new Error("数据库连接中断"));
+  getDueReviewAction.mockRejectedValue(new Error(sensitive));
   render(<ReviewExperience authEnabled />);
 
   fireEvent.click(screen.getByRole("button", { name: "查看到期内容" }));
 
   expect(
-    await screen.findByText("暂时无法读取复习队列：数据库连接中断。请稍后重试。"),
+    await screen.findByText("暂时无法读取复习队列。请检查网络连接后稍后重试。"),
   ).toBeVisible();
+  expect(screen.queryByText(sensitive, { exact: false })).not.toBeInTheDocument();
+  expect(document.body).not.toHaveTextContent("database.internal");
+  expect(document.body).not.toHaveTextContent("neon-key");
+});
+
+it("only recommends signing in again for the known session error", async () => {
+  useSession.mockReturnValue({ isPending: false, data: { user: { id: "user-1" } } });
+  getDueReviewAction.mockRejectedValue(new Error("Authentication required"));
+  render(<ReviewExperience authEnabled />);
+
+  fireEvent.click(screen.getByRole("button", { name: "查看到期内容" }));
+
+  expect(await screen.findByText("登录状态已过期，请重新登录后再试。")).toBeVisible();
 });

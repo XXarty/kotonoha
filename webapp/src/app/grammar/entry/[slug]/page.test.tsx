@@ -1,12 +1,14 @@
 import { render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { getContentItem, getGrammarEntry, getSourceAttributions } = vi.hoisted(() => ({
+const { getContentItem, getGrammarEntry, getSourceAttributions, notFound } = vi.hoisted(() => ({
   getContentItem: vi.fn(),
   getGrammarEntry: vi.fn(),
   getSourceAttributions: vi.fn(),
+  notFound: vi.fn(),
 }));
 
+vi.mock("next/navigation", () => ({ notFound }));
 vi.mock("@/lib/auth/enabled", () => ({ isAuthConfigured: () => false }));
 vi.mock("@/components/study-rater", () => ({
   ConnectedStudyRater: ({ itemId }: { itemId: string }) => (
@@ -75,6 +77,10 @@ const related = {
 
 describe("GrammarEntryPage", () => {
   beforeEach(() => {
+    vi.clearAllMocks();
+    notFound.mockImplementation(() => {
+      throw new Error("NEXT_NOT_FOUND");
+    });
     getGrammarEntry.mockReturnValue(baseEntry);
     getContentItem.mockImplementation((id: keyof typeof related) => related[id] ?? null);
     getSourceAttributions.mockReturnValue({
@@ -98,6 +104,18 @@ describe("GrammarEntryPage", () => {
       ],
       snapshots: [],
     });
+  });
+
+  it("returns not found for a missing grammar slug without resolving related content", async () => {
+    getGrammarEntry.mockReturnValue(null);
+
+    await expect(
+      GrammarEntryPage({ params: Promise.resolve({ slug: "missing-unit" }) }),
+    ).rejects.toThrow("NEXT_NOT_FOUND");
+
+    expect(notFound).toHaveBeenCalledOnce();
+    expect(getContentItem).not.toHaveBeenCalled();
+    expect(getSourceAttributions).not.toHaveBeenCalled();
   });
 
   it("renders the expanded learning sections and every structured example", async () => {

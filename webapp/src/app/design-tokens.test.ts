@@ -80,3 +80,12 @@ describe("selective paper texture", () => {
     expect(globalSearch).not.toContain("bg-transparent");
   });
 });
+
+describe("detail touch targets", () => {
+  it("keeps source links at least 44px high and lets their row wrap on narrow screens", () => {
+    expect(rule(".source-block a")).toContain("display: inline-flex");
+    expect(rule(".source-block a")).toContain("min-height: 2.75rem");
+    expect(rule(".source-block a")).toContain("align-items: center");
+    expect(rule(".source-link-row")).toContain("flex-wrap: wrap");
+  });
+});

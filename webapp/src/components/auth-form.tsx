@@ -13,16 +13,12 @@ import {
 type Mode = "sign-in" | "sign-up";
 type FieldErrors = Partial<Record<keyof AuthCredentials, string>>;
 
-function authErrorMessage(error: unknown): string {
+function authErrorMessage(error: unknown, mode: Mode): string {
   const friendly = getAuthErrorMessage(error);
   if (friendly !== "操作失败，请稍后重试") return `${friendly}。请检查后重试。`;
-  if (error && typeof error === "object" && "message" in error) {
-    const message = (error as { message?: unknown }).message;
-    if (typeof message === "string" && message.trim()) {
-      return `操作失败：${message.trim().replace(/[。.!！]+$/, "")}。请检查信息后重试。`;
-    }
-  }
-  return "操作失败。请检查网络连接后重试。";
+  return mode === "sign-in"
+    ? "暂时无法登录，请检查网络后重试。"
+    : "暂时无法注册，请检查网络后重试。";
 }
 
 export function AuthForm({ redirectTo = "/profile" }: { redirectTo?: string }) {
@@ -67,14 +63,14 @@ export function AuthForm({ redirectTo = "/profile" }: { redirectTo?: string }) {
             });
 
       if (response.error) {
-        setFormError(authErrorMessage(response.error));
+        setFormError(authErrorMessage(response.error, mode));
         return;
       }
 
       router.replace(redirectTo);
       router.refresh();
     } catch (error) {
-      setFormError(authErrorMessage(error));
+      setFormError(authErrorMessage(error, mode));
     } finally {
       setIsPending(false);
     }

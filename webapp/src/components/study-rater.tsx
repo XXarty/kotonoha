@@ -16,16 +16,14 @@ const ratings: { label: string; value: ReviewRating }[] = [
 
 const GUEST_GUIDANCE = "这次记录会留在这台设备上。登录后，也能在其他设备继续。";
 
-function errorDetail(error: unknown): string | null {
-  if (!(error instanceof Error)) return null;
-  const detail = error.message.trim().replace(/[。.!！]+$/, "");
-  return detail || null;
-}
-
 function studyError(action: "记录" | "收藏", error: unknown, signedIn: boolean): string {
-  const detail = errorDetail(error);
-  if (signedIn && detail) return `${action}失败：${detail}。请重新登录后再试。`;
-  if (signedIn) return `${action}失败。请重新登录后再试。`;
+  if (signedIn && error instanceof Error && error.message === "Authentication required") {
+    return "登录状态已过期，请重新登录后再试。";
+  }
+  if (error instanceof Error && error.message === "content item not found") {
+    return "这项内容暂时不可用，请返回目录选择其他内容。";
+  }
+  if (signedIn) return `${action}失败。请检查网络连接后稍后重试。`;
   return `${action}失败：无法写入这台设备。请检查浏览器存储权限后再试。`;
 }
 

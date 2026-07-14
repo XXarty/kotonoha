@@ -80,9 +80,8 @@ export default async function GrammarEntryPage({ params }: { params: Promise<{ s
           {source ? (
             <section className="source-block" aria-labelledby="grammar-source-heading">
               <h2 className="detail-section-title" id="grammar-source-heading">来源</h2>
-              <p>
+              <p className="source-link-row">
                 <a href={entry.source_url}>{source.title}</a>
-                <span aria-hidden="true"> · </span>
                 <a href={source.license_url}>{source.license_name}</a>
               </p>
               {entry.provenance_kind === "project-authored-extension" ? (

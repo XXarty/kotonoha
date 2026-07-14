@@ -59,9 +59,8 @@ export default async function VocabularyEntryPage({ params }: { params: Promise<
           {source ? (
             <section className="source-block" aria-labelledby="source-heading">
               <h2 className="detail-section-title" id="source-heading">来源</h2>
-              <p>
+              <p className="source-link-row">
                 <a href={source.url}>{source.title}</a>
-                <span aria-hidden="true"> · </span>
                 <a href={source.license_url}>{source.license_name}</a>
               </p>
               <p>内容版本：{entry.content_version}</p>

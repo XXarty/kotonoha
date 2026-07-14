@@ -1,11 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { getSourceAttributions, getVocabularyEntry } = vi.hoisted(() => ({
+const { getSourceAttributions, getVocabularyEntry, notFound } = vi.hoisted(() => ({
   getSourceAttributions: vi.fn(),
   getVocabularyEntry: vi.fn(),
+  notFound: vi.fn(),
 }));
 
+vi.mock("next/navigation", () => ({ notFound }));
 vi.mock("@/lib/auth/enabled", () => ({ isAuthConfigured: () => false }));
 vi.mock("@/components/study-rater", () => ({
   ConnectedStudyRater: ({ itemId }: { itemId: string }) => (
@@ -42,6 +44,10 @@ const baseEntry = {
 
 describe("VocabularyEntryPage", () => {
   beforeEach(() => {
+    vi.clearAllMocks();
+    notFound.mockImplementation(() => {
+      throw new Error("NEXT_NOT_FOUND");
+    });
     getVocabularyEntry.mockReturnValue(baseEntry);
     getSourceAttributions.mockReturnValue({
       sources: [
@@ -56,6 +62,27 @@ describe("VocabularyEntryPage", () => {
       ],
       snapshots: [],
     });
+  });
+
+  it("returns not found for malformed percent encoding without querying content", async () => {
+    await expect(
+      VocabularyEntryPage({ params: Promise.resolve({ id: "%E0%A4%A" }) }),
+    ).rejects.toThrow("NEXT_NOT_FOUND");
+
+    expect(notFound).toHaveBeenCalledOnce();
+    expect(getVocabularyEntry).not.toHaveBeenCalled();
+  });
+
+  it("returns not found for a missing stable vocabulary ID", async () => {
+    getVocabularyEntry.mockReturnValue(null);
+
+    await expect(
+      VocabularyEntryPage({ params: Promise.resolve({ id: "vocabulary%3Ajmdict%3A9999999" }) }),
+    ).rejects.toThrow("NEXT_NOT_FOUND");
+
+    expect(getVocabularyEntry).toHaveBeenCalledWith("vocabulary:jmdict:9999999");
+    expect(notFound).toHaveBeenCalledOnce();
+    expect(getSourceAttributions).not.toHaveBeenCalled();
   });
 
   it("decodes a stable content ID from the dynamic route", async () => {

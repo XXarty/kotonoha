@@ -355,7 +355,8 @@ input, select { min-height: 2.75rem; }
 .related-entry-list a:hover { border-color: var(--moss); }
 .source-block { margin-top: 2.75rem; padding-top: 1.35rem; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .9rem; }
 .source-block p { margin: .55rem 0 0; }
-.source-block a { color: var(--moss-text); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25rem; }
+.source-link-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0 .75rem; }
+.source-block a { display: inline-flex; min-height: 2.75rem; max-width: 100%; align-items: center; color: var(--moss-text); overflow-wrap: anywhere; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25rem; }
 .source-note { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .86rem; }
 .detail-learning-rater { max-width: 50rem; margin-top: clamp(3rem, 7vw, 5.5rem); }
 .study-rater { padding-top: 1.75rem; border-top: 1px solid var(--line); }

@@ -34,11 +34,26 @@ it("stores a guest rating in IndexedDB and announces success", async () => {
   ).toBeVisible();
 });
 
-it("keeps an actionable server error visible", async () => {
-  vi.mocked(rateStudyAction).mockRejectedValue(new Error("登录状态已过期"));
+it("replaces internal server errors with a safe actionable fallback", async () => {
+  const sensitive = "postgres://secret@database.internal/kotonoha schema progress SELECT";
+  vi.mocked(rateStudyAction).mockRejectedValue(new Error(sensitive));
   render(<StudyRater itemId="grammar:tae-kim:wa-topic" signedIn />);
 
   fireEvent.click(screen.getByRole("button", { name: "认识" }));
 
-  expect(await screen.findByText("记录失败：登录状态已过期。请重新登录后再试。")).toBeVisible();
+  expect(
+    await screen.findByText("记录失败。请检查网络连接后稍后重试。"),
+  ).toBeVisible();
+  expect(screen.queryByText(sensitive, { exact: false })).not.toBeInTheDocument();
+  expect(document.body).not.toHaveTextContent("database.internal");
+  expect(document.body).not.toHaveTextContent("secret");
+});
+
+it("only recommends signing in again for the known session error", async () => {
+  vi.mocked(rateStudyAction).mockRejectedValue(new Error("Authentication required"));
+  render(<StudyRater itemId="grammar:tae-kim:wa-topic" signedIn />);
+
+  fireEvent.click(screen.getByRole("button", { name: "认识" }));
+
+  expect(await screen.findByText("登录状态已过期，请重新登录后再试。")).toBeVisible();
 });

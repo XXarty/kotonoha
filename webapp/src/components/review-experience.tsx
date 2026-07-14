@@ -13,11 +13,10 @@ type DueReviewItem = Awaited<ReturnType<typeof getDueReviewAction>>[number];
 const GUEST_GUIDANCE = "这次记录会留在这台设备上。登录后，也能在其他设备继续。";
 
 function reviewError(error: unknown): string {
-  if (error instanceof Error) {
-    const detail = error.message.trim().replace(/[。.!！]+$/, "");
-    if (detail) return `暂时无法读取复习队列：${detail}。请稍后重试。`;
+  if (error instanceof Error && error.message === "Authentication required") {
+    return "登录状态已过期，请重新登录后再试。";
   }
-  return "暂时无法读取复习队列。请检查网络连接后重试。";
+  return "暂时无法读取复习队列。请检查网络连接后稍后重试。";
 }
 
 export function ReviewExperience({ authEnabled }: { authEnabled: boolean }) {
