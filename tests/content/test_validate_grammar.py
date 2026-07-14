@@ -118,6 +118,53 @@ def test_core_path_has_thirty_expanded_entries() -> None:
     )
 
 
+def test_core_path_preserves_reviewed_grammar_distinctions() -> None:
+    core = {
+        entry.slug: entry
+        for entry in load_grammar_curriculum(GRAMMAR_DIR)
+        if entry.path == "core"
+    }
+
+    relative_clauses = core["relative-clauses"]
+    relative_guidance = " ".join(
+        [
+            relative_clauses.connection,
+            relative_clauses.explanation_zh,
+            *relative_clauses.common_mistakes,
+        ]
+    )
+    assert all(
+        distinction in relative_guidance
+        for distinction in ("非过去肯定", "な形容词", "名词 + の", "である")
+    )
+    assert "だ」不能直接放在被修饰名词前" in relative_guidance
+
+    quotation = core["to-quotation"]
+    quotation_guidance = " ".join(
+        [quotation.connection, quotation.explanation_zh, *quotation.common_mistakes]
+    )
+    assert all(
+        distinction in quotation_guidance
+        for distinction in ("直接引用", "原话", "间接引用", "普通形", "名词/な形容词 + だ")
+    )
+    assert any("です」と" in example.ja for example in quotation.examples)
+    assert any("だと" in example.ja for example in quotation.examples)
+
+    assert core["addressing-people"].related_entries == [
+        "grammar:tae-kim:polite-masu",
+        "grammar:tae-kim:ka-question",
+    ]
+
+    morau_guidance = " ".join(
+        [core["morau"].explanation_zh, *core["morau"].common_mistakes]
+    )
+    assert "受益" in morau_guidance
+    assert "不一定" in morau_guidance
+
+    explanatory_example = core["explanatory-no-da"].examples[0]
+    assert explanatory_example.zh == "电车晚点了(带说明语气)。"
+
+
 def test_explicit_json_file_is_supported() -> None:
     expected_foundation = [
         entry

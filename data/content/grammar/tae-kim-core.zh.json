@@ -58,7 +58,7 @@
     ],
     "related_entries": [
       "grammar:tae-kim:polite-masu",
-      "grammar:tae-kim:no-possession"
+      "grammar:tae-kim:ka-question"
     ]
   },
   {
@@ -472,8 +472,8 @@
     "category": "quotations",
     "list_name": "quotation-and-definition",
     "expression": "～と（言う／思う／聞く）",
-    "connection": "引用内容的普通形 + と + 引用相关动词",
-    "explanation_zh": "用「と」把直接引语、转述内容或想法作为一个小句，交给后面的言说或思考动词。",
+    "connection": "直接引用：「保留原话（可含です／ます）」+ と + 言う等；间接引用：普通形 + と + 引用相关动词（名词／な形容词 + だ）",
+    "explanation_zh": "直接引用用括号标出并保留说话者的原话，因此可以保留「です／ます」。间接引用或想法不逐字复现，通常在「と」前用普通形；名词和な形容词的非过去肯定形要明确加「だ」。",
     "source_url": "https://www.guidetojapanese.org/quotation.html",
     "license_key": "cc-by-nc-sa-3.0",
     "content_version": "2026-07-14",
@@ -485,10 +485,20 @@
         "ja": "明日は休むと部長に伝えました。",
         "zh": "我告诉部长明天要请假。",
         "source": "kotonoha-original"
+      },
+      {
+        "ja": "先生は「明日は休みです」と言いました。",
+        "zh": "老师说：“明天休息。”",
+        "source": "kotonoha-original"
+      },
+      {
+        "ja": "先生は明日は休みだと言いました。",
+        "zh": "老师说过明天休息。",
+        "source": "kotonoha-original"
       }
     ],
     "common_mistakes": [
-      "间接引用通常在「と」前用普通形；不要把礼貌结尾直接塞进去写成「休みますと思います」。"
+      "直接引用不要擅自改动原话；「明日は休みです」と言った可以保留「です」。间接引用则应说「明日は休みだと言った」，不能写成「休みですと言った」。"
     ],
     "related_entries": [
       "grammar:tae-kim:to-omou",
@@ -690,7 +700,7 @@
     "list_name": "giving-and-receiving",
     "expression": "もらう／～てもらう",
     "connection": "接受者が／は + 给予者に／から + 物をもらう；动词て形 + もらう",
-    "explanation_zh": "以接受者为视角表达从某人处得到物品，或请某人为自己完成动作。",
+    "explanation_zh": "以接受者为视角表达从某人处得到物品，或表示接受者获得他人动作带来的好处；这项动作可能是应请求而做，也可能是对方主动做的。",
     "source_url": "https://www.guidetojapanese.org/favor.html",
     "license_key": "cc-by-nc-sa-3.0",
     "content_version": "2026-07-14",
@@ -700,12 +710,12 @@
     "examples": [
       {
         "ja": "先生に作文を直してもらいました。",
-        "zh": "我请老师帮我修改了作文。",
+        "zh": "老师帮我修改了作文，我受到了这份帮助。",
         "source": "kotonoha-original"
       }
     ],
     "common_mistakes": [
-      "「もらう」句的主语是接受帮助的一方，提供者用「に／から」；不要把给予者误当成主语。"
+      "「～てもらう」表示接受者受益，不一定意味着接受者事先提出了请求；提供者用「に／から」，不要把给予者误当成主语。"
     ],
     "related_entries": [
       "grammar:tae-kim:kureru",
@@ -843,9 +853,9 @@
     "slug": "relative-clauses",
     "category": "clauses",
     "list_name": "noun-modifying-clauses",
-    "expression": "普通形小句 + 名词",
-    "connection": "修饰内容的普通形小句 + 被修饰名词",
-    "explanation_zh": "把完整的普通形小句直接放在名词前，说明“做了某事的……”或“具有某状态的……”。",
+    "expression": "修饰小句 + 名词",
+    "connection": "动词／い形容词的普通形 + 名词；な形容词词干 + な + 名词；名词 + の + 名词（属性／类别）或名词／な形容词 + である + 名词（判断性修饰）",
+    "explanation_zh": "动词、い形容词以及名词／な形容词的过去或否定普通形可直接放在名词前修饰。关键例外是名词和な形容词的非过去肯定形不能带陈述的「だ」：な形容词用「な」，名词间的属性或类别关系常用「の」；需要明确表达判断且文体较正式时可用「である」。",
     "source_url": "https://www.guidetojapanese.org/completeguide.html",
     "license_key": "cc-by-nc-sa-3.0",
     "content_version": "2026-07-14",
@@ -857,10 +867,20 @@
         "ja": "昨日買った本は机の上にあります。",
         "zh": "昨天买的书在桌子上。",
         "source": "kotonoha-original"
+      },
+      {
+        "ja": "静かな町に住む人を訪ねました。",
+        "zh": "我拜访了住在安静小镇的人。",
+        "source": "kotonoha-original"
+      },
+      {
+        "ja": "学生である人だけが応募できます。",
+        "zh": "只有是学生的人可以报名。",
+        "source": "kotonoha-original"
       }
     ],
     "common_mistakes": [
-      "关系小句与名词之间不加中文式“的”，且通常用普通形；应说「昨日買った本」，不是「昨日買いましたの本」。"
+      "不要写「静かだ町」或「学生だ人」；非过去肯定时，な形容词应说「静かな町」，名词关系可说「学生の生活」，判断性修饰可说「学生である人」。「だ」不能直接放在被修饰名词前。"
     ],
     "related_entries": [
       "grammar:tae-kim:te-combinations",
@@ -917,7 +937,7 @@
     "examples": [
       {
         "ja": "電車が遅れたんです。",
-        "zh": "是因为电车晚点了。",
+        "zh": "电车晚点了（带说明语气）。",
         "source": "kotonoha-original"
       }
     ],
