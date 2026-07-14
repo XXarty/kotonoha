@@ -136,6 +136,39 @@ def romanize_kana(value: str) -> str:
     return "".join(part["hepburn"] for part in _ROMANIZER.convert(value))
 
 
+def limit_balanced_records(
+    records: list[VocabularyRecord],
+    limit: int,
+) -> list[VocabularyRecord]:
+    """Select a deterministic launch slice without starving later categories."""
+    ordered_categories = ("nouns", "verbs", "adjectives", "other")
+    grouped = {
+        category: sorted(
+            (record for record in records if record.category == category),
+            key=lambda item: (item.kana, item.japanese, item.id),
+        )
+        for category in ordered_categories
+    }
+    offsets = {category: 0 for category in ordered_categories}
+    selected: list[VocabularyRecord] = []
+
+    while len(selected) < limit:
+        added = False
+        for category in ordered_categories:
+            offset = offsets[category]
+            if offset >= len(grouped[category]):
+                continue
+            selected.append(grouped[category][offset])
+            offsets[category] += 1
+            added = True
+            if len(selected) == limit:
+                break
+        if not added:
+            break
+
+    return sorted(selected, key=lambda item: (item.category, item.kana, item.japanese, item.id))
+
+
 def build_vocabulary(jmdict_path: Path, kaikki_path: Path, limit: int) -> VocabularyBuild:
     if limit < 1:
         raise ValueError("limit must be positive")
@@ -175,8 +208,8 @@ def build_vocabulary(jmdict_path: Path, kaikki_path: Path, limit: int) -> Vocabu
             )
         )
 
-    records.sort(key=lambda item: (item.category, item.kana, item.japanese, item.id))
-    return VocabularyBuild(tuple(records[:limit]), dict(sorted(rejections.items())))
+    selected = limit_balanced_records(records, limit)
+    return VocabularyBuild(tuple(selected), dict(sorted(rejections.items())))
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:

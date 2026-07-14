@@ -4,7 +4,12 @@ import json
 import gzip
 from pathlib import Path
 
-from scripts.content.build_vocabulary import build_vocabulary, select_jmdict_candidates
+from scripts.content.build_vocabulary import (
+    build_vocabulary,
+    limit_balanced_records,
+    select_jmdict_candidates,
+)
+from scripts.content.models import VocabularyRecord
 
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -48,3 +53,34 @@ def test_build_streams_compressed_kaikki_jsonl(tmp_path: Path) -> None:
     result = build_vocabulary(JMDICT, compressed, limit=500)
 
     assert [record.id for record in result.records] == ["vocabulary:jmdict:1000001"]
+
+
+def test_launch_limit_keeps_multiple_available_categories() -> None:
+    def record(identifier: int, category: str) -> VocabularyRecord:
+        return VocabularyRecord(
+            id=f"vocabulary:jmdict:{identifier}",
+            source_id="jmdict-kaikki",
+            source_key=f"jmdict:{identifier}",
+            category=category,
+            list_name=f"common-{category}",
+            japanese=f"語{identifier}",
+            kana=f"ご{identifier}",
+            romaji=f"go{identifier}",
+            part_of_speech=[category],
+            meaning_zh=["词"],
+            meaning_en=["word"],
+            meaning_zh_source="kaikki-zhwiktionary",
+            content_version="2026-07-13",
+            published=True,
+        )
+
+    records = [
+        record(1000001, "nouns"),
+        record(1000002, "nouns"),
+        record(1000003, "nouns"),
+        record(1000004, "verbs"),
+    ]
+
+    selected = limit_balanced_records(records, limit=2)
+
+    assert {item.category for item in selected} == {"nouns", "verbs"}
