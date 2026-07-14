@@ -118,7 +118,7 @@ def grammar_payload(**overrides: object) -> dict[str, object]:
         "common_mistakes": ["前后动作的先后关系需要结合语境判断。"],
         "related_entries": ["grammar:tae-kim:verb-basics"],
         "source_url": "https://guidetojapanese.org/learn/grammar/teform",
-        "license_key": "cc-by-sa-3.0",
+        "license_key": "cc-by-nc-sa-3.0",
         "content_version": "2026-07-14",
         "display_order": 11,
         "published": True,
@@ -134,7 +134,7 @@ def test_direct_grammar_defaults_and_serializes_published_provenance() -> None:
     assert record.provenance_kind == "direct-source"
     assert record.model_dump()["provenance_kind"] == "direct-source"
     assert record.source_id == "tae-kim-grammar"
-    assert record.license_key == "cc-by-sa-3.0"
+    assert record.license_key == "cc-by-nc-sa-3.0"
     with pytest.raises(ValidationError):
         GrammarRecord.model_validate(
             {**record.model_dump(), "source_url": "https://example.com/grammar"}
@@ -179,12 +179,17 @@ def test_direct_grammar_rejects_extension_provenance_fields(
         GrammarRecord.model_validate(grammar_payload(**{field: value}))
 
 
+def test_direct_grammar_rejects_by_sa_license() -> None:
+    with pytest.raises(ValidationError):
+        GrammarRecord.model_validate(grammar_payload(license_key="cc-by-sa-3.0"))
+
+
 @pytest.mark.parametrize(
     ("field", "value"),
     [
         ("source_id", "tae-kim-grammar"),
         ("source_url", "https://guidetojapanese.org/learn/grammar/other"),
-        ("license_key", "cc-by-sa-3.0"),
+        ("license_key", "cc-by-nc-sa-3.0"),
         ("provenance_note", " "),
         ("curriculum_context_url", "https://example.com/context"),
     ],

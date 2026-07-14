@@ -95,7 +95,7 @@ const grammarSchema = z
     source_url: z.url(),
     curriculum_context_url: z.url().nullish(),
     provenance_note: z.string().trim().min(1).nullish(),
-    license_key: z.enum(["cc-by-sa-3.0", "all-rights-reserved"]),
+    license_key: z.enum(["cc-by-nc-sa-3.0", "all-rights-reserved"]),
     content_version: z.string().min(1),
     display_order: z.number().int().positive(),
     published: z.literal(true),
@@ -129,7 +129,7 @@ const grammarSchema = z
       const hostname = new URL(entry.source_url).hostname.toLowerCase();
       if (
         entry.source_id !== "tae-kim-grammar" ||
-        entry.license_key !== "cc-by-sa-3.0" ||
+        entry.license_key !== "cc-by-nc-sa-3.0" ||
         !["guidetojapanese.org", "www.guidetojapanese.org"].includes(hostname) ||
         entry.curriculum_context_url != null ||
         entry.provenance_note != null

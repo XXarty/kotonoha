@@ -119,7 +119,7 @@ class GrammarRecord(ContentRecord):
     source_url: str
     curriculum_context_url: str | None = None
     provenance_note: NonBlankText | None = None
-    license_key: Literal["cc-by-sa-3.0", "all-rights-reserved"]
+    license_key: Literal["cc-by-nc-sa-3.0", "all-rights-reserved"]
     content_version: NonBlankText
     display_order: int = Field(gt=0)
     published: Literal[True]
@@ -153,8 +153,10 @@ class GrammarRecord(ContentRecord):
             hostname = (urlparse(self.source_url).hostname or "").lower()
             if self.source_id != "tae-kim-grammar":
                 raise ValueError("direct grammar must use the Tae Kim source ID")
-            if self.license_key != "cc-by-sa-3.0":
-                raise ValueError("direct grammar must use the CC BY-SA 3.0 license")
+            if self.license_key != "cc-by-nc-sa-3.0":
+                raise ValueError(
+                    "direct grammar must use the CC BY-NC-SA 3.0 license"
+                )
             if hostname not in {"guidetojapanese.org", "www.guidetojapanese.org"}:
                 raise ValueError("direct grammar source URL must use guidetojapanese.org")
             if self.curriculum_context_url is not None or self.provenance_note is not None:

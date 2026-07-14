@@ -314,7 +314,7 @@ def test_advanced_path_publishes_honest_extension_provenance() -> None:
         else:
             assert entry.provenance_kind == "direct-source"
             assert entry.source_id == "tae-kim-grammar"
-            assert entry.license_key == "cc-by-sa-3.0"
+            assert entry.license_key == "cc-by-nc-sa-3.0"
 
 
 def test_advanced_path_preserves_reviewed_content_corrections() -> None:

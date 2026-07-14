@@ -25,8 +25,8 @@ function fixtures(sourceEnabled = true) {
           id: "tae-kim-grammar",
           title: "Tae Kim",
           url: "https://guidetojapanese.org/learn/grammar",
-          license_name: "CC BY-SA 3.0",
-          license_url: "https://creativecommons.org/licenses/by-sa/3.0/",
+          license_name: "CC BY-NC-SA 3.0",
+          license_url: "https://creativecommons.org/licenses/by-nc-sa/3.0/us/",
           enabled: sourceEnabled,
         },
         {
@@ -106,7 +106,7 @@ function fixtures(sourceEnabled = true) {
         common_mistakes: ["不要把主题助词和主语标记完全等同。"],
         related_entries: ["grammar:tae-kim:wa-topic"],
         source_url: "https://guidetojapanese.org/learn/grammar/particlesintro",
-        license_key: "cc-by-sa-3.0",
+        license_key: "cc-by-nc-sa-3.0",
         content_version: "2026-07-14",
         display_order: 1,
         published: true,
@@ -199,7 +199,7 @@ describe("static content repository", () => {
     expect(directRepository.getGrammarEntry("topic-particle")).toMatchObject({
       provenance_kind: "direct-source",
       source_id: "tae-kim-grammar",
-      license_key: "cc-by-sa-3.0",
+      license_key: "cc-by-nc-sa-3.0",
     });
 
     const extensionInput = fixtures();
@@ -243,7 +243,7 @@ describe("static content repository", () => {
     for (const mismatch of [
       { source_id: "tae-kim-grammar" },
       { source_url: "https://guidetojapanese.org/learn/grammar/other" },
-      { license_key: "cc-by-sa-3.0" },
+      { license_key: "cc-by-nc-sa-3.0" },
       { curriculum_context_url: "https://example.com/context" },
       { provenance_note: " " },
     ]) {
@@ -254,6 +254,17 @@ describe("static content repository", () => {
         }),
       ).toThrow();
     }
+  });
+
+  it("rejects CC BY-SA for direct Tae Kim grammar", () => {
+    const input = fixtures();
+
+    expect(() =>
+      createContentRepository({
+        ...input,
+        grammar: [{ ...input.grammar[0], license_key: "cc-by-sa-3.0" }],
+      }),
+    ).toThrow();
   });
 
   it("hydrates due progress and silently omits missing static items", () => {

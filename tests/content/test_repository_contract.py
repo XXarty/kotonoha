@@ -39,7 +39,14 @@ def test_published_source_catalog_covers_every_grammar_source() -> None:
     sources = {source["id"]: source for source in payload["sources"]}
 
     assert {entry.source_id for entry in curriculum} <= sources.keys()
-    assert sources["tae-kim-grammar"]["license_name"] == "CC BY-SA 3.0"
+    assert sources["tae-kim-grammar"] == {
+        "enabled": True,
+        "id": "tae-kim-grammar",
+        "license_name": "CC BY-NC-SA 3.0",
+        "license_url": "https://creativecommons.org/licenses/by-nc-sa/3.0/us/",
+        "title": "Tae Kim Japanese Grammar Guide",
+        "url": "https://guidetojapanese.org/learn/grammar",
+    }
     assert sources["kotonoha-original"] == {
         "enabled": True,
         "id": "kotonoha-original",

@@ -12,9 +12,9 @@ it("shows direct and project-authored grammar provenance", () => {
 
   expect(screen.getByRole("link", { name: /JMdict/ })).toHaveAttribute("href", expect.stringMatching(/^https:/));
   expect(screen.getByRole("link", { name: /Kaikki/ })).toHaveAttribute("href", expect.stringMatching(/^https:/));
-  expect(screen.getByRole("link", { name: "Tae Kim · CC BY-SA 3.0" })).toHaveAttribute(
+  expect(screen.getByRole("link", { name: "Tae Kim · CC BY-NC-SA 3.0" })).toHaveAttribute(
     "href",
-    expect.stringMatching(/^https:/),
+    "https://creativecommons.org/licenses/by-nc-sa/3.0/us/",
   );
   expect(screen.getByRole("link", { name: "KOTONOHA 原创扩展" })).toHaveAttribute(
     "href",

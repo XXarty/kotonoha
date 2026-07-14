@@ -4,9 +4,9 @@ The grammar syllabus combines direct curriculum material from Tae Kim's *Japanes
 
 - Original author: Tae Kim
 - Original guide: https://guidetojapanese.org/learn/grammar
-- Direct-source license: Creative Commons Attribution-ShareAlike 3.0
-- Direct-source license URL: https://creativecommons.org/licenses/by-sa/3.0/
+- Direct-source license: Creative Commons Attribution-NonCommercial-ShareAlike 3.0 United States
+- Direct-source license URL: https://creativecommons.org/licenses/by-nc-sa/3.0/us/
 - Project-authored extensions: KOTONOHA original, All rights reserved
 - Project source: https://github.com/XXarty/kotonoha
 
-Every record publishes a provenance discriminator. Official guide links in `curriculum_context_url` on project-authored extensions provide learning context only and are not presented as direct lessons for those grammar points.
+Every record publishes a provenance discriminator. Official guide links in `curriculum_context_url` on project-authored extensions provide learning context only and are not presented as direct lessons for those grammar points. The direct-source grammar bundle and the site that enables it must remain noncommercial, and derivatives must use a compatible share-alike license.

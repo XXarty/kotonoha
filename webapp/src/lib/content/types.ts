@@ -64,7 +64,7 @@ export interface GrammarEntry {
   source_url: string;
   curriculum_context_url?: string | null;
   provenance_note?: string | null;
-  license_key: "cc-by-sa-3.0" | "all-rights-reserved";
+  license_key: "cc-by-nc-sa-3.0" | "all-rights-reserved";
   content_version: string;
   display_order: number;
   published: true;

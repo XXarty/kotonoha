@@ -130,7 +130,7 @@ The canonical model and TypeScript/Zod mirror now publish:
 - `provenance_kind: "direct-source" | "project-authored-extension"`, defaulting to `direct-source` so the 114 existing direct records do not need a mechanical discriminator edit. Pydantic serialization and Zod output both expose the discriminator.
 - Optional/nullable `curriculum_context_url` and `provenance_note`; extensions require a nonblank note, while direct records reject extension-only fields. Zod accepts canonical Pydantic `null` output for unset optional fields.
 - Conditional validation for source ID, source URL, license, official context hostname, and provenance kind. Mismatched direct/extension combinations are rejected in both Python and TypeScript regression tests.
-- Direct entries use `tae-kim-grammar`, an official `guidetojapanese.org` URL, and `cc-by-sa-3.0`. Extensions use `kotonoha-original`, `https://github.com/XXarty/kotonoha`, and `all-rights-reserved`.
+- Direct entries use `tae-kim-grammar`, an official `guidetojapanese.org` URL, and `cc-by-nc-sa-3.0`. Extensions use `kotonoha-original`, `https://github.com/XXarty/kotonoha`, and `all-rights-reserved`.
 
 The published source catalog, bundle manifest/hashes, attribution files, README, and Sources page now contain both grammar sources. `kotonoha-original` is enabled and labeled `All rights reserved`; no grammar source ID is left unknown to the web repository.
 
@@ -158,13 +158,13 @@ RED evidence captured before implementation:
 
 ```text
 Python model/content assertions: 5 failed, 42 passed
-- old license literal rejected cc-by-sa-3.0
+- the then-new BY-SA key was rejected by the prior NC-only model
 - extension fields were forbidden and kotonoha-original was rejected
 - provenance_kind was absent
 - tsutsu/content assertions failed
 
 Web repository assertions: 5 failed, 2 passed
-- old Zod license literal rejected cc-by-sa-3.0
+- the then-new BY-SA key was rejected by the prior NC-only Zod schema
 
 Published source catalog: 1 failed, 2 passed
 - kotonoha-original was absent
@@ -212,3 +212,72 @@ npm test
 ```
 
 The seven web suites fail during module import because the committed generated vocabulary/grammar files still use the legacy pre-expansion shape (`tier`, `priority_tags`, structured `examples`, grammar `path`, `common_mistakes`, and `related_entries` are absent). Focused repository tests use the current contract and pass. `npm run typecheck` separately reaches two existing detail-page errors where `GrammarEntry` correctly exposes structured `examples` but the page still reads legacy `example_ja`/`example_zh`. These generated-data/UI migrations belong to later tasks and were not changed here.
+
+## Release-blocking Tae Kim license remediation
+
+The provenance-model review patch accidentally changed the direct Tae Kim license from the required noncommercial ShareAlike license to the commercial-capable BY-SA variant. The correction restores the canonical key `cc-by-nc-sa-3.0`, display `CC BY-NC-SA 3.0`, and URL `https://creativecommons.org/licenses/by-nc-sa/3.0/us/` through all 114 direct records, both validators, fixtures, source metadata, generated bundle evidence, attribution, documentation, and the Sources page. The six project-authored extensions remain byte-equivalent to `069927d` with `kotonoha-original`, the repository URL, `all-rights-reserved`, curriculum context, and provenance note.
+
+### License-fix TDD evidence
+
+Focused RED before implementation:
+
+```text
+Python model/grammar/source/bundle: 8 failed, 47 passed
+- direct NC key rejected while direct BY-SA was incorrectly accepted
+- canonical grammar and source catalog still published BY-SA
+- 3 unrelated bundle fixture failures remained on missing vocabulary tier
+
+Web repository/Sources page: 7 failed, 3 passed
+- Zod rejected the NC key and accepted the invalid direct BY-SA input
+- Sources page still displayed and linked the BY-SA attribution
+```
+
+Focused GREEN after implementation:
+
+```text
+.venv-content/bin/python -m pytest tests/content/test_models.py tests/content/test_validate_grammar.py tests/content/test_repository_contract.py -q
+51 passed in 0.11s
+
+npm test -- --run src/lib/content/repository.test.ts src/app/sources/page.test.tsx
+2 files passed; 10 tests passed
+```
+
+The Python and TypeScript regression suites explicitly reject a direct Tae Kim record carrying the BY-SA key. Extension mismatch tables still reject the direct NC key and continue requiring `all-rights-reserved`.
+
+### License-fix audit, scans, and hashes
+
+```text
+{'total': 120, 'paths': {'advanced': 30, 'core': 30, 'expressions': 30, 'foundation': 30}, 'orders': [1, 120], 'direct': 114, 'extensions': 6, 'baseline_only_direct_license_changed': True, 'audit': 'PASS'}
+production grammar/source-attribution wrong-string scan: 0 matches
+negative regression inputs using cc-by-sa-3.0: 2 matches
+project bundle verifier: {'grammar': 30, 'invalid': 0, 'kana': 46, 'vocabulary': 2000}
+independent hashlib audit: 5 files PASS
+manifest SHA-256: fc7dd8c7087417091c005a2a34d78fbfaddb0312b5ebe83ccdae281f44d88632
+git diff --check: PASS
+```
+
+The only retained BY-SA attribution is the unrelated `CC BY-SA 4.0` metadata/UI/test fixture for the JMdict + Kaikki Chinese Wiktionary vocabulary source. The two exact 3.0-key matches are invalid-input regression fixtures, not published attribution or accepted data.
+
+The normal generator was attempted with the committed inputs, but stopped before grammar and hashing because the committed legacy vocabulary bundle lacks the now-required `tier` field. Generated grammar, source metadata, attribution, manifest, and verification hashes were therefore updated without changing the legacy vocabulary payload; the project verifier and an independent standard-library SHA-256 audit both pass. Updated file hashes are:
+
+```text
+ATTRIBUTION.md 46c226a68be400973c80c62381ea2650200d3d1f092ad05f5873b50e54104c3e
+grammar.json   db9dadac698fdf0b6bff27bcd1862fab9ba7f4623cd07ee86f660052ae5266f1
+sources.json   8197603a3d9451c4151bdc690c30ab6cfef7d182a6e54fdbda749935f8bdab70
+```
+
+### License-fix full-suite transitional evidence
+
+```text
+.venv-content/bin/python -m pytest -q
+3 failed, 68 passed in 0.45s
+```
+
+The three failures remain confined to `tests/content/test_build_static_bundle.py` and stop on its vocabulary factory omitting `tier` before bundle/license behavior.
+
+```text
+npm test
+7 failed suites, 23 passed suites; 76 tests passed
+```
+
+The seven suites still fail during import on the committed legacy vocabulary/grammar generated shapes described above. Focused current-contract tests pass. `progress.md` was not edited.

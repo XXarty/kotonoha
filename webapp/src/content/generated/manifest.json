@@ -7,10 +7,10 @@
     "vocabulary": 2000
   },
   "files": {
-    "ATTRIBUTION.md": "ffa81a851720bd40fc3a08db64bbad60a11c46bc60b7c4f9b776d1a89e7f1941",
-    "grammar.json": "558135125365d6ae61aaed8d997a3aa5f5a2ccec321440de5415ee6e8e5dc643",
+    "ATTRIBUTION.md": "46c226a68be400973c80c62381ea2650200d3d1f092ad05f5873b50e54104c3e",
+    "grammar.json": "db9dadac698fdf0b6bff27bcd1862fab9ba7f4623cd07ee86f660052ae5266f1",
     "kana.json": "f1cda2a4908d60ffb9e88b8437eeb0c43875472a38fdc036dd58a9f58f71cd01",
-    "sources.json": "0d1c706e5165f87bc0ac0e9d06971bce16b9a60e1fe0412416a0a3a85f25791e",
+    "sources.json": "8197603a3d9451c4151bdc690c30ab6cfef7d182a6e54fdbda749935f8bdab70",
     "vocabulary.json": "204cef4dbc86ce3145a0bf9c4fd230c0d360bb77ef51342ef1e439952fe82cc2"
   },
   "generator_version": "2",
@@ -57,8 +57,8 @@
     {
       "enabled": true,
       "id": "tae-kim-grammar",
-      "license_name": "CC BY-SA 3.0",
-      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "license_name": "CC BY-NC-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc-sa/3.0/us/",
       "title": "Tae Kim Japanese Grammar Guide",
       "url": "https://guidetojapanese.org/learn/grammar"
     },
