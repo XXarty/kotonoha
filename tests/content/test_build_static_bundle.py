@@ -6,12 +6,13 @@ from pathlib import Path
 
 import pytest
 
+import scripts.content.build_static_bundle as static_bundle
 from scripts.content.build_static_bundle import build_static_bundle, verify_static_bundle
 from scripts.content.fetch_sources import sha256_file
 
 
 ROOT = Path(__file__).resolve().parents[2]
-GRAMMAR = ROOT / "data/content/grammar/tae-kim-basic.zh.json"
+GRAMMAR = ROOT / "data/content/grammar/tae-kim-foundation.zh.json"
 KANA = ROOT / "data/content/kana/gojuon.json"
 
 
@@ -35,6 +36,9 @@ def vocabulary(count: int) -> list[dict[str, object]]:
             "meaning_zh": ["吃"],
             "meaning_en": ["to eat"],
             "meaning_zh_source": "kaikki-zhwiktionary",
+            "tier": "core",
+            "priority_tags": [],
+            "examples": [],
             "content_version": "2026-07-13",
             "published": True,
         }
@@ -115,7 +119,11 @@ def test_bundle_requires_launch_minimums(tmp_path: Path) -> None:
     inputs = bundle_inputs(tmp_path, vocabulary_count=1)
 
     with pytest.raises(ValueError, match="at least 500 vocabulary"):
-        build_static_bundle(**inputs, output_dir=tmp_path / "generated")
+        build_static_bundle(
+            **inputs,
+            output_dir=tmp_path / "generated",
+            public_dir=tmp_path / "public",
+        )
 
 
 def test_bundle_manifest_hashes_match_files(tmp_path: Path) -> None:
@@ -125,28 +133,50 @@ def test_bundle_manifest_hashes_match_files(tmp_path: Path) -> None:
     manifest = build_static_bundle(
         **inputs,
         output_dir=output,
+        public_dir=tmp_path / "public",
         built_at=datetime(2026, 7, 14, tzinfo=timezone.utc),
     )
 
     assert manifest.counts == {"vocabulary": 500, "grammar": 30, "kana": 46, "invalid": 0}
     for filename, digest in manifest.files.items():
-        assert digest == sha256_file(output / filename)
+        file_path = (
+            tmp_path / "public/content/search-index.json"
+            if filename == "public/content/search-index.json"
+            else output / filename
+        )
+        assert digest == sha256_file(file_path)
     verification = json.loads((output / "verification.json").read_text(encoding="utf-8"))
     assert verification["manifest_sha256"] == sha256_file(output / "manifest.json")
     assert verification["counts"] == manifest.counts
-    assert verify_static_bundle(output).counts == manifest.counts
+    assert verify_static_bundle(output, tmp_path / "public").counts == manifest.counts
+
+
+def test_bundle_verifies_public_search_index_hash(tmp_path: Path) -> None:
+    inputs = bundle_inputs(tmp_path, vocabulary_count=500)
+    output = tmp_path / "generated"
+    public = tmp_path / "public"
+
+    manifest = build_static_bundle(**inputs, output_dir=output, public_dir=public)
+
+    search_index = public / "content/search-index.json"
+    assert manifest.files["public/content/search-index.json"] == sha256_file(search_index)
+    assert verify_static_bundle(output, public) == manifest
+
+    search_index.write_bytes(b"[]\n")
+    with pytest.raises(ValueError, match="bundle hash mismatch for public/content/search-index.json"):
+        verify_static_bundle(output, public)
 
 
 def test_verifier_rejects_stale_release_evidence(tmp_path: Path) -> None:
     inputs = bundle_inputs(tmp_path, vocabulary_count=500)
     output = tmp_path / "generated"
-    build_static_bundle(**inputs, output_dir=output)
+    build_static_bundle(**inputs, output_dir=output, public_dir=tmp_path / "public")
     verification = json.loads((output / "verification.json").read_text(encoding="utf-8"))
     verification["manifest_sha256"] = "0" * 64
     write_json(output / "verification.json", verification)
 
     with pytest.raises(ValueError, match="verification manifest hash mismatch"):
-        verify_static_bundle(output)
+        verify_static_bundle(output, tmp_path / "public")
 
 
 def test_failed_validation_does_not_replace_previous_bundle(tmp_path: Path) -> None:
@@ -156,6 +186,60 @@ def test_failed_validation_does_not_replace_previous_bundle(tmp_path: Path) -> N
     (output / "manifest.json").write_bytes(previous)
 
     with pytest.raises(ValueError):
-        build_static_bundle(**bundle_inputs(tmp_path, 1), output_dir=output)
+        build_static_bundle(
+            **bundle_inputs(tmp_path, 1),
+            output_dir=output,
+            public_dir=tmp_path / "public",
+        )
 
     assert (output / "manifest.json").read_bytes() == previous
+
+
+def test_failed_staged_verification_preserves_bundle_and_public_index(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    output = tmp_path / "generated"
+    output.mkdir()
+    previous_manifest = b'{"previous":true}\n'
+    (output / "manifest.json").write_bytes(previous_manifest)
+    public = tmp_path / "public"
+    (public / "content").mkdir(parents=True)
+    previous_index = b'[{"previous":true}]\n'
+    (public / "content/search-index.json").write_bytes(previous_index)
+
+    def reject_staged_bundle(_output_dir: Path, _public_dir: Path) -> None:
+        raise ValueError("injected staged verification failure")
+
+    monkeypatch.setattr(static_bundle, "verify_static_bundle", reject_staged_bundle)
+
+    with pytest.raises(ValueError, match="injected staged verification failure"):
+        build_static_bundle(
+            **bundle_inputs(tmp_path, 500),
+            output_dir=output,
+            public_dir=public,
+        )
+
+    assert (output / "manifest.json").read_bytes() == previous_manifest
+    assert (public / "content/search-index.json").read_bytes() == previous_index
+
+
+def test_public_search_index_is_the_last_replaced_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    replaced_destinations: list[Path] = []
+    original_replace = Path.replace
+
+    def track_replace(source: Path, destination: Path) -> Path:
+        replaced_destinations.append(Path(destination))
+        return original_replace(source, destination)
+
+    monkeypatch.setattr(Path, "replace", track_replace)
+    public = tmp_path / "public"
+
+    build_static_bundle(
+        **bundle_inputs(tmp_path, 500),
+        output_dir=tmp_path / "generated",
+        public_dir=public,
+    )
+
+    assert replaced_destinations[-1] == public / "content/search-index.json"

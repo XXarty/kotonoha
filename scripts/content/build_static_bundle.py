@@ -12,6 +12,7 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.content.build_manifest import build_manifest
+from scripts.content.build_search_index import build_search_index
 from scripts.content.fetch_sources import sha256_file
 from scripts.content.models import (
     BuildManifest,
@@ -83,6 +84,7 @@ def build_static_bundle(
     source_metadata_path: Path,
     rejections_path: Path,
     output_dir: Path,
+    public_dir: Path,
     built_at: datetime | None = None,
     minimum_vocabulary: int = 500,
 ) -> BuildManifest:
@@ -100,8 +102,11 @@ def build_static_bundle(
         raise ValueError(f"launch bundle requires exactly 46 kana entries, got {len(kana)}")
 
     temporary = output_dir.parent / f".{output_dir.name}.tmp"
+    temporary_public = public_dir.parent / f".{public_dir.name}.tmp"
     shutil.rmtree(temporary, ignore_errors=True)
+    shutil.rmtree(temporary_public, ignore_errors=True)
     temporary.mkdir(parents=True)
+    (temporary_public / "content").mkdir(parents=True)
     try:
         source_payload = {
             "sources": [source.model_dump(mode="json") for source in sources],
@@ -121,6 +126,10 @@ def build_static_bundle(
             [record.model_dump(mode="json") for record in kana],
         )
         (temporary / "ATTRIBUTION.md").write_text(ATTRIBUTION, encoding="utf-8")
+        _write_json(
+            temporary_public / "content/search-index.json",
+            build_search_index(vocabulary, grammar, kana),
+        )
 
         hashed_files = [
             "sources.json",
@@ -130,6 +139,9 @@ def build_static_bundle(
             "ATTRIBUTION.md",
         ]
         files = {filename: sha256_file(temporary / filename) for filename in hashed_files}
+        files["public/content/search-index.json"] = sha256_file(
+            temporary_public / "content/search-index.json"
+        )
         manifest = build_manifest(
             sources=sources,
             snapshots=snapshots,
@@ -153,17 +165,22 @@ def build_static_bundle(
                 "verifier_version": 1,
             },
         )
-        verify_static_bundle(temporary)
+        verify_static_bundle(temporary, temporary_public)
 
         output_dir.mkdir(parents=True, exist_ok=True)
+        (public_dir / "content").mkdir(parents=True, exist_ok=True)
         for filename in [*hashed_files, "manifest.json", "verification.json"]:
             (temporary / filename).replace(output_dir / filename)
+        (temporary_public / "content/search-index.json").replace(
+            public_dir / "content/search-index.json"
+        )
         return manifest
     finally:
         shutil.rmtree(temporary, ignore_errors=True)
+        shutil.rmtree(temporary_public, ignore_errors=True)
 
 
-def verify_static_bundle(output_dir: Path) -> BuildManifest:
+def verify_static_bundle(output_dir: Path, public_dir: Path | None = None) -> BuildManifest:
     manifest = BuildManifest.model_validate(_read_json(output_dir / "manifest.json"))
     verification = _read_json(output_dir / "verification.json")
     actual_manifest_sha256 = sha256_file(output_dir / "manifest.json")
@@ -172,7 +189,13 @@ def verify_static_bundle(output_dir: Path) -> BuildManifest:
     if verification.get("counts") != manifest.counts:
         raise ValueError("verification count mismatch")
     for filename, expected_sha256 in manifest.files.items():
-        actual_sha256 = sha256_file(output_dir / filename)
+        if filename == "public/content/search-index.json":
+            if public_dir is None:
+                raise ValueError("public_dir is required to verify the public search index")
+            file_path = public_dir / "content/search-index.json"
+        else:
+            file_path = output_dir / filename
+        actual_sha256 = sha256_file(file_path)
         if actual_sha256 != expected_sha256:
             raise ValueError(
                 f"bundle hash mismatch for {filename}: expected {expected_sha256}, got {actual_sha256}"
@@ -197,9 +220,18 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--source-metadata", type=Path)
     parser.add_argument("--rejections", type=Path)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--public-dir", type=Path)
     args = parser.parse_args(argv)
     if args.verify is None and not all(
-        [args.vocabulary, args.grammar, args.kana, args.source_metadata, args.rejections, args.output]
+        [
+            args.vocabulary,
+            args.grammar,
+            args.kana,
+            args.source_metadata,
+            args.rejections,
+            args.output,
+            args.public_dir,
+        ]
     ):
         parser.error("build mode requires all input and output arguments")
     return args
@@ -208,7 +240,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     if args.verify is not None:
-        manifest = verify_static_bundle(args.verify)
+        manifest = verify_static_bundle(args.verify, args.public_dir)
     else:
         manifest = build_static_bundle(
             vocabulary_path=args.vocabulary,
@@ -217,6 +249,7 @@ def main(argv: list[str] | None = None) -> int:
             source_metadata_path=args.source_metadata,
             rejections_path=args.rejections,
             output_dir=args.output,
+            public_dir=args.public_dir,
         )
     print(json.dumps(manifest.counts, ensure_ascii=False, sort_keys=True))
     return 0
