@@ -1,5 +1,7 @@
 # KOTONOHA Implementation Plan
 
+> **Superseded for all remaining content and product work by `2026-07-14-public-content-mvp-implementation.md`.** Completed foundation commits remain valid; do not execute the DK, Teikyo, OCR, translation, or Neon content-import tasks below.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (- [ ]) syntax for tracking.
 
 **Goal:** Build, populate, test, publish, and deploy the KOTONOHA Japanese vocabulary and grammar learning site defined in docs/PRD.md.

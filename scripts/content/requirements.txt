@@ -1,0 +1,3 @@
+pydantic>=2.10,<3
+pykakasi>=2.3,<3
+pytest>=8.3,<9
