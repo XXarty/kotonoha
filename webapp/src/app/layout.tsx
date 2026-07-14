@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { siteCopy } from "@/lib/site-copy";
 
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "KOTONOHA｜日语词汇与语法",
-    template: "%s｜KOTONOHA",
+    default: "ことのは｜每天一点日语",
+    template: "%s｜ことのは",
   },
-  description: "从公开、可追溯的词典与语法资料开始，安静地积累日语。",
+  description: siteCopy.home.description,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
