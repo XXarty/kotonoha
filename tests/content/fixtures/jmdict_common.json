@@ -1,0 +1,56 @@
+{
+  "version": "3.6.2",
+  "dictDate": "2026-07-13",
+  "commonOnly": true,
+  "tags": {
+    "v1": "Ichidan verb",
+    "v5u": "Godan verb with u ending"
+  },
+  "words": [
+    {
+      "id": "1000001",
+      "kanji": [
+        {"common": true, "text": "食べる", "tags": []}
+      ],
+      "kana": [
+        {"common": true, "text": "たべる", "tags": [], "appliesToKanji": ["*"]}
+      ],
+      "sense": [
+        {
+          "partOfSpeech": ["v1"],
+          "gloss": [{"lang": "eng", "text": "to eat", "gender": null, "type": null}]
+        }
+      ]
+    },
+    {
+      "id": "1000002",
+      "kanji": [
+        {"common": true, "text": "会う", "tags": []}
+      ],
+      "kana": [
+        {"common": true, "text": "あう", "tags": [], "appliesToKanji": ["*"]}
+      ],
+      "sense": [
+        {
+          "partOfSpeech": ["v5u"],
+          "gloss": [{"lang": "eng", "text": "to meet", "gender": null, "type": null}]
+        }
+      ]
+    },
+    {
+      "id": "1000003",
+      "kanji": [
+        {"common": true, "text": "歩く", "tags": []}
+      ],
+      "kana": [
+        {"common": true, "text": "あるく", "tags": [], "appliesToKanji": ["*"]}
+      ],
+      "sense": [
+        {
+          "partOfSpeech": ["v5u"],
+          "gloss": [{"lang": "eng", "text": "to walk", "gender": null, "type": null}]
+        }
+      ]
+    }
+  ]
+}
