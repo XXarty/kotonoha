@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Menu as MenuIcon, Search as SearchIcon, X } from "lucide-react";
 import { flushSync } from "react-dom";
 import {
@@ -59,6 +60,8 @@ export interface GlobalSearchProps {
 }
 
 export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [state, setState] = useState<SearchState>("closed");
   const [index, setIndex] = useState<SearchIndexEntry[] | null>(null);
   const [query, setQuery] = useState("");
@@ -75,7 +78,12 @@ export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
   const lastErrorRef = useRef<unknown>(null);
   const wasOpenRef = useRef(false);
   const restoreFocusOnCloseRef = useRef(true);
+  const consumedUrlTriggerRef = useRef<string | null>(null);
+  const openedFromUrlRef = useRef(false);
   const isOpen = state !== "closed";
+  const urlTriggered = searchParams.get("search") === "1";
+  const urlQuery = searchParams.get("q") ?? "";
+  const urlTriggerKey = urlTriggered ? `${pathname}?${searchParams.toString()}` : null;
 
   const results = useMemo(
     () => (state === "ready" && index ? rankSearchResults(index, query) : []),
@@ -153,6 +161,7 @@ export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
   const openSearch = (event: MouseEvent<HTMLButtonElement>) => {
     triggerRef.current = event.currentTarget;
     restoreFocusOnCloseRef.current = true;
+    openedFromUrlRef.current = false;
     setQuery("");
     setActiveIndex(-1);
     if (index !== null) {
@@ -162,14 +171,45 @@ export function GlobalSearch({ loader = loadSearchIndex }: GlobalSearchProps) {
     requestIndex();
   };
 
+  useEffect(() => {
+    if (urlTriggerKey === null) {
+      consumedUrlTriggerRef.current = null;
+      return;
+    }
+    if (consumedUrlTriggerRef.current === urlTriggerKey) return;
+
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (cancelled || consumedUrlTriggerRef.current === urlTriggerKey) return;
+      consumedUrlTriggerRef.current = urlTriggerKey;
+      openedFromUrlRef.current = true;
+      triggerRef.current = null;
+      restoreFocusOnCloseRef.current = false;
+      setQuery(urlQuery);
+      setActiveIndex(-1);
+      if (index !== null) {
+        setState("ready");
+      } else if (state !== "loading") {
+        requestIndex();
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [index, requestIndex, state, urlQuery, urlTriggerKey]);
+
   const closeSearch = useCallback((restoreFocus: boolean) => {
+    if (openedFromUrlRef.current) {
+      window.history.replaceState(null, "", pathname);
+      openedFromUrlRef.current = false;
+    }
     requestIdRef.current += 1;
     lastErrorRef.current = null;
     restoreFocusOnCloseRef.current = restoreFocus;
     setQuery("");
     setActiveIndex(-1);
     setState("closed");
-  }, []);
+  }, [pathname]);
 
   const closeAndRestoreFocus = useCallback(() => closeSearch(true), [closeSearch]);
   const closeForNavigation = useCallback(() => {

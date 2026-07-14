@@ -2,7 +2,15 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { StrictMode } from "react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+const navigationState = vi.hoisted(() => ({ pathname: "/", search: "" }));
+
+vi.mock("next/navigation", () => ({
+  usePathname: () => navigationState.pathname,
+  useSearchParams: () => new URLSearchParams(navigationState.search),
+}));
 
 import type { SearchIndexEntry } from "@/lib/content/search-index";
 
@@ -60,7 +68,117 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
+beforeEach(() => {
+  navigationState.pathname = "/";
+  navigationState.search = "";
+  window.history.replaceState(null, "", "/");
+});
+
 describe("GlobalSearch", () => {
+  it("does not open or load when the URL has no search trigger", () => {
+    const loader = vi.fn(async () => fixtureIndex);
+    const { rerender } = render(<GlobalSearch loader={loader} />);
+
+    rerender(<GlobalSearch loader={loader} />);
+
+    expect(loader).not.toHaveBeenCalled();
+    expect(screen.queryByRole("dialog", { name: "搜索日语内容" })).not.toBeInTheDocument();
+  });
+
+  it("opens once from the URL, seeds ranking before results, focuses, and lazy-loads", async () => {
+    navigationState.search = "search=1&q=%E7%81%AF";
+    const loader = vi.fn(async () => fixtureIndex);
+    const { rerender } = render(
+      <StrictMode>
+        <GlobalSearch loader={loader} />
+      </StrictMode>,
+    );
+
+    const searchbox = await screen.findByRole("searchbox");
+    expect(searchbox).toHaveValue("灯");
+    await waitFor(() => expect(searchbox).toHaveFocus());
+    expect(await screen.findByRole("link", { name: /灯.*あかり.*灯光/ })).toBeVisible();
+    expect(loader).toHaveBeenCalledOnce();
+
+    rerender(
+      <StrictMode>
+        <GlobalSearch loader={loader} />
+      </StrictMode>,
+    );
+    expect(loader).toHaveBeenCalledOnce();
+    expect(screen.getAllByRole("dialog", { name: "搜索日语内容" })).toHaveLength(1);
+  });
+
+  it("clears the URL before Escape close and does not reopen from the consumed trigger", async () => {
+    navigationState.pathname = "/grammar";
+    navigationState.search = "search=1&q=sou";
+    const replaceState = vi.spyOn(window.history, "replaceState");
+    const loader = vi.fn(async () => fixtureIndex);
+    const { rerender } = render(<GlobalSearch loader={loader} />);
+    const searchbox = await screen.findByRole("searchbox");
+
+    fireEvent.keyDown(searchbox, { key: "Escape" });
+
+    expect(replaceState).toHaveBeenCalledWith(null, "", "/grammar");
+    expect(screen.queryByRole("dialog", { name: "搜索日语内容" })).not.toBeInTheDocument();
+    rerender(<GlobalSearch loader={loader} />);
+    expect(screen.queryByRole("dialog", { name: "搜索日语内容" })).not.toBeInTheDocument();
+    expect(loader).toHaveBeenCalledOnce();
+  });
+
+  it("clears the URL when the close button dismisses a URL-triggered overlay", async () => {
+    navigationState.search = "search=1&q=%E7%81%AF";
+    const replaceState = vi.spyOn(window.history, "replaceState");
+    render(<GlobalSearch loader={async () => fixtureIndex} />);
+
+    fireEvent.click(await screen.findByRole("button", { name: "关闭搜索" }));
+
+    expect(replaceState).toHaveBeenCalledWith(null, "", "/");
+    expect(screen.queryByRole("dialog", { name: "搜索日语内容" })).not.toBeInTheDocument();
+  });
+
+  it("treats the same trigger as new only after the URL trigger disappears", async () => {
+    navigationState.search = "search=1&q=%E7%81%AF";
+    const loader = vi.fn(async () => fixtureIndex);
+    const { rerender } = render(<GlobalSearch loader={loader} />);
+    fireEvent.click(await screen.findByRole("button", { name: "关闭搜索" }));
+
+    navigationState.search = "";
+    rerender(<GlobalSearch loader={loader} />);
+    navigationState.search = "search=1&q=%E7%81%AF";
+    rerender(<GlobalSearch loader={loader} />);
+
+    expect(await screen.findByRole("searchbox")).toHaveValue("灯");
+    expect(loader).toHaveBeenCalledOnce();
+  });
+
+  it("clears the URL before URL-triggered result navigation", async () => {
+    navigationState.pathname = "/";
+    navigationState.search = "search=1&q=%E7%81%AF";
+    const replaceState = vi.spyOn(window.history, "replaceState");
+    render(<GlobalSearch loader={async () => fixtureIndex} />);
+    const result = await screen.findByRole("link", { name: /灯.*あかり.*灯光/ });
+    result.addEventListener("click", (event) => event.preventDefault());
+
+    fireEvent.click(result);
+
+    expect(replaceState).toHaveBeenCalledWith(null, "", "/");
+    expect(screen.queryByRole("dialog", { name: "搜索日语内容" })).not.toBeInTheDocument();
+  });
+
+  it("clears the URL before URL-triggered directory navigation", async () => {
+    navigationState.search = "search=1&q=offline";
+    const replaceState = vi.spyOn(window.history, "replaceState");
+    render(<GlobalSearch loader={async () => { throw new Error("offline"); }} />);
+    const directoryLink = await screen.findByRole("link", { name: "去语法目录" });
+    directoryLink.addEventListener("click", (event) => event.preventDefault());
+
+    fireEvent.click(directoryLink);
+
+    expect(replaceState).toHaveBeenCalledWith(null, "", "/");
+    expect(screen.queryByRole("dialog", { name: "搜索日语内容" })).not.toBeInTheDocument();
+  });
+
   it("does not load before first open, then caches a successful index across reopen", async () => {
     const loader = vi.fn(async () => fixtureIndex);
     render(<GlobalSearch loader={loader} />);

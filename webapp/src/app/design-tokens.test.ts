@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const css = readFileSync(resolve(process.cwd(), "src/app/globals.css"), "utf8");
-const searchPage = readFileSync(resolve(process.cwd(), "src/app/search/page.tsx"), "utf8");
+const globalSearch = readFileSync(resolve(process.cwd(), "src/components/global-search.tsx"), "utf8");
 
 function hexToken(name: string) {
   return css.match(new RegExp(`--${name}:\\s*(#[0-9a-f]{6})`, "i"))?.[1] ?? "";
@@ -77,6 +77,6 @@ describe("selective paper texture", () => {
   });
 
   it("does not opt the search control back into a transparent background", () => {
-    expect(searchPage).not.toContain("bg-transparent");
+    expect(globalSearch).not.toContain("bg-transparent");
   });
 });

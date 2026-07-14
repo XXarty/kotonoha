@@ -146,6 +146,7 @@ input, select { min-height: 2.75rem; }
   cursor: pointer;
 }
 .global-search-trigger:hover { color: var(--ink); }
+.global-search-trigger-skeleton { cursor: default; }
 .site-login { flex: 0 0 auto; padding: .45rem .85rem; font-size: .9rem; }
 .global-search-layer {
   position: fixed;

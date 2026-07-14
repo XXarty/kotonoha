@@ -6,7 +6,6 @@ export const contentRoute = {
   grammarList: (category: string) => `/grammar/${category}`,
   grammarEntry: (slug: string) => `/grammar/entry/${slug}`,
   kana: "/kana",
-  search: "/search",
   review: "/review",
   sources: "/sources",
 } as const;

@@ -1,9 +1,39 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
+const navigationState = vi.hoisted(() => ({
+  suspend: false,
+  suspension: new Promise<void>(() => undefined),
+}));
+
+vi.mock("next/navigation", () => ({
+  usePathname: () => "/",
+  useSearchParams: () => {
+    if (navigationState.suspend) throw navigationState.suspension;
+    return new URLSearchParams();
+  },
+}));
 
 import { SiteHeader } from "./site-header";
 
+beforeEach(() => {
+  navigationState.suspend = false;
+});
+
 describe("SiteHeader", () => {
+  it("keeps the URL-aware search inside a focused Suspense boundary", () => {
+    navigationState.suspend = true;
+    const { container } = render(<SiteHeader />);
+    const fallback = container.querySelector(".global-search-trigger");
+
+    expect(fallback).toBeInstanceOf(HTMLSpanElement);
+    expect(fallback).toHaveClass("global-search-trigger");
+    expect(fallback).toHaveAttribute("aria-hidden", "true");
+    expect(screen.queryByRole("button", { name: "搜索全站内容" })).not.toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "主导航" })).toBeVisible();
+    expect(screen.getByRole("link", { name: "登录" })).toBeVisible();
+  });
+
   it("offers only the four public learning links while keeping brand, login, and search", () => {
     render(<SiteHeader />);
 
