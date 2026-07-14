@@ -100,7 +100,7 @@
     "category": "politeness",
     "list_name": "voice-and-politeness",
     "expression": "尊敬语动词",
-    "connection": "特殊尊敬动词（いらっしゃる、召し上がる等）；或 お／ご + 动词连用形 + になる",
+    "connection": "特殊尊敬动词（いらっしゃる、召し上がる等）；规则构式中，和语动词用「お + 动词ます形去掉ます + になる」（お読みになる），汉语词サ変名词／词干用「ご + サ変名词／词干 + になる」（ご案内になる）",
     "explanation_zh": "抬高听者、顾客或话题中应受尊敬者的动作；特殊动词优先于一般构式。",
     "source_url": "https://guidetojapanese.org/learn/grammar/honorific",
     "license_key": "cc-by-nc-sa-3.0",
@@ -116,7 +116,7 @@
       }
     ],
     "common_mistakes": [
-      "尊敬语用于对方或应受尊敬者的动作，通常不用来抬高自己；说自己的动作时应考虑谦让语。"
+      "尊敬语用于对方或应受尊敬者的动作，通常不用来抬高自己；说自己的动作时应考虑谦让语。规则构式还要区分和语动词的「お」与汉语词サ変词干的「ご」，不能机械互换。"
     ],
     "related_entries": [
       "grammar:tae-kim:humble-verbs",
@@ -131,7 +131,7 @@
     "category": "politeness",
     "list_name": "voice-and-politeness",
     "expression": "谦让语动词",
-    "connection": "特殊谦让动词（参る、申す、拝見する等）；或 お／ご + 动词连用形 + する／いたす",
+    "connection": "特殊谦让动词（参る、申す、拝見する等）；规则构式中，和语动词用「お + 动词ます形去掉ます + する／いたす」（お届けする），汉语词サ変名词／词干用「ご + サ変名词／词干 + する／いたす」（ご案内する／ご案内いたす）",
     "explanation_zh": "压低自己或己方与对方相关的动作，从而向对方表达敬意。",
     "source_url": "https://guidetojapanese.org/learn/grammar/honorific",
     "license_key": "cc-by-nc-sa-3.0",
@@ -147,7 +147,7 @@
       }
     ],
     "common_mistakes": [
-      "不要把顾客或上级的动作说成谦让语；例如询问对方是否看过资料，应使用「ご覧になりましたか」，而非「拝見しましたか」。"
+      "不要把顾客或上级的动作说成谦让语；例如询问对方是否看过资料，应使用「ご覧になりましたか」，而非「拝見しましたか」。汉语词サ変词干直接接「する／いたす」：应说「ご案内する／ご案内いたす」，不要先取「案内し」再写成不成立的「ご案内しする」。"
     ],
     "related_entries": [
       "grammar:tae-kim:honorific-verbs",
@@ -379,7 +379,7 @@
     "category": "evidentiality",
     "list_name": "similarity-and-evidence",
     "expression": "～みたいだ",
-    "connection": "名词、动词或形容词的普通形 + みたいだ；修饰名词用「みたいな」，修饰动作方式用「みたいに」",
+    "connection": "动词／い形容词用普通形 + みたいだ；名词／な形容词现在肯定直接 + みたいだ，不加「だ」（学生みたいだ、静かみたいだ）；名词／な形容词的过去、否定等普通形可接（学生だったみたいだ、静かじゃないみたいだ）。修饰名词用「みたいな」，修饰动作方式用「みたいに」",
     "explanation_zh": "口语中表达“像……一样”或根据所见作推测，语体比「ようだ」随意。",
     "source_url": "https://guidetojapanese.org/learn/grammar/similarity",
     "license_key": "cc-by-nc-sa-3.0",
@@ -395,7 +395,7 @@
       }
     ],
     "common_mistakes": [
-      "「みたい」按名词／な形容词方式变化，应说「みたいじゃない」；不要把它当成い形容词写成「みたくない」，也别与「見たい」混淆。"
+      "名词／な形容词现在肯定后不要保留「だ」：说「学生みたいだ／静かみたいだ」，不说「学生だみたいだ／静かだみたいだ」；过去、否定则可说「学生だったみたいだ／静かじゃないみたいだ」。「みたい」按名词／な形容词方式变化，也别与「見たい」混淆。"
     ],
     "related_entries": [
       "grammar:tae-kim:you-similarity",
@@ -410,7 +410,7 @@
     "category": "evidentiality",
     "list_name": "similarity-and-evidence",
     "expression": "～らしい",
-    "connection": "名词、动词或形容词的普通形 + らしい；整体按い形容词变化",
+    "connection": "动词／い形容词用普通形 + らしい；名词／な形容词现在肯定直接 + らしい，不加「だ」（学生らしい、静からしい）；名词／な形容词的过去、否定等普通形可接（学生だったらしい、静かじゃないらしい）。整体按い形容词变化",
     "explanation_zh": "根据听到的信息或间接迹象判断情况；接名词时也可表示符合该类事物的典型特征。",
     "source_url": "https://guidetojapanese.org/learn/grammar/similarity",
     "license_key": "cc-by-nc-sa-3.0",
@@ -426,7 +426,7 @@
       }
     ],
     "common_mistakes": [
-      "「雪らしい」是基于间接信息的判断，而「雪のようだ／雪みたいだ」更侧重观察到的相似或推断；「子供らしい」还可能表示“像个孩子”。"
+      "名词／な形容词现在肯定后不要加「だ」：说「学生らしい／静からしい」，不说「学生だらしい／静かだらしい」；过去、否定普通形则可接，如「学生だったらしい／静かじゃないらしい」。「雪らしい」基于间接信息，而「子供らしい」还可能表示“像个孩子”。"
     ],
     "related_entries": [
       "grammar:tae-kim:you-similarity",
@@ -531,7 +531,7 @@
     "source_id": "tae-kim-grammar",
     "source_key": "tae-kim:yasui-nikui",
     "slug": "yasui-nikui",
-    "category": "aspect",
+    "category": "modality",
     "list_name": "comparison-and-ease",
     "expression": "～やすい／～にくい",
     "connection": "动词连用形 + やすい／にくい；所得整体按い形容词变化",
@@ -691,7 +691,7 @@
     "expression": "～とき",
     "connection": "动词／い形容词普通形 + とき；名词 + のとき；な形容词 + なとき",
     "explanation_zh": "把前项设为后项发生的时间框架；动词在「とき」前的形态体现两个动作的相对先后。",
-    "source_url": "https://guidetojapanese.org/learn/complete/verb_sequences",
+    "source_url": "https://guidetojapanese.org/learn/grammar/clause",
     "license_key": "cc-by-nc-sa-3.0",
     "content_version": "2026-07-15",
     "display_order": 83,
@@ -815,7 +815,7 @@
     "expression": "～までに",
     "connection": "截止时间或事件 + までに + 一次性完成的动作",
     "explanation_zh": "设置最迟完成期限，表示动作必须在该界限到来以前完成。",
-    "source_url": "https://guidetojapanese.org/learn/complete/time",
+    "source_url": "https://guidetojapanese.org/learn/complete/required",
     "license_key": "cc-by-nc-sa-3.0",
     "content_version": "2026-07-15",
     "display_order": 87,
@@ -916,8 +916,8 @@
     "path": "expressions",
     "examples": [
       {
-        "ja": "冷蔵庫には卵だけありますが、牛乳は一本しかありません。",
-        "zh": "冰箱里只有鸡蛋，而牛奶只剩一瓶。",
+        "ja": "卵は三個だけあり、牛乳は一本しかありません。",
+        "zh": "鸡蛋只有三个，牛奶也只有一瓶（没有更多）。",
         "source": "kotonoha-original"
       }
     ],

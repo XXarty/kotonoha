@@ -174,6 +174,75 @@ def test_expressions_path_has_thirty_expanded_entries() -> None:
     )
 
 
+def test_expressions_path_preserves_reviewed_grammar_distinctions() -> None:
+    expressions = {
+        entry.slug: entry
+        for entry in load_grammar_curriculum(GRAMMAR_DIR)
+        if entry.path == "expressions"
+    }
+
+    for slug in ("mitai-similarity", "rashii-similarity"):
+        guidance = " ".join(
+            [
+                expressions[slug].connection,
+                expressions[slug].explanation_zh,
+                *expressions[slug].common_mistakes,
+            ]
+        )
+        assert all(
+            distinction in guidance
+            for distinction in ("现在肯定", "名词", "な形容词", "不加「だ」", "过去", "否定")
+        )
+
+    mitai_guidance = " ".join(
+        [
+            expressions["mitai-similarity"].connection,
+            *expressions["mitai-similarity"].common_mistakes,
+        ]
+    )
+    assert all(form in mitai_guidance for form in ("学生みたいだ", "静かみたいだ"))
+    rashii_guidance = " ".join(
+        [
+            expressions["rashii-similarity"].connection,
+            *expressions["rashii-similarity"].common_mistakes,
+        ]
+    )
+    assert "学生らしい" in rashii_guidance
+
+    honorific_connection = expressions["honorific-verbs"].connection
+    humble_connection = expressions["humble-verbs"].connection
+    assert all(
+        term in honorific_connection
+        for term in ("和语动词", "お +", "汉语词", "ご +")
+    )
+    assert all(
+        term in humble_connection
+        for term in ("和语动词", "お +", "汉语词", "ご +")
+    )
+    assert "ご案内しする" not in " ".join(
+        [
+            humble_connection,
+            *(example.ja for example in expressions["humble-verbs"].examples),
+        ]
+    )
+    assert any(
+        "ご案内しする" in mistake and "不成立" in mistake
+        for mistake in expressions["humble-verbs"].common_mistakes
+    )
+
+    assert expressions["dake-shika"].examples[0].ja == (
+        "卵は三個だけあり、牛乳は一本しかありません。"
+    )
+
+    assert expressions["toki-time"].source_url == (
+        "https://guidetojapanese.org/learn/grammar/clause"
+    )
+    assert expressions["made-ni-deadline"].source_url == (
+        "https://guidetojapanese.org/learn/complete/required"
+    )
+    assert expressions["yasui-nikui"].category == "modality"
+
+
 def test_core_path_preserves_reviewed_grammar_distinctions() -> None:
     core = {
         entry.slug: entry
