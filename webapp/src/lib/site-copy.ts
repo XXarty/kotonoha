@@ -4,6 +4,11 @@ export const siteCopy = {
     title: "今天，也为自己留一点语言的时间。",
     description: "从一个词、一句话开始，让日语慢慢住进日常。",
     primaryAction: "开始今天的学习",
+    secondaryAction: "沿着语法路径前行",
+    continueTitle: "继续学习",
+    continueDescription: "不用赶进度。回到最近的复习，或登录后把学习记录安稳地留在这里。",
+    entrancesTitle: "三条学习路径，循序而进。",
+    sourceTitle: "内容与来源",
   },
   empty: "这里暂时还没有内容。换一个关键词，或回到学习路径看看。",
   review: {

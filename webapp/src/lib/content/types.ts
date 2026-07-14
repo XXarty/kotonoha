@@ -89,6 +89,8 @@ export interface ContentDirectoryItem {
   title: string;
   description: string;
   count: number;
+  meta?: string;
+  tone?: "mist" | "paper";
 }
 
 export interface UserItemProgress {

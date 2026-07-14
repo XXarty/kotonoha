@@ -235,13 +235,93 @@ input, select { min-height: 2.75rem; }
 .global-search-result-primary { font: 500 1.55rem/1.3 var(--font-display); }
 .global-search-result-reading, .global-search-result-meaning { color: var(--ink-soft); }
 .global-search-error-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
-.directory-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 3rem; border-top: 1px solid var(--line); }
-.directory-card { position: relative; min-height: 13rem; padding: 1.5rem 4rem 1.5rem 0; border-bottom: 1px solid var(--line); }
-.directory-card:nth-child(odd) { border-right: 1px solid var(--line); padding-right: 2rem; }
-.directory-card:nth-child(even) { padding-left: 2rem; }
-.directory-card h2 { margin: 0; font: 500 clamp(1.5rem, 3vw, 2.4rem)/1.15 var(--font-display); }
-.directory-card p { max-width: 25rem; margin: .65rem 0; color: var(--ink-soft); }
-.directory-count { position: absolute; right: 1rem; top: 1.5rem; font: .72rem/1.4 var(--font-data); color: var(--indigo); }
+.home-page { padding-block: clamp(1.5rem, 4vw, 4rem) clamp(4rem, 8vw, 7rem); }
+.home-opening-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(22rem, .95fr);
+  gap: clamp(2rem, 5vw, 5.5rem);
+  align-items: center;
+  min-height: min(46rem, calc(100vh - 7.5rem));
+  padding: clamp(2rem, 5vw, 5rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+}
+.home-hero { max-width: 38rem; }
+.home-hero .display-title { max-width: 10ch; }
+.home-hero .lede { max-width: 35rem; }
+.home-hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+.daily-word {
+  position: relative;
+  min-height: 31rem;
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+.daily-word-ring { position: absolute; inset: 2rem; border-radius: 50%; }
+.daily-word-content { position: relative; z-index: 1; display: flex; min-height: 26rem; flex-direction: column; }
+.daily-word-main { margin-block: auto; text-align: center; }
+.daily-word-main h3 { margin: 0; font: 500 clamp(4.5rem, 10vw, 8rem)/1 var(--font-display); letter-spacing: -.06em; }
+.daily-word-reading { margin: .5rem 0 0; font: 500 clamp(1.4rem, 3vw, 2rem)/1.4 var(--font-display); letter-spacing: .12em; }
+.daily-word-romaji { margin: .15rem 0 0; color: var(--ink-soft); font: .75rem/1.5 var(--font-data); letter-spacing: .12em; }
+.daily-word-meaning { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem 1rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.daily-word-meaning p { margin: 0; }
+.daily-word-meaning p:first-child { font-size: 1.05rem; }
+.daily-word-meaning p:nth-child(2) { color: var(--ink-soft); font-size: .85rem; }
+.daily-word-meaning a { display: inline-flex; min-height: 2.75rem; align-items: center; gap: .35rem; margin-left: auto; color: var(--moss-text); font-weight: 650; }
+.daily-word-source { margin: .6rem 0 0; color: var(--ink-soft); font-size: .75rem; }
+.home-guidance {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: center;
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-block: 1px solid var(--line);
+}
+.home-guidance h2, .home-section-heading h2, .home-source-note h2, .directory-section-heading h2 {
+  margin: 0;
+  font: 500 clamp(1.65rem, 3vw, 2.35rem)/1.25 var(--font-display);
+}
+.home-guidance p:not(.eyebrow) { max-width: 42rem; margin: .6rem 0 0; color: var(--ink-soft); }
+.home-guidance-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .75rem; }
+.home-entrances { margin-top: clamp(3.5rem, 7vw, 6rem); }
+.home-section-heading { display: flex; align-items: center; gap: 1.25rem; }
+.home-section-heading span { width: 2.5rem; border-top: 2px solid var(--moss); }
+.home-entrance-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 1.75rem; border-block: 1px solid var(--line); }
+.home-entrance-grid > a { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1rem; align-items: start; min-height: 11rem; padding: 1.75rem; transition: color var(--motion-fast) ease, background-color var(--motion-fast) ease, transform var(--motion-fast) ease; }
+.home-entrance-grid > a + a { border-left: 1px solid var(--line); }
+.home-entrance-grid > a:hover { color: var(--moss-text); background: var(--paper); transform: translateY(-2px); }
+.home-entrance-marker { display: inline-flex; width: 3.5rem; height: 3.5rem; align-items: center; justify-content: center; border: 1px solid var(--sage); border-radius: 50%; background: var(--mist); font: 500 1.5rem/1 var(--font-display); }
+.home-entrance-grid strong { display: block; font: 500 1.3rem/1.35 var(--font-display); }
+.home-entrance-grid small { display: block; margin-top: .45rem; color: var(--ink-soft); font-size: .9rem; line-height: 1.7; }
+.home-source-note { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(18rem, .9fr); gap: clamp(2rem, 6vw, 5rem); margin-top: clamp(3rem, 6vw, 5rem); padding-top: 2rem; border-top: 1px solid var(--line); }
+.home-source-note h2 { display: flex; flex-wrap: wrap; gap: .35rem 1.25rem; font-size: clamp(1.15rem, 2vw, 1.5rem); }
+.home-source-note h2 span { white-space: nowrap; }
+.home-source-note > p { margin: 0; color: var(--ink-soft); }
+.home-source-note a { display: inline-flex; min-height: 2.75rem; align-items: center; border-bottom: 1px solid var(--moss); color: var(--moss-text); vertical-align: middle; }
+.directory-page { padding-top: clamp(2.5rem, 6vw, 5.5rem); }
+.directory-intro { max-width: 48rem; }
+.vocabulary-tier-intro { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-top: clamp(2.5rem, 6vw, 4.5rem); border: 1px solid var(--line); background: var(--line); }
+.vocabulary-tier-intro article { min-height: 13rem; padding: clamp(1.5rem, 4vw, 2.5rem); background: var(--paper); }
+.vocabulary-tier-intro article:first-child { background: var(--mist); }
+.vocabulary-tier-intro h2 { margin: .6rem 0 0; font: 500 clamp(1.6rem, 3vw, 2.4rem)/1.2 var(--font-display); }
+.vocabulary-tier-intro article > p:last-child { max-width: 30rem; margin: .75rem 0 0; color: var(--ink-soft); }
+.directory-section { margin-top: clamp(3rem, 6vw, 5rem); }
+.directory-section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.directory-section-heading p { margin: 0; color: var(--ink-soft); font-size: .9rem; }
+.directory-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-top: 1.5rem; border: 1px solid var(--line); background: var(--line); }
+.directory-card { position: relative; display: flex; min-height: 14rem; flex-direction: column; padding: 1.75rem; background: var(--paper); transition: color var(--motion-fast) ease, background-color var(--motion-fast) ease, transform var(--motion-fast) ease; }
+.directory-card[data-tone="mist"] { background: var(--mist); }
+.directory-card:hover { z-index: 1; color: var(--moss-text); transform: translateY(-2px); }
+.directory-card h2 { max-width: calc(100% - 6rem); margin: 0; font: 500 clamp(1.5rem, 3vw, 2.4rem)/1.15 var(--font-display); }
+.directory-card p { max-width: 27rem; margin: .65rem 0 1.5rem; color: var(--ink-soft); }
+.directory-count { position: absolute; right: 1.5rem; top: 1.75rem; color: var(--moss-text); font: .74rem/1.4 var(--font-data); }
+.directory-action { display: inline-flex; min-height: 2.75rem; align-items: center; gap: .4rem; margin-top: auto; font-size: .88rem; font-weight: 650; }
+.grammar-directory-section .directory-grid { grid-template-columns: 1fr; }
+.grammar-directory-section .directory-card { display: grid; grid-template-columns: minmax(8rem, .55fr) minmax(16rem, 1.5fr) auto; gap: 1.5rem; min-height: 6rem; align-items: center; }
+.grammar-directory-section .directory-card h2 { max-width: none; }
+.grammar-directory-section .directory-card p { margin: 0; }
+.grammar-directory-section .directory-count { position: static; grid-column: 3; grid-row: 1; }
+.grammar-directory-section .directory-action { grid-column: 3; grid-row: 1; margin-top: 1.75rem; }
 .entry-list { margin: 2.5rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
 .entry-list > * { content-visibility: auto; contain-intrinsic-size: auto 4.5rem; }
 .entry-row { display: grid; grid-template-columns: minmax(8rem, 1fr) minmax(10rem, 1fr) 2fr; gap: 1.2rem; align-items: baseline; padding: 1rem 0; border-bottom: 1px solid var(--line); }
@@ -255,6 +335,20 @@ input, select { min-height: 2.75rem; }
 .meaning-list { margin: 0; padding: 0; list-style: none; }
 .meaning-list li { padding: 1rem 0; border-bottom: 1px solid var(--line); }
 .source-note { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .86rem; }
+
+@media (max-width: 960px) {
+  .home-opening-grid { grid-template-columns: 1fr; min-height: auto; }
+  .home-hero { max-width: 44rem; }
+  .home-hero .display-title { max-width: 12ch; }
+  .daily-word { min-height: 26rem; }
+  .daily-word-content { min-height: 21rem; }
+  .home-entrance-grid { grid-template-columns: 1fr; }
+  .home-entrance-grid > a { min-height: 8rem; }
+  .home-entrance-grid > a + a { border-top: 1px solid var(--line); border-left: 0; }
+  .grammar-directory-section .directory-card { grid-template-columns: minmax(8rem, .55fr) minmax(14rem, 1.5fr); }
+  .grammar-directory-section .directory-count { grid-column: 1; grid-row: 2; }
+  .grammar-directory-section .directory-action { grid-column: 2; grid-row: 2; justify-self: end; margin-top: 0; }
+}
 
 @media (max-width: 720px) {
   .site-header-row { gap: .45rem; }
@@ -295,9 +389,28 @@ input, select { min-height: 2.75rem; }
   .global-search-result { grid-template-columns: 4.25rem minmax(0, 1fr); gap: .25rem .8rem; padding-inline: .8rem; }
   .global-search-result-reading { grid-column: 1; }
   .global-search-result-meaning { grid-column: 2; }
+  .home-opening-grid { gap: 2rem; padding: 1.25rem; border-radius: .9rem; }
+  .home-hero { padding: 1rem .25rem .5rem; }
+  .home-hero .display-title { font-size: clamp(2.65rem, 13vw, 4rem); }
+  .home-hero-actions, .home-guidance-actions { width: 100%; }
+  .home-hero-actions a, .home-guidance-actions a { flex: 1 1 12rem; }
+  .daily-word { min-height: 24rem; padding: 1.25rem; }
+  .daily-word-ring { inset: 2.5rem .75rem; }
+  .daily-word-content { min-height: 21.5rem; }
+  .daily-word-meaning a { width: 100%; margin: .35rem 0 0; }
+  .home-guidance { grid-template-columns: 1fr; padding-inline: .25rem; }
+  .home-guidance-actions { justify-content: flex-start; }
+  .home-entrance-grid > a { grid-template-columns: 3.5rem minmax(0, 1fr); padding-inline: .5rem; }
+  .home-entrance-marker { width: 3rem; height: 3rem; }
+  .home-source-note { grid-template-columns: 1fr; }
+  .directory-section-heading { align-items: flex-start; flex-direction: column; }
+  .vocabulary-tier-intro { grid-template-columns: 1fr; }
   .directory-grid { grid-template-columns: 1fr; }
-  .directory-card:nth-child(odd) { border-right: 0; padding-right: 3.5rem; }
-  .directory-card:nth-child(even) { padding-left: 0; }
+  .directory-card { min-height: 12.5rem; padding: 1.35rem; }
+  .directory-count { top: 1.35rem; right: 1.35rem; }
+  .grammar-directory-section .directory-card { display: flex; gap: 0; align-items: flex-start; }
+  .grammar-directory-section .directory-count { position: absolute; }
+  .grammar-directory-section .directory-action { align-self: stretch; justify-self: auto; }
   .entry-row { grid-template-columns: 1fr 1fr; }
   .entry-meaning { grid-column: 1 / -1; }
   .detail-grid { grid-template-columns: 1fr; }
@@ -306,5 +419,5 @@ input, select { min-height: 2.75rem; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
-  .button-primary:hover, .button-quiet:hover { transform: none; }
+  .button-primary:hover, .button-quiet:hover, .directory-card:hover, .home-entrance-grid > a:hover { transform: none; }
 }

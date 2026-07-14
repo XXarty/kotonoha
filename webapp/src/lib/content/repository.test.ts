@@ -129,6 +129,22 @@ function fixtures(sourceEnabled = true) {
 }
 
 describe("static content repository", () => {
+  it("groups grammar into the four real learning paths", () => {
+    const repository = createContentRepository(fixtures());
+
+    expect(repository.getGrammarDirectory()).toEqual([
+      {
+        slug: "foundation",
+        title: "基础",
+        description: expect.any(String),
+        count: 1,
+        meta: "1 个单元",
+        tone: "mist",
+      },
+    ]);
+    expect(repository.getGrammarList("foundation")).toHaveLength(1);
+  });
+
   it("filters disabled sources from directories, details, search, and daily words", () => {
     const repository = createContentRepository(fixtures(false));
 

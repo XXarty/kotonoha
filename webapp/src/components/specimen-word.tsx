@@ -5,20 +5,27 @@ import { contentRoute } from "@/lib/content/routes";
 
 export function SpecimenWord({ word }: { word: DailyWordCandidate }) {
   return (
-    <article className="relative mt-12 overflow-hidden border-y border-[var(--line)] py-8 sm:py-12">
-      <span aria-hidden="true" className="absolute right-0 top-6 border border-[var(--seal)] px-2 py-1 font-[var(--font-data)] text-xs text-[var(--seal)]">今日</span>
-      <p className="eyebrow">今日の一个词</p>
-      <div className="grid gap-8 md:grid-cols-[1.2fr_.8fr] md:items-end">
-        <div>
-          <h2 className="font-[var(--font-display)] text-[clamp(4rem,14vw,10rem)] font-medium leading-none tracking-[-.07em]">{word.japanese}</h2>
-          <p className="mt-3 font-[var(--font-data)] text-sm tracking-[.12em] text-[var(--indigo)]">{word.kana} · {word.romaji}</p>
+    <section aria-labelledby="daily-word-title" className="daily-word paper-panel reveal-soft">
+      <div className="daily-word-ring" aria-hidden="true" />
+      <div className="daily-word-content">
+        <h2 className="eyebrow" id="daily-word-title">今日のことば</h2>
+        <div className="daily-word-main">
+          <h3>{word.japanese}</h3>
+          <p className="daily-word-reading">{word.kana}</p>
+          <p className="daily-word-romaji">{word.romaji}</p>
         </div>
-        <div className="pb-2">
-          <p className="text-xl">{word.meaningZh}</p>
-          <p className="mt-2 text-sm text-[var(--ink-soft)]">{word.meaningEn}</p>
-          <Link className="mt-7 inline-flex border-b border-[var(--ink)] text-sm" href={contentRoute.vocabularyEntry(word.id)}>打开词条 →</Link>
+        <div className="daily-word-meaning">
+          <p>{word.meaningZh}</p>
+          <p>{word.meaningEn}</p>
+          <Link href={contentRoute.vocabularyEntry(word.id)}>
+            打开词条
+            <svg aria-hidden="true" fill="none" height="18" viewBox="0 0 18 18" width="18">
+              <path d="M3.75 9h10.5M10.5 5.25 14.25 9l-3.75 3.75" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+            </svg>
+          </Link>
         </div>
+        <p className="daily-word-source">词义来源：{word.sourceTitle}</p>
       </div>
-    </article>
+    </section>
   );
 }

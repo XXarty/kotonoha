@@ -8,23 +8,58 @@ import { metadata } from "./layout";
 import Home from "./page";
 
 vi.mock("@/lib/content/repository", () => ({
-  getDailyWordCandidates: () => [],
-  getGrammarDirectory: () => [],
-  getVocabularyDirectory: () => [],
+  getDailyWordCandidates: () => [
+    {
+      id: "vocabulary:jmdict:1000001",
+      japanese: "灯",
+      kana: "あかり",
+      romaji: "akari",
+      meaningZh: "灯光",
+      meaningEn: "light",
+      sourceTitle: "JMdict + Kaikki",
+    },
+  ],
+  getGrammarDirectory: () => [
+    { slug: "foundation", title: "基础", description: "基础路径", count: 30 },
+    { slug: "core", title: "核心", description: "核心路径", count: 30 },
+    { slug: "expressions", title: "常用表达", description: "表达路径", count: 30 },
+    { slug: "advanced", title: "进阶", description: "进阶路径", count: 30 },
+  ],
+  getKanaTable: () => Array.from({ length: 46 }, (_, index) => ({ id: `kana:${index}` })),
+  getVocabularyDirectory: () => [
+    { slug: "nouns", title: "常用名词", description: "常见名词", count: 2400 },
+    { slug: "verbs", title: "常用动词", description: "常见动词", count: 1600 },
+  ],
 }));
 
 describe("site copy contract", () => {
   it("uses the warm daily-learning message", () => {
     render(<Home />);
 
-    expect(
-      screen.getByRole("heading", { name: "今天，也为自己留一点语言的时间。" }),
-    ).toBeVisible();
+    const headings = screen.getAllByRole("heading", { level: 1 });
+    expect(headings).toHaveLength(1);
+    expect(headings[0]).toHaveTextContent("今天，也为自己留一点语言的时间。");
     expect(screen.getByText("从一个词、一句话开始，让日语慢慢住进日常。")).toBeVisible();
     expect(screen.getByRole("link", { name: "开始今天的学习" })).toHaveAttribute(
       "href",
       "/vocabulary",
     );
+  });
+
+  it("orders the real daily word, guidance, entrances, and honest counts", () => {
+    render(<Home />);
+
+    const dailyWord = screen.getByRole("region", { name: "今日のことば" });
+    const guidance = screen.getByRole("region", { name: "继续学习" });
+    const entrances = screen.getByRole("region", { name: "学习入口" });
+    const sources = screen.getByRole("region", { name: "内容与来源" });
+
+    expect(dailyWord).toHaveTextContent("灯");
+    expect(dailyWord.compareDocumentPosition(guidance)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(guidance.compareDocumentPosition(entrances)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(entrances.compareDocumentPosition(sources)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(screen.getByText("4,000 条词汇")).toBeVisible();
+    expect(screen.getByText("120 个语法单元")).toBeVisible();
   });
 
   it("keeps the approved empty, review, and search strings exact", () => {

@@ -192,12 +192,11 @@ const VOCABULARY_LABELS: Record<VocabularyEntry["category"], [string, string]> =
   other: ["常用表达", "副词、接续词与其他常见表达"],
 };
 
-const GRAMMAR_LABELS: Record<string, [string, string]> = {
-  basics: ["句子基础", "从最基础的句型开始"],
-  particles: ["助词", "理解句子里词语之间的关系"],
-  verbs: ["动词", "动词变化与常用句型"],
-  adjectives: ["形容词", "形容词的连接与变化"],
-  expressions: ["表达", "请求、愿望、计划与理由"],
+const GRAMMAR_LABELS: Record<GrammarEntry["path"], [string, string, ContentDirectoryItem["tone"]]> = {
+  foundation: ["基础", "句子结构、形容词、动词和基本助词。", "mist"],
+  core: ["核心", "时态、连接、条件、愿望、请求和授受。", "paper"],
+  expressions: ["常用表达", "推测、比较、原因、目的、变化和口语表达。", "mist"],
+  advanced: ["进阶", "被动、使役、敬语、正式表达和复杂句型。", "paper"],
 };
 
 function normalizeSearch(value: string): string {
@@ -237,12 +236,10 @@ export function createContentRepository(rawInput: unknown) {
 
   function getGrammarDirectory(): ContentDirectoryItem[] {
     return Object.entries(GRAMMAR_LABELS)
-      .map(([slug, [title, description]]) => ({
-        slug,
-        title,
-        description,
-        count: grammar.filter((item) => item.category === slug).length,
-      }))
+      .map(([slug, [title, description, tone]]) => {
+        const count = grammar.filter((item) => item.path === slug).length;
+        return { slug, title, description, count, meta: `${count} 个单元`, tone };
+      })
       .filter((item) => item.count > 0);
   }
 
@@ -294,7 +291,7 @@ export function createContentRepository(rawInput: unknown) {
     getVocabularyEntry: (id: string) =>
       (itemMap.get(id)?.kind === "vocabulary" ? itemMap.get(id) : null) as VocabularyEntry | null,
     getGrammarDirectory,
-    getGrammarList: (category: string) => grammar.filter((item) => item.category === category),
+    getGrammarList: (path: string) => grammar.filter((item) => item.path === path),
     getGrammarEntry: (slug: string) => grammarSlugMap.get(slug) ?? null,
     getKanaTable: () => kana,
     searchContent,
