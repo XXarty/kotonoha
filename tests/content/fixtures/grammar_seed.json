@@ -1,0 +1,22 @@
+[
+  {
+    "kind": "grammar",
+    "id": "grammar:tae-kim:te-form",
+    "source_id": "tae-kim-grammar",
+    "source_key": "tae-kim:te-form",
+    "slug": "te-form",
+    "category": "verbs",
+    "list_name": "verb-basics",
+    "expression": "て形",
+    "connection": "动词变为て形",
+    "explanation_zh": "连接动作或构成其他表达。",
+    "example_ja": "朝ご飯を食べて、学校へ行く。",
+    "example_zh": "吃完早饭去学校。",
+    "source_url": "https://guidetojapanese.org/learn/grammar/teform",
+    "example_source": "kotonoha-original",
+    "license_key": "cc-by-nc-sa-3.0",
+    "content_version": "2026-07-14",
+    "display_order": 11,
+    "published": true
+  }
+]

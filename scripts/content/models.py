@@ -1,87 +1,183 @@
 from __future__ import annotations
 
+import re
 import unicodedata
-from typing import Literal
+from datetime import date, datetime
+from typing import Annotated, Literal
+from urllib.parse import urlparse
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    StringConstraints,
+    field_validator,
+    model_validator,
+)
 
 
-ValidationStatus = Literal["needs_review", "published"]
+NonBlankText = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
+Sha256 = Annotated[str, StringConstraints(pattern=r"^[0-9a-f]{64}$")]
 
 
 def normalize_text(value: str) -> str:
     return " ".join(unicodedata.normalize("NFKC", value).split())
 
 
-def vocabulary_source_key(*, source_page: int, page_ordinal: int) -> str:
-    if source_page < 1 or page_ordinal < 1:
-        raise ValueError("source_page and page_ordinal must be positive")
-    return f"p{source_page:03d}-i{page_ordinal:03d}"
+def _slug(value: str) -> str:
+    normalized = normalize_text(value).lower()
+    slug = re.sub(r"[^a-z0-9]+", "-", normalized).strip("-")
+    if not slug:
+        raise ValueError("value must contain ASCII letters or digits")
+    return slug
 
 
-def grammar_source_key(source_number: int) -> str:
-    if not 1 <= source_number <= 228:
-        raise ValueError("source_number must be between 1 and 228")
-    return f"n{source_number:03d}"
+def vocabulary_id(jmdict_id: str) -> str:
+    normalized = normalize_text(jmdict_id)
+    if not normalized.isascii() or not normalized.isdigit():
+        raise ValueError("JMdict ID must contain only ASCII digits")
+    return f"vocabulary:jmdict:{normalized}"
 
 
-def kana_source_key(row_group: str, romaji: str) -> str:
-    group = normalize_text(row_group).lower().replace(" ", "")
-    canonical_romaji = normalize_text(romaji).lower().replace(" ", "")
-    if not group or not canonical_romaji:
-        raise ValueError("row_group and romaji must not be blank")
-    return f"{group}:{canonical_romaji}"
+def grammar_id(slug: str) -> str:
+    return f"grammar:tae-kim:{_slug(slug)}"
+
+
+def kana_id(romaji: str) -> str:
+    return f"kana:gojuon:{_slug(romaji)}"
+
+
+def _require_https(value: str) -> str:
+    normalized = normalize_text(value)
+    parsed = urlparse(normalized)
+    if parsed.scheme != "https" or not parsed.netloc:
+        raise ValueError("URL must use HTTPS")
+    return normalized
 
 
 class ContentRecord(BaseModel):
-    model_config = ConfigDict(str_strip_whitespace=True)
+    model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
 
     @field_validator("*", mode="before")
     @classmethod
-    def normalize_strings(cls, value: object) -> object:
+    def normalize_scalar_strings(cls, value: object) -> object:
         return normalize_text(value) if isinstance(value, str) else value
 
 
-class RawVocabularyRecord(ContentRecord):
-    source_slug: str = Field(min_length=1)
-    source_key: str = Field(min_length=1)
-    category: str = Field(min_length=1)
-    list_name: str = Field(min_length=1)
-    japanese: str = Field(min_length=1)
-    kana: str = Field(min_length=1)
-    romaji: str = Field(min_length=1)
-    meaning_en: str = Field(min_length=1)
-    meaning_zh: str = ""
-    source_page: int = Field(gt=0)
-    confidence: float = Field(ge=0, le=1)
-    validation_status: ValidationStatus
-    translation_provenance: Literal["manual", "machine_translated"] | None = None
+class VocabularyRecord(ContentRecord):
+    kind: Literal["vocabulary"] = "vocabulary"
+    id: str = Field(pattern=r"^vocabulary:jmdict:[0-9]+$")
+    source_id: Literal["jmdict-kaikki"]
+    source_key: str = Field(pattern=r"^jmdict:[0-9]+$")
+    category: Literal["nouns", "verbs", "adjectives", "other"]
+    list_name: NonBlankText
+    japanese: NonBlankText
+    kana: NonBlankText
+    romaji: NonBlankText
+    part_of_speech: list[NonBlankText] = Field(min_length=1)
+    meaning_zh: list[NonBlankText] = Field(min_length=1)
+    meaning_en: list[NonBlankText] = Field(min_length=1)
+    meaning_zh_source: Literal["kaikki-zhwiktionary"]
+    content_version: NonBlankText
+    published: Literal[True]
 
-
-class VocabularyRecord(RawVocabularyRecord):
-    meaning_zh: str = Field(min_length=1)
+    @model_validator(mode="after")
+    def validate_identity(self) -> VocabularyRecord:
+        upstream_id = self.source_key.removeprefix("jmdict:")
+        if self.id != vocabulary_id(upstream_id):
+            raise ValueError("vocabulary ID must match source_key")
+        return self
 
 
 class GrammarRecord(ContentRecord):
-    source_slug: str = Field(min_length=1)
-    source_key: str = Field(min_length=1)
-    source_number: int = Field(ge=1, le=228)
-    pattern: str = Field(min_length=1)
-    explanation_zh: str = Field(min_length=1)
-    example_jp: str = Field(min_length=1)
-    example_zh: str = ""
-    connection: str = ""
-    source_page: int = Field(gt=0)
-    confidence: float = Field(ge=0, le=1)
-    validation_status: ValidationStatus
+    kind: Literal["grammar"] = "grammar"
+    id: str = Field(pattern=r"^grammar:tae-kim:[a-z0-9-]+$")
+    source_id: Literal["tae-kim-grammar"]
+    source_key: str = Field(pattern=r"^tae-kim:[a-z0-9-]+$")
+    slug: str = Field(pattern=r"^[a-z0-9-]+$")
+    category: NonBlankText
+    list_name: NonBlankText
+    expression: NonBlankText
+    connection: NonBlankText
+    explanation_zh: NonBlankText
+    example_ja: NonBlankText
+    example_zh: NonBlankText
+    source_url: str
+    example_source: Literal["tae-kim", "kotonoha-original"]
+    license_key: Literal["cc-by-nc-sa-3.0"]
+    content_version: NonBlankText
+    display_order: int = Field(gt=0)
+    published: Literal[True]
+
+    @field_validator("source_url")
+    @classmethod
+    def validate_source_url(cls, value: str) -> str:
+        value = _require_https(value)
+        hostname = (urlparse(value).hostname or "").lower()
+        if hostname not in {"guidetojapanese.org", "www.guidetojapanese.org"}:
+            raise ValueError("grammar source URL must use guidetojapanese.org")
+        return value
+
+    @model_validator(mode="after")
+    def validate_identity(self) -> GrammarRecord:
+        expected = grammar_id(self.slug)
+        if self.id != expected or self.source_key != f"tae-kim:{self.slug}":
+            raise ValueError("grammar identity fields must match slug")
+        return self
 
 
 class KanaRecord(ContentRecord):
-    source_slug: str = Field(min_length=1)
-    list_name: str = Field(min_length=1)
-    source_key: str = Field(min_length=1)
-    hiragana: str = Field(min_length=1)
-    katakana: str = Field(min_length=1)
-    romaji: str = Field(min_length=1)
-    row_group: str = Field(min_length=1)
-    validation_status: ValidationStatus
+    kind: Literal["kana"] = "kana"
+    id: str = Field(pattern=r"^kana:gojuon:[a-z]+$")
+    source_id: Literal["kotonoha-kana"]
+    hiragana: NonBlankText
+    katakana: NonBlankText
+    romaji: str = Field(pattern=r"^[a-z]+$")
+    row_group: NonBlankText
+    display_order: int = Field(gt=0)
+    published: Literal[True]
+
+    @model_validator(mode="after")
+    def validate_identity(self) -> KanaRecord:
+        if self.id != kana_id(self.romaji):
+            raise ValueError("kana ID must match romaji")
+        return self
+
+
+class ContentSource(ContentRecord):
+    id: str = Field(pattern=r"^[a-z0-9-]+$")
+    title: NonBlankText
+    url: str
+    license_name: NonBlankText
+    license_url: str
+    enabled: bool
+
+    @field_validator("url", "license_url")
+    @classmethod
+    def validate_https_url(cls, value: str) -> str:
+        return _require_https(value)
+
+
+class SourceSnapshot(ContentRecord):
+    source_id: str = Field(pattern=r"^[a-z0-9-]+$")
+    snapshot_date: date
+    downloaded_at: datetime
+    sha256: Sha256
+
+
+class BuildManifest(ContentRecord):
+    manifest_version: Literal[2] = 2
+    built_at: datetime
+    generator_version: NonBlankText
+    sources: list[ContentSource] = Field(min_length=1)
+    snapshots: list[SourceSnapshot] = Field(min_length=1)
+    counts: dict[NonBlankText, int]
+    rejection_counts: dict[NonBlankText, int]
+    files: dict[NonBlankText, Sha256]
+
+    @field_validator("counts", "rejection_counts")
+    @classmethod
+    def validate_nonnegative_counts(cls, value: dict[str, int]) -> dict[str, int]:
+        if any(count < 0 for count in value.values()):
+            raise ValueError("manifest counts must be nonnegative")
+        return value
