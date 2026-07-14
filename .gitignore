@@ -9,6 +9,9 @@ dist/
 *.log
 .worktrees/
 .superpowers/
+.vercel/
+webapp/playwright-report/
+webapp/test-results/
 
 # Original source materials are local-only and must not be pushed to GitHub.
 词汇/**/*.pdf
