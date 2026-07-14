@@ -16,6 +16,9 @@ export interface SourceSnapshot {
   snapshot_date: string;
   downloaded_at: string;
   sha256: string;
+  artifact_name?: string | null;
+  asset_url?: string | null;
+  repository_path?: string | null;
 }
 
 export interface ContentExample {

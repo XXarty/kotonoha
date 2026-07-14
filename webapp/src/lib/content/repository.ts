@@ -28,12 +28,28 @@ const sourceSchema = z.object({
   enabled: z.boolean(),
 });
 
-const snapshotSchema = z.object({
-  source_id: z.string().min(1),
-  snapshot_date: z.string().min(1),
-  downloaded_at: z.string().min(1),
-  sha256: z.string().regex(/^[0-9a-f]{64}$/),
-});
+const snapshotSchema = z
+  .object({
+    source_id: z.string().min(1),
+    snapshot_date: z.string().min(1),
+    downloaded_at: z.string().min(1),
+    sha256: z.string().regex(/^[0-9a-f]{64}$/),
+    artifact_name: z.string().trim().min(1).optional(),
+    asset_url: z.url().optional(),
+    repository_path: z.string().trim().min(1).optional(),
+  })
+  .superRefine((snapshot, context) => {
+    const hasArtifactName = snapshot.artifact_name !== undefined;
+    const hasAssetUrl = snapshot.asset_url !== undefined;
+    const hasRepositoryPath = snapshot.repository_path !== undefined;
+    if (hasArtifactName !== hasAssetUrl || hasRepositoryPath === hasArtifactName) {
+      context.addIssue({
+        code: "custom",
+        path: ["asset_url"],
+        message: "Snapshot requires one remote asset pair or one repository path",
+      });
+    }
+  });
 
 const contentExampleSchema = z.object({
   ja: z.string().trim().min(1),

@@ -52,6 +52,9 @@ function fixtures(sourceEnabled = true) {
           snapshot_date: "2026-07-13",
           downloaded_at: "2026-07-14T00:00:00Z",
           sha256: "a".repeat(64),
+          artifact_name: "jmdict-eng.json.tgz",
+          asset_url:
+            "https://github.com/scriptin/jmdict-simplified/releases/download/v1/jmdict-eng.json.tgz",
         },
       ],
     },
@@ -311,6 +314,16 @@ describe("static content repository", () => {
     expect(repository.getVocabularyEntry("vocabulary:jmdict:1000001")).toBeNull();
     expect(repository.searchContent("食べる").vocabulary).toEqual([]);
     expect(repository.getDailyWordCandidates()).toEqual([]);
+  });
+
+  it("retains exact machine-readable snapshot provenance", () => {
+    const repository = createContentRepository(fixtures());
+
+    expect(repository.getSourceAttributions().snapshots[0]).toMatchObject({
+      artifact_name: "jmdict-eng.json.tgz",
+      asset_url:
+        "https://github.com/scriptin/jmdict-simplified/releases/download/v1/jmdict-eng.json.tgz",
+    });
   });
 
   it("normalizes NFKC search across Japanese, kana, romaji, and Chinese", () => {

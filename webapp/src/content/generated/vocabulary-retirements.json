@@ -1,0 +1,6520 @@
+{
+  "baseline_commit": "d5b5ccb",
+  "pin_count": 2000,
+  "retained_ids": [
+    "vocabulary:jmdict:1000510",
+    "vocabulary:jmdict:1001370",
+    "vocabulary:jmdict:1001670",
+    "vocabulary:jmdict:1001710",
+    "vocabulary:jmdict:1002030",
+    "vocabulary:jmdict:1002120",
+    "vocabulary:jmdict:1002500",
+    "vocabulary:jmdict:1003550",
+    "vocabulary:jmdict:1003810",
+    "vocabulary:jmdict:1003960",
+    "vocabulary:jmdict:1004140",
+    "vocabulary:jmdict:1004570",
+    "vocabulary:jmdict:1005210",
+    "vocabulary:jmdict:1005800",
+    "vocabulary:jmdict:1006120",
+    "vocabulary:jmdict:1006380",
+    "vocabulary:jmdict:1006490",
+    "vocabulary:jmdict:1006740",
+    "vocabulary:jmdict:1007240",
+    "vocabulary:jmdict:1007840",
+    "vocabulary:jmdict:1008340",
+    "vocabulary:jmdict:1008370",
+    "vocabulary:jmdict:1008950",
+    "vocabulary:jmdict:1010050",
+    "vocabulary:jmdict:1010350",
+    "vocabulary:jmdict:1011930",
+    "vocabulary:jmdict:1012490",
+    "vocabulary:jmdict:1012870",
+    "vocabulary:jmdict:1013050",
+    "vocabulary:jmdict:1029440",
+    "vocabulary:jmdict:1057580",
+    "vocabulary:jmdict:1060870",
+    "vocabulary:jmdict:1072300",
+    "vocabulary:jmdict:1140990",
+    "vocabulary:jmdict:1148010",
+    "vocabulary:jmdict:1150350",
+    "vocabulary:jmdict:1150420",
+    "vocabulary:jmdict:1150990",
+    "vocabulary:jmdict:1151390",
+    "vocabulary:jmdict:1151470",
+    "vocabulary:jmdict:1152700",
+    "vocabulary:jmdict:1153670",
+    "vocabulary:jmdict:1155990",
+    "vocabulary:jmdict:1156320",
+    "vocabulary:jmdict:1156480",
+    "vocabulary:jmdict:1157000",
+    "vocabulary:jmdict:1158210",
+    "vocabulary:jmdict:1158760",
+    "vocabulary:jmdict:1158810",
+    "vocabulary:jmdict:1159770",
+    "vocabulary:jmdict:1159810",
+    "vocabulary:jmdict:1162740",
+    "vocabulary:jmdict:1164010",
+    "vocabulary:jmdict:1164440",
+    "vocabulary:jmdict:1166510",
+    "vocabulary:jmdict:1166550",
+    "vocabulary:jmdict:1167860",
+    "vocabulary:jmdict:1168430",
+    "vocabulary:jmdict:1168960",
+    "vocabulary:jmdict:1169390",
+    "vocabulary:jmdict:1170720",
+    "vocabulary:jmdict:1172040",
+    "vocabulary:jmdict:1172460",
+    "vocabulary:jmdict:1172660",
+    "vocabulary:jmdict:1173240",
+    "vocabulary:jmdict:1173660",
+    "vocabulary:jmdict:1173710",
+    "vocabulary:jmdict:1174790",
+    "vocabulary:jmdict:1174890",
+    "vocabulary:jmdict:1175980",
+    "vocabulary:jmdict:1176270",
+    "vocabulary:jmdict:1176860",
+    "vocabulary:jmdict:1177190",
+    "vocabulary:jmdict:1177220",
+    "vocabulary:jmdict:1178710",
+    "vocabulary:jmdict:1178750",
+    "vocabulary:jmdict:1179810",
+    "vocabulary:jmdict:1181030",
+    "vocabulary:jmdict:1181420",
+    "vocabulary:jmdict:1181450",
+    "vocabulary:jmdict:1181670",
+    "vocabulary:jmdict:1183470",
+    "vocabulary:jmdict:1183990",
+    "vocabulary:jmdict:1184280",
+    "vocabulary:jmdict:1188220",
+    "vocabulary:jmdict:1189140",
+    "vocabulary:jmdict:1192030",
+    "vocabulary:jmdict:1192460",
+    "vocabulary:jmdict:1192890",
+    "vocabulary:jmdict:1192910",
+    "vocabulary:jmdict:1195140",
+    "vocabulary:jmdict:1195970",
+    "vocabulary:jmdict:1198330",
+    "vocabulary:jmdict:1198670",
+    "vocabulary:jmdict:1201230",
+    "vocabulary:jmdict:1201250",
+    "vocabulary:jmdict:1201670",
+    "vocabulary:jmdict:1201750",
+    "vocabulary:jmdict:1202130",
+    "vocabulary:jmdict:1202430",
+    "vocabulary:jmdict:1203620",
+    "vocabulary:jmdict:1204260",
+    "vocabulary:jmdict:1204480",
+    "vocabulary:jmdict:1205680",
+    "vocabulary:jmdict:1205940",
+    "vocabulary:jmdict:1206050",
+    "vocabulary:jmdict:1206530",
+    "vocabulary:jmdict:1206540",
+    "vocabulary:jmdict:1206710",
+    "vocabulary:jmdict:1207030",
+    "vocabulary:jmdict:1207150",
+    "vocabulary:jmdict:1207240",
+    "vocabulary:jmdict:1208180",
+    "vocabulary:jmdict:1208870",
+    "vocabulary:jmdict:1208880",
+    "vocabulary:jmdict:1208960",
+    "vocabulary:jmdict:1209610",
+    "vocabulary:jmdict:1209630",
+    "vocabulary:jmdict:1209650",
+    "vocabulary:jmdict:1211150",
+    "vocabulary:jmdict:1211250",
+    "vocabulary:jmdict:1212670",
+    "vocabulary:jmdict:1212940",
+    "vocabulary:jmdict:1213400",
+    "vocabulary:jmdict:1213470",
+    "vocabulary:jmdict:1214300",
+    "vocabulary:jmdict:1214440",
+    "vocabulary:jmdict:1214560",
+    "vocabulary:jmdict:1215160",
+    "vocabulary:jmdict:1215260",
+    "vocabulary:jmdict:1215380",
+    "vocabulary:jmdict:1215520",
+    "vocabulary:jmdict:1215660",
+    "vocabulary:jmdict:1216310",
+    "vocabulary:jmdict:1217970",
+    "vocabulary:jmdict:1218360",
+    "vocabulary:jmdict:1218410",
+    "vocabulary:jmdict:1220770",
+    "vocabulary:jmdict:1220880",
+    "vocabulary:jmdict:1220890",
+    "vocabulary:jmdict:1221270",
+    "vocabulary:jmdict:1221330",
+    "vocabulary:jmdict:1221750",
+    "vocabulary:jmdict:1222040",
+    "vocabulary:jmdict:1222080",
+    "vocabulary:jmdict:1222410",
+    "vocabulary:jmdict:1222520",
+    "vocabulary:jmdict:1222820",
+    "vocabulary:jmdict:1222840",
+    "vocabulary:jmdict:1222870",
+    "vocabulary:jmdict:1223230",
+    "vocabulary:jmdict:1223240",
+    "vocabulary:jmdict:1223250",
+    "vocabulary:jmdict:1223660",
+    "vocabulary:jmdict:1223990",
+    "vocabulary:jmdict:1224020",
+    "vocabulary:jmdict:1224090",
+    "vocabulary:jmdict:1226570",
+    "vocabulary:jmdict:1228270",
+    "vocabulary:jmdict:1228310",
+    "vocabulary:jmdict:1228730",
+    "vocabulary:jmdict:1229840",
+    "vocabulary:jmdict:1231750",
+    "vocabulary:jmdict:1232030",
+    "vocabulary:jmdict:1232360",
+    "vocabulary:jmdict:1235910",
+    "vocabulary:jmdict:1236100",
+    "vocabulary:jmdict:1236630",
+    "vocabulary:jmdict:1236690",
+    "vocabulary:jmdict:1236900",
+    "vocabulary:jmdict:1236940",
+    "vocabulary:jmdict:1237680",
+    "vocabulary:jmdict:1238420",
+    "vocabulary:jmdict:1238610",
+    "vocabulary:jmdict:1242590",
+    "vocabulary:jmdict:1244310",
+    "vocabulary:jmdict:1244320",
+    "vocabulary:jmdict:1245050",
+    "vocabulary:jmdict:1246690",
+    "vocabulary:jmdict:1250320",
+    "vocabulary:jmdict:1250700",
+    "vocabulary:jmdict:1251110",
+    "vocabulary:jmdict:1259680",
+    "vocabulary:jmdict:1259740",
+    "vocabulary:jmdict:1259950",
+    "vocabulary:jmdict:1259990",
+    "vocabulary:jmdict:1263110",
+    "vocabulary:jmdict:1263120",
+    "vocabulary:jmdict:1265900",
+    "vocabulary:jmdict:1267100",
+    "vocabulary:jmdict:1267130",
+    "vocabulary:jmdict:1267340",
+    "vocabulary:jmdict:1270150",
+    "vocabulary:jmdict:1272820",
+    "vocabulary:jmdict:1275330",
+    "vocabulary:jmdict:1275560",
+    "vocabulary:jmdict:1277080",
+    "vocabulary:jmdict:1280820",
+    "vocabulary:jmdict:1281450",
+    "vocabulary:jmdict:1281470",
+    "vocabulary:jmdict:1281480",
+    "vocabulary:jmdict:1284480",
+    "vocabulary:jmdict:1284670",
+    "vocabulary:jmdict:1285380",
+    "vocabulary:jmdict:1285990",
+    "vocabulary:jmdict:1289590",
+    "vocabulary:jmdict:1289740",
+    "vocabulary:jmdict:1289780",
+    "vocabulary:jmdict:1290310",
+    "vocabulary:jmdict:1291290",
+    "vocabulary:jmdict:1292160",
+    "vocabulary:jmdict:1293700",
+    "vocabulary:jmdict:1294400",
+    "vocabulary:jmdict:1295510",
+    "vocabulary:jmdict:1295530",
+    "vocabulary:jmdict:1295940",
+    "vocabulary:jmdict:1296360",
+    "vocabulary:jmdict:1297050",
+    "vocabulary:jmdict:1299030",
+    "vocabulary:jmdict:1304510",
+    "vocabulary:jmdict:1305990",
+    "vocabulary:jmdict:1306390",
+    "vocabulary:jmdict:1306630",
+    "vocabulary:jmdict:1307500",
+    "vocabulary:jmdict:1309790",
+    "vocabulary:jmdict:1310730",
+    "vocabulary:jmdict:1312650",
+    "vocabulary:jmdict:1313540",
+    "vocabulary:jmdict:1319580",
+    "vocabulary:jmdict:1321820",
+    "vocabulary:jmdict:1322180",
+    "vocabulary:jmdict:1322320",
+    "vocabulary:jmdict:1323010",
+    "vocabulary:jmdict:1326720",
+    "vocabulary:jmdict:1326800",
+    "vocabulary:jmdict:1326930",
+    "vocabulary:jmdict:1328190",
+    "vocabulary:jmdict:1329580",
+    "vocabulary:jmdict:1335830",
+    "vocabulary:jmdict:1335940",
+    "vocabulary:jmdict:1335950",
+    "vocabulary:jmdict:1340820",
+    "vocabulary:jmdict:1342050",
+    "vocabulary:jmdict:1343460",
+    "vocabulary:jmdict:1344410",
+    "vocabulary:jmdict:1344970",
+    "vocabulary:jmdict:1344980",
+    "vocabulary:jmdict:1346370",
+    "vocabulary:jmdict:1346450",
+    "vocabulary:jmdict:1348560",
+    "vocabulary:jmdict:1348910",
+    "vocabulary:jmdict:1349320",
+    "vocabulary:jmdict:1350600",
+    "vocabulary:jmdict:1350780",
+    "vocabulary:jmdict:1351730",
+    "vocabulary:jmdict:1352050",
+    "vocabulary:jmdict:1354770",
+    "vocabulary:jmdict:1356780",
+    "vocabulary:jmdict:1357030",
+    "vocabulary:jmdict:1357420",
+    "vocabulary:jmdict:1357980",
+    "vocabulary:jmdict:1358870",
+    "vocabulary:jmdict:1361170",
+    "vocabulary:jmdict:1361490",
+    "vocabulary:jmdict:1361510",
+    "vocabulary:jmdict:1362570",
+    "vocabulary:jmdict:1362680",
+    "vocabulary:jmdict:1365190",
+    "vocabulary:jmdict:1372430",
+    "vocabulary:jmdict:1375550",
+    "vocabulary:jmdict:1378560",
+    "vocabulary:jmdict:1379080",
+    "vocabulary:jmdict:1379750",
+    "vocabulary:jmdict:1381210",
+    "vocabulary:jmdict:1381300",
+    "vocabulary:jmdict:1381760",
+    "vocabulary:jmdict:1382220",
+    "vocabulary:jmdict:1383240",
+    "vocabulary:jmdict:1383770",
+    "vocabulary:jmdict:1385900",
+    "vocabulary:jmdict:1386700",
+    "vocabulary:jmdict:1389430",
+    "vocabulary:jmdict:1389460",
+    "vocabulary:jmdict:1390800",
+    "vocabulary:jmdict:1390850",
+    "vocabulary:jmdict:1391100",
+    "vocabulary:jmdict:1391940",
+    "vocabulary:jmdict:1392480",
+    "vocabulary:jmdict:1392500",
+    "vocabulary:jmdict:1394650",
+    "vocabulary:jmdict:1394800",
+    "vocabulary:jmdict:1396910",
+    "vocabulary:jmdict:1396970",
+    "vocabulary:jmdict:1397350",
+    "vocabulary:jmdict:1399470",
+    "vocabulary:jmdict:1400620",
+    "vocabulary:jmdict:1400850",
+    "vocabulary:jmdict:1401100",
+    "vocabulary:jmdict:1402130",
+    "vocabulary:jmdict:1402730",
+    "vocabulary:jmdict:1403040",
+    "vocabulary:jmdict:1404740",
+    "vocabulary:jmdict:1404860",
+    "vocabulary:jmdict:1404975",
+    "vocabulary:jmdict:1405800",
+    "vocabulary:jmdict:1406110",
+    "vocabulary:jmdict:1408180",
+    "vocabulary:jmdict:1410590",
+    "vocabulary:jmdict:1410710",
+    "vocabulary:jmdict:1412910",
+    "vocabulary:jmdict:1412950",
+    "vocabulary:jmdict:1414570",
+    "vocabulary:jmdict:1417030",
+    "vocabulary:jmdict:1418060",
+    "vocabulary:jmdict:1418140",
+    "vocabulary:jmdict:1420010",
+    "vocabulary:jmdict:1420020",
+    "vocabulary:jmdict:1420470",
+    "vocabulary:jmdict:1420490",
+    "vocabulary:jmdict:1421950",
+    "vocabulary:jmdict:1427510",
+    "vocabulary:jmdict:1428330",
+    "vocabulary:jmdict:1429750",
+    "vocabulary:jmdict:1430570",
+    "vocabulary:jmdict:1431670",
+    "vocabulary:jmdict:1432680",
+    "vocabulary:jmdict:1432710",
+    "vocabulary:jmdict:1432720",
+    "vocabulary:jmdict:1435370",
+    "vocabulary:jmdict:1435380",
+    "vocabulary:jmdict:1436570",
+    "vocabulary:jmdict:1436730",
+    "vocabulary:jmdict:1444380",
+    "vocabulary:jmdict:1447040",
+    "vocabulary:jmdict:1449540",
+    "vocabulary:jmdict:1450430",
+    "vocabulary:jmdict:1450440",
+    "vocabulary:jmdict:1451210",
+    "vocabulary:jmdict:1451220",
+    "vocabulary:jmdict:1453810",
+    "vocabulary:jmdict:1455420",
+    "vocabulary:jmdict:1456940",
+    "vocabulary:jmdict:1459820",
+    "vocabulary:jmdict:1460850",
+    "vocabulary:jmdict:1467720",
+    "vocabulary:jmdict:1473960",
+    "vocabulary:jmdict:1478130",
+    "vocabulary:jmdict:1478220",
+    "vocabulary:jmdict:1482660",
+    "vocabulary:jmdict:1483190",
+    "vocabulary:jmdict:1483200",
+    "vocabulary:jmdict:1486360",
+    "vocabulary:jmdict:1487400",
+    "vocabulary:jmdict:1489240",
+    "vocabulary:jmdict:1489980",
+    "vocabulary:jmdict:1497430",
+    "vocabulary:jmdict:1497980",
+    "vocabulary:jmdict:1501500",
+    "vocabulary:jmdict:1502650",
+    "vocabulary:jmdict:1504990",
+    "vocabulary:jmdict:1508590",
+    "vocabulary:jmdict:1509110",
+    "vocabulary:jmdict:1509330",
+    "vocabulary:jmdict:1511600",
+    "vocabulary:jmdict:1512150",
+    "vocabulary:jmdict:1516270",
+    "vocabulary:jmdict:1519290",
+    "vocabulary:jmdict:1523340",
+    "vocabulary:jmdict:1531540",
+    "vocabulary:jmdict:1532300",
+    "vocabulary:jmdict:1532350",
+    "vocabulary:jmdict:1532710",
+    "vocabulary:jmdict:1532980",
+    "vocabulary:jmdict:1533740",
+    "vocabulary:jmdict:1534490",
+    "vocabulary:jmdict:1535440",
+    "vocabulary:jmdict:1535700",
+    "vocabulary:jmdict:1537980",
+    "vocabulary:jmdict:1538440",
+    "vocabulary:jmdict:1539040",
+    "vocabulary:jmdict:1540250",
+    "vocabulary:jmdict:1545110",
+    "vocabulary:jmdict:1545120",
+    "vocabulary:jmdict:1545630",
+    "vocabulary:jmdict:1545710",
+    "vocabulary:jmdict:1546210",
+    "vocabulary:jmdict:1546330",
+    "vocabulary:jmdict:1546640",
+    "vocabulary:jmdict:1548500",
+    "vocabulary:jmdict:1550370",
+    "vocabulary:jmdict:1551380",
+    "vocabulary:jmdict:1551440",
+    "vocabulary:jmdict:1552120",
+    "vocabulary:jmdict:1552140",
+    "vocabulary:jmdict:1552840",
+    "vocabulary:jmdict:1554200",
+    "vocabulary:jmdict:1554370",
+    "vocabulary:jmdict:1556750",
+    "vocabulary:jmdict:1557640",
+    "vocabulary:jmdict:1557650",
+    "vocabulary:jmdict:1559290",
+    "vocabulary:jmdict:1560240",
+    "vocabulary:jmdict:1560710",
+    "vocabulary:jmdict:1560840",
+    "vocabulary:jmdict:1562510",
+    "vocabulary:jmdict:1563570",
+    "vocabulary:jmdict:1565300",
+    "vocabulary:jmdict:1565670",
+    "vocabulary:jmdict:1565840",
+    "vocabulary:jmdict:1566110",
+    "vocabulary:jmdict:1566420",
+    "vocabulary:jmdict:1569790",
+    "vocabulary:jmdict:1571320",
+    "vocabulary:jmdict:1572410",
+    "vocabulary:jmdict:1573400",
+    "vocabulary:jmdict:1573650",
+    "vocabulary:jmdict:1575320",
+    "vocabulary:jmdict:1576050",
+    "vocabulary:jmdict:1577490",
+    "vocabulary:jmdict:1578850",
+    "vocabulary:jmdict:1578885",
+    "vocabulary:jmdict:1582820",
+    "vocabulary:jmdict:1584340",
+    "vocabulary:jmdict:1586210",
+    "vocabulary:jmdict:1586220",
+    "vocabulary:jmdict:1586420",
+    "vocabulary:jmdict:1586520",
+    "vocabulary:jmdict:1586700",
+    "vocabulary:jmdict:1586910",
+    "vocabulary:jmdict:1587070",
+    "vocabulary:jmdict:1587090",
+    "vocabulary:jmdict:1587290",
+    "vocabulary:jmdict:1587780",
+    "vocabulary:jmdict:1587810",
+    "vocabulary:jmdict:1587820",
+    "vocabulary:jmdict:1588130",
+    "vocabulary:jmdict:1588800",
+    "vocabulary:jmdict:1588840",
+    "vocabulary:jmdict:1588890",
+    "vocabulary:jmdict:1589030",
+    "vocabulary:jmdict:1589220",
+    "vocabulary:jmdict:1589250",
+    "vocabulary:jmdict:1589450",
+    "vocabulary:jmdict:1589600",
+    "vocabulary:jmdict:1590080",
+    "vocabulary:jmdict:1590290",
+    "vocabulary:jmdict:1590350",
+    "vocabulary:jmdict:1591030",
+    "vocabulary:jmdict:1591160",
+    "vocabulary:jmdict:1591230",
+    "vocabulary:jmdict:1593100",
+    "vocabulary:jmdict:1593480",
+    "vocabulary:jmdict:1595610",
+    "vocabulary:jmdict:1595640",
+    "vocabulary:jmdict:1596050",
+    "vocabulary:jmdict:1597780",
+    "vocabulary:jmdict:1597790",
+    "vocabulary:jmdict:1598530",
+    "vocabulary:jmdict:1598890",
+    "vocabulary:jmdict:1599400",
+    "vocabulary:jmdict:1599680",
+    "vocabulary:jmdict:1599730",
+    "vocabulary:jmdict:1600630",
+    "vocabulary:jmdict:1600650",
+    "vocabulary:jmdict:1601630",
+    "vocabulary:jmdict:1603520",
+    "vocabulary:jmdict:1603910",
+    "vocabulary:jmdict:1604300",
+    "vocabulary:jmdict:1604540",
+    "vocabulary:jmdict:1604650",
+    "vocabulary:jmdict:1604800",
+    "vocabulary:jmdict:1605320",
+    "vocabulary:jmdict:1605330",
+    "vocabulary:jmdict:1607660",
+    "vocabulary:jmdict:1609010",
+    "vocabulary:jmdict:1609310",
+    "vocabulary:jmdict:1609390",
+    "vocabulary:jmdict:1609520",
+    "vocabulary:jmdict:1609630",
+    "vocabulary:jmdict:1609860",
+    "vocabulary:jmdict:1610010",
+    "vocabulary:jmdict:1610310",
+    "vocabulary:jmdict:1611190",
+    "vocabulary:jmdict:1611610",
+    "vocabulary:jmdict:1612630",
+    "vocabulary:jmdict:1612800",
+    "vocabulary:jmdict:1613260",
+    "vocabulary:jmdict:1613780",
+    "vocabulary:jmdict:1614360",
+    "vocabulary:jmdict:1630060",
+    "vocabulary:jmdict:1750060",
+    "vocabulary:jmdict:1930050",
+    "vocabulary:jmdict:2008620",
+    "vocabulary:jmdict:2611890",
+    "vocabulary:jmdict:2836356",
+    "vocabulary:jmdict:2846390"
+  ],
+  "retired": [
+    {
+      "id": "vocabulary:jmdict:1000470",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1001110",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1001140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1001200",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1001560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1001910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1002050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1002430",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1002790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1002970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1003590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1003890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1003930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1004880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1005160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1005340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1005630",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1007170",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1007310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1007360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1007660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1008450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1009740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1009800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1009970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1010550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1013000",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1013100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1013190",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1015390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1019880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1020810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1029450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1031260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1031730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1032100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1033790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1037310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1043500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1046070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1046760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1046840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1047520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1047700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1049070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1053090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1056180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1056860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1070980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1073920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1074030",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1074040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1074430",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1074470",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1075010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1075500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1076920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1082930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1085810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1089650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1090530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1093640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1096350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1096560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1100640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1103730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1106580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1109580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1110290",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1112030",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1114030",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1116550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1119620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1122700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1126560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1131240",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1131830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1132990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1134070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1137310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1138570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1138980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1139050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1139490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1140550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1141860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1142260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1143070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1144790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1147040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1149260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1150670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1150680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1150840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1151090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1151720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1152570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1152750",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1152990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1153080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1153140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1153310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1153440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1153720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1153740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1154030",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1154330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1154360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1154390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1154790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1155180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1155210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1155650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1155780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1155840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1155920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1155950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1155960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1155980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1156160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1156220",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1156270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1156290",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1156300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1156450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1156680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1156790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1156890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1156900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1156950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1157130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1157300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1157510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1157670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1157700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1157800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1157810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1157860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1157970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158110",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158600",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1158830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1159020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1159040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1159090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1159220",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1159230",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1159250",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1159310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1159380",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1159420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1159920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1160100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1160540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1160610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1160630",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1160830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1161130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1161270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1161390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1161550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1161570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1161690",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1161730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1161840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1162050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1162170",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1163080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1163520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1163620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1163770",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1163940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1164150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1164680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1164710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1164740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1164890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1164950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1165090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1165220",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1165350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1165700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1166010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1166220",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1166420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1166440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1166450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1166560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1166710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1167020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1167100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1167160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1167250",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1167270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1167320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1167450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1167720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1167750",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1167760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1167870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1167920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1168320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1168670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1168680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1168720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1169140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1169580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1170280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1170340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1170660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1170990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1171050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1171150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1171210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1171340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1171400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1171910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1172140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1172350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1172740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1172750",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1173010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1173060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1173090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1173420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1173650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1174040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1174160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1174260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1174390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1174530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1174590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1174940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1174960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1174980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1175300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1175310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1175340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1175350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1175380",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1175800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1175880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1176090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1176120",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1176330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1176490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1176720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1176740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1176750",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1176780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1176820",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1176850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1177010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1177100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1177140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1177540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1177800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1177830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1177950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1178070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1178260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1178680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1178790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1178870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1178940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179005",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179030",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179110",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1179980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1180000",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1180020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1180030",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1180860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1180950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1181480",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1181550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1182030",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1182060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1182710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1182730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1183130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1183160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1183460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1183600",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1183610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1183860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1183970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1184040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1184120",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1184270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1184510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1184870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1186030",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1186710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1187300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1187570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1188490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1189280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1189960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1189990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1190080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1190570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1190810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1191840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1191900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1191940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1191950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1192660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1192690",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1192970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1193150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1193260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1193300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1193340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1194410",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1194430",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1194450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1194470",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1195730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1195820",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1196060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1196080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1196220",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1196250",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1196270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1196280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1196290",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1196330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1196350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1196460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1197060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1197280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1197630",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1197640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1197810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1198080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1198110",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1198230",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1198430",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1198500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1198660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1198750",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1198860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1198890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1198900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1198910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1198920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1199040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1199060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1199080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1199210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1199290",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1199400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1199440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1199510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1199570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1199610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1199800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1199900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200110",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200120",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200750",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1200970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1201060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1201290",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1201360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1201680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1201700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1201830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202290",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1202940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1203130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1203320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1203410",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1203430",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1203440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1203460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1203470",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1203520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1203830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1203940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1203990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1204090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1204130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1204160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1204170",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1204440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1204620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1204700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1204800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1205180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1205220",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1205280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1205410",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1205420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1205530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1205580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1205700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1205780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1205870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1206040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1206070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1206190",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1206310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1206360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1206440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1206630",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1206720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1206780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1207060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1207130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1207190",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1207300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1207420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1207430",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1207480",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1207530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1207540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1207730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1208270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1208280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1208360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1208520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1208530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1208560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1208680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1208730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1208740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1209010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1209540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1210100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1210520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1210930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1211010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1211040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1211120",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1211200",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1211290",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1211540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1211550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1211600",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1211670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1211680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1211790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1211960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212240",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212630",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212820",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1212900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1213040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1213260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1213440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1213680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1213710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1213720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1213780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1214170",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1214190",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1214410",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1214430",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1214450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1214470",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1214530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1214740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1214820",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1214980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1215040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1215080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1215130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1215200",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1215220",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1215330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1215500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1215700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1215730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1215870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1215960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1216010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1216040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1216060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1216150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1216300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1216890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1217050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1217280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1217290",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1217350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1218050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1218370",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1218440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1218680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1218840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1218930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1219130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1219170",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1219460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1219470",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1219960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1220990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1221180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1221250",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1221290",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1221300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1221310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1221390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1221420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1221770",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1221810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1221950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1221990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222030",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222110",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222290",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222370",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222380",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222770",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1222800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223110",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1223930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1224050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1224970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1225490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1225510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1226320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1226380",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1226490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1226650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1226710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1226740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1226830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1226880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1226910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1227340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1227470",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1227610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1227670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1227700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1227760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1227780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1227800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1227830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1227840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1228180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1228330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1228630",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1228650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1228670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1228780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1228830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1228870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1229060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1229150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1229180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1229350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1229390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1229450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1229500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1229910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1230010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1230090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1230170",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1230250",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1230910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1230930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1231020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1231720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1232870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1233580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1234040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1236080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1236150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1236890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1236920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1237510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1238070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1238190",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1238650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1238680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1239070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1240200",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1241480",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1242010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1242130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1242170",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1242230",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1242790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1243230",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1244350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1244360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1244840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1244960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1245620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1247500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1247520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1250480",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1250580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1250600",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1250650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1250660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1251750",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1252080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1252560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1253490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1253570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1253890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1254180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1254200",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1254590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1254600",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1254670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1256520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1256550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1257260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1257330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1258730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1259130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1259140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1259300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1259370",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1259490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1259500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1259580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1259640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1259700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1259780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1259880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1259900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1260020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1260940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1261010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1261020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1261070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1262520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1263500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1263510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1264330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1264610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1264640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1265000",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1265530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1266350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1266560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1268780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1269480",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1269950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1270530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1270670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1270810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1270850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1270920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1270990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1271660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1275340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1275460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1275600",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1276570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1276990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1277100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1277490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1277520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1278450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1278460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1278660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1278830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1279060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1279130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1279700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1280950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1281900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1282790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1283220",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1283240",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1284850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1285100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1285800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1285840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1285890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1285900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1287420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1287460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1288940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1288950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1289150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1289180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1289400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1289560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1290150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1292300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1292760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1294390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1295030",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1295190",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1295250",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1295560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1295690",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1296050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1297200",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1298740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1303420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1303460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1303490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1304760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1305140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1305310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1305560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1309180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1309460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1309660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1309670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1310370",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1310570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1311050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1311330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1311470",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1311570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1311850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1311880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1312280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1314050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1314560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1314700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1315540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1315720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1315730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1318610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1318620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1320390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1320720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1320830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1320850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1321790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1322250",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1322490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1322580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1323540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1323560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1324300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1324590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1324650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1324990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1326550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1326830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1327460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1327550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1327990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1328060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1328210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1329670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1329860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1330010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1330270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1330280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1331530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1331900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1332570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1332690",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1332760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1333070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1333150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1333560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1333570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1334270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1335230",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1335550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1335800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1336150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1337200",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1337210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1337540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1337560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1337570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1337590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1338720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1338880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1341510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1341780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1341790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1341810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1342330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1342560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1343350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1343480",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1344380",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1345605",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1345930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1347490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1348900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1349590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1350110",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1350610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1350710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1350730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1351000",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1351040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1351360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1352190",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1352300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1352420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1352450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1352770",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1354170",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1354650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1356900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1357020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1357160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1357170",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1357450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1357670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1357710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1358010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1358210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1358910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1358920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1359040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1359960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1360070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1360680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1360920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1361140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1362100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1362560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1362660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1363090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1364510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1365050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1365070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1365170",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1365210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1365320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1365360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1365980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1369940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1370840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1370870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1372620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1372650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1373500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1373650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1373680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1374630",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1376140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1376450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1376470",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1376600",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1377980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1378140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1378180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1378500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1378520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1378590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1379740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1380490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1381160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1381820",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1382280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1382300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1382580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1382970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1383010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1383160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1383260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1383780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1385350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1385790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1386420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1386750",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1386840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1388200",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1389740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1390050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1390060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1390080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1390930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1391120",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1391160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1391240",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1394180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1394780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1396480",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1397590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1397720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1397800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1399390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1399760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1400170",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1400300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1401030",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1402630",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1403390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1403440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1403450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1403550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1403760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1404090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1404700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1404820",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1404840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1404880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1405710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1406140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1406210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1407460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1407570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1408090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1408810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1408815",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1410430",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1410480",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1411110",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1411160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1412880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1412890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1412980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1413490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1414220",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1414430",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1414870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1414950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1415930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1415960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1416230",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1416240",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1416340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1416400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1416420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1417020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1417780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1418260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1418420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1419360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1419370",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1419400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1419540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1420320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1421600",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1421610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1421900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1422140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1422500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1422990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1423160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1423240",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1424150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1426840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1426880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1427080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1427900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1428230",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1428520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1429620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1429700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1430670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1431850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1432410",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1432430",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1432780",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1432850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1432880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1433030",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1434050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1434200",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1434510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1436310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1436560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1437060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1437340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1438480",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1440810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1440980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1441040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1441850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1441870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1442750",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1444270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1444610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1444680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1445110",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1445770",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1445790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1446980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1447100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1448440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1448810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1450270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1450320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1450330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1450510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1450840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1451060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1451150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1454670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1455370",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1456260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1457200",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1457210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1457560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1458770",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1459360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1465460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1467150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1469700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1469840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1471200",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1471210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1472510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1472680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1472860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1472990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1473350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1473950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1474860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1475480",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1475510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1475520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1475530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1475620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1477130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1478010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1478080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1478120",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1478190",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1478370",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1480080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1481940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1483090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1483740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1483880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1483980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1485230",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1485350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1485800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1487250",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1487410",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1489540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1490210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1495770",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1495790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1497020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1497380",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1497420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1497520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1497800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1497930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1497950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1498190",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1499760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1499850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1500010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1500220",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1501490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1501580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1502490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1502710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1502920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1504700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1504710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1505010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1505710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1505790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1505800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1505810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1506930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1508350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1508540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1508550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1508560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1508570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1510790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1511610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1511950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1513250",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1514110",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1514330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1514360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1514460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1514800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1514960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1515630",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1515650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1516260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1516310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1516490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1516540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1517410",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1518080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1518540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1519340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1519610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1519880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1519970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1519990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1523940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1524420",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1524490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1524500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1524540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1526670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1527000",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1527970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1529330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1529520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1529530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1529550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1531490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1532870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1532880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1533400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1534630",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1534670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1534930",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1536210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1537470",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1538770",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1539660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1539700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1540950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1541090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1541460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1543860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1543910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1544990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1545600",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1545690",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1545740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1546050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1546070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1546880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1546910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1547400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1547450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1548400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1548520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1548530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1548940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1550260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1550270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1550530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1550560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1550590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1550610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1550630",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1550650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1550710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1550840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1551210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1551530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1551790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1552920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1553270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1554380",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1554700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1554850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1555560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1556740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1556760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1557680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1558400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1558410",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1558610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1558760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1575670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1575680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1575870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1576020",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1576100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1576130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1576280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1576550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1576570",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1576990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1577500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1577730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1577750",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1578070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1578075",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1578210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1578260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1578310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1578370",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1578880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1578950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1579520",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1579940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1581060",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1581320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1581730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1582330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1582440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1582640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1582900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1583260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1583660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1583700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1584130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1584580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1584670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1586070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1586270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1586440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1587040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1587180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1587190",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1587210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1587230",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1587330",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1587690",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1587770",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1587970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1588010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1588040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1588120",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1588320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1588450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1588620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1588770",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1588990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1589050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1589090",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1589110",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1589320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1589340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1589350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1589410",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1589660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1589830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1589960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1590190",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1590320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1590325",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1590440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1590550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1590620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1590850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1590860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1591080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1591130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1591150",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1591210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1591560",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1592050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1592130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1592350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1592410",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1593070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1593450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1594270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1595080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1595084",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1595600",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1595680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1596490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1596510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1596730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1596760",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1596830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1596840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1596860",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1597040",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1598080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1598340",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1598640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1598670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1598800",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1599450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1599490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1599900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1599920",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1600080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1600290",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1600620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1600990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1601070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1601080",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1601890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1601900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1602240",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1602360",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1602370",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1602550",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1602880",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1603510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1603820",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1604620",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1604670",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1604720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1605270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1607260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1608010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609200",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609220",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609710",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609910",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1609970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1610070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1610160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1610410",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1610510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1610580",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1610650",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1610950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1611100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1611260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1611390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1611680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1611720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1611730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1611850",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1611900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1611980",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1612140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1612300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1612500",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1612640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1612740",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1612840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1613270",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1613490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1613630",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1613870",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1613960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1613990",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1614100",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1614140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1614160",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1614250",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1614300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1614400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1614530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1614690",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1614700",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1616310",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1617610",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1622640",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1628260",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1628300",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1630070",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1630410",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1632320",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1632350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1636730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1641140",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1643440",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1643530",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1643660",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1650010",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1659120",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1659460",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1661960",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1678830",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1691130",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1697540",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1706680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1750210",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1759970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1836050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1837810",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1846590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1847970",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1852840",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1853490",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1855120",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1861770",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1952390",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1953370",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1954430",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1980510",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1983280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:1983720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2002400",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2005590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2028950",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2083720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2100900",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2108590",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2122790",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2122940",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2136180",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2136890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2143350",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2145240",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2160680",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2227230",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2269050",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2394370",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2607690",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2613280",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2656720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2772730",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2820720",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2827450",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2833774",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2834138",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2835808",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2842257",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2856318",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2860890",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2861111",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2861485",
+      "reason": "pos_mismatch"
+    },
+    {
+      "id": "vocabulary:jmdict:2862924",
+      "reason": "pos_mismatch"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "sources": [
+    {
+      "id": "jmdict-kaikki",
+      "title": "JMdict + Kaikki 中文维基词典",
+      "url": "https://kaikki.org/zhwiktionary/rawdata.html",
+      "license_name": "JMdict: EDRDG redistribution terms; Kaikki/Wiktionary Chinese glosses: CC BY-SA 4.0",
+      "license_url": "https://www.edrdg.org/edrdg/licence.html",
+      "enabled": true
+    },
+    {
+      "id": "tae-kim-grammar",
+      "title": "Tae Kim Japanese Grammar Guide",
+      "url": "https://guidetojapanese.org/learn/grammar",
+      "license_name": "CC BY-NC-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc-sa/3.0/us/",
+      "enabled": true
+    },
+    {
+      "id": "kotonoha-original",
+      "title": "KOTONOHA 原创语法扩展",
+      "url": "https://github.com/XXarty/kotonoha",
+      "license_name": "All rights reserved",
+      "license_url": "https://github.com/XXarty/kotonoha",
+      "enabled": true
+    },
+    {
+      "id": "kotonoha-kana",
+      "title": "KOTONOHA 基础五十音(CC0)",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "license_name": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "enabled": true
+    }
+  ],
+  "snapshots": [
+    {
+      "source_id": "jmdict-kaikki",
+      "snapshot_date": "2026-07-13",
+      "downloaded_at": "2026-07-14T23:01:22Z",
+      "sha256": "f2d1c9bf6f3283ceb2342edee16a06e4e912bb3ff5d08cc2108cd4844392d3e3",
+      "artifact_name": "jmdict-eng-3.6.2+20260713141310.json.tgz",
+      "asset_url": "https://github.com/scriptin/jmdict-simplified/releases/download/3.6.2%2B20260713141310/jmdict-eng-3.6.2%2B20260713141310.json.tgz"
+    },
+    {
+      "source_id": "jmdict-kaikki",
+      "snapshot_date": "2026-07-06",
+      "downloaded_at": "2026-07-14T23:01:22Z",
+      "sha256": "0bbfb811f6abfd0a10c829908d5e9ec08325a968033194144fb32d11cb9e25db",
+      "artifact_name": "raw-wiktextract-data.jsonl.gz",
+      "asset_url": "https://kaikki.org/zhwiktionary/raw-wiktextract-data.jsonl.gz"
+    },
+    {
+      "source_id": "tae-kim-grammar",
+      "snapshot_date": "2026-07-14",
+      "downloaded_at": "2026-07-14T15:26:35Z",
+      "sha256": "f8b5b6dc8f58a61bc41f70ca90d5bf6787437794655466fa5e1349ae0eb66574",
+      "repository_path": "data/content/grammar"
+    },
+    {
+      "source_id": "kotonoha-kana",
+      "snapshot_date": "2026-07-14",
+      "downloaded_at": "2026-07-14T15:26:35Z",
+      "sha256": "adb4e38d69f263f1852016c3939b1432e4c67e41770a17fb10a20c53d35d6ce2",
+      "repository_path": "data/content/kana/gojuon.json"
+    }
+  ]
+}

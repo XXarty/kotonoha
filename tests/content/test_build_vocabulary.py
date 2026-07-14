@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-import json
 import gzip
+import json
+from collections import Counter
 from pathlib import Path
 
 from scripts.content.build_vocabulary import (
@@ -16,6 +17,16 @@ from scripts.content.models import VocabularyRecord
 FIXTURES = Path(__file__).parent / "fixtures"
 JMDICT = FIXTURES / "jmdict_common.json"
 KAIKKI = FIXTURES / "kaikki_zh.jsonl"
+GLOSS_DEBRIS = FIXTURES / "kaikki_gloss_debris.jsonl"
+PINS = Path(__file__).resolve().parents[2] / "data/content/pins/pre-expansion-vocabulary-ids.json"
+
+
+def test_pre_expansion_pin_file_is_sorted_unique_and_complete() -> None:
+    pins = json.loads(PINS.read_text(encoding="utf-8"))
+
+    assert len(pins) == 2_000
+    assert pins == sorted(set(pins))
+    assert all(pin.startswith("vocabulary:jmdict:") for pin in pins)
 
 
 def test_selects_common_spelling_compatible_reading_and_english_gloss() -> None:
@@ -96,6 +107,42 @@ def test_common_candidates_are_core_and_extended_candidates_fill_remaining_slots
         [],
     ]
     assert result.records[-1].japanese == "静か"
+
+
+def test_current_quality_valid_pins_are_prioritized_and_every_other_pin_is_retired() -> None:
+    pins = {
+        "vocabulary:jmdict:1000001",
+        "vocabulary:jmdict:1000002",
+        "vocabulary:jmdict:1000003",
+        "vocabulary:jmdict:1000005",
+        "vocabulary:jmdict:9999999",
+    }
+
+    result = build_vocabulary(JMDICT, KAIKKI, limit=2, core_limit=1, pinned_ids=pins)
+
+    assert {record.id for record in result.records} == {
+        "vocabulary:jmdict:1000001",
+        "vocabulary:jmdict:1000005",
+    }
+    assert result.retired_pins == {
+        "vocabulary:jmdict:1000002": "ambiguous_chinese",
+        "vocabulary:jmdict:1000003": "missing_chinese",
+        "vocabulary:jmdict:9999999": "missing_jmdict_candidate",
+    }
+    assert pins == {record.id for record in result.records} | set(result.retired_pins)
+
+
+def test_pin_priority_displaces_a_non_pin_without_changing_tier_capacity() -> None:
+    result = build_vocabulary(
+        JMDICT,
+        KAIKKI,
+        limit=1,
+        core_limit=1,
+        pinned_ids={"vocabulary:jmdict:1000004"},
+    )
+
+    assert [record.id for record in result.records] == ["vocabulary:jmdict:1000004"]
+    assert result.retired_pins == {}
 
 
 def test_missing_reading_requires_unique_gloss_after_compatible_pos(tmp_path: Path) -> None:
@@ -209,3 +256,50 @@ def test_kaikki_section_markers_do_not_duplicate_a_gloss(tmp_path: Path) -> None
         candidate.part_of_speech,
         candidate.glosses,
     ) == ("開館", (), (), ("开馆。",))
+
+
+def test_raw_heading_url_and_list_debris_is_rejected_from_the_au_fixture() -> None:
+    quality_rejections: Counter[str] = Counter()
+
+    exact, spelling_only = index_kaikki_glosses(
+        GLOSS_DEBRIS,
+        {"合う"},
+        quality_rejections=quality_rejections,
+    )
+
+    assert exact == {}
+    assert next(iter(spelling_only["合う"])).glosses == ()
+    assert quality_rejections["gloss_markup"] == 1
+
+
+def test_each_record_requires_cjk_and_only_keeps_narrow_ascii_secondary_glosses(
+    tmp_path: Path,
+) -> None:
+    kaikkki = tmp_path / "quality.jsonl"
+    rows = [
+        {
+            "word": "食べる",
+            "lang_code": "ja",
+            "pos": "verb",
+            "forms": [{"form": "たべる", "tags": ["hiragana"]}],
+            "senses": [{"glosses": ["base", "COVID-19"]}],
+        },
+        {
+            "word": "橋",
+            "lang_code": "ja",
+            "pos": "noun",
+            "forms": [{"form": "はし", "tags": ["hiragana"]}],
+            "senses": [{"glosses": ["桥", "COVID-19", "1020", "1052", "10^20"]}],
+        },
+    ]
+    kaikkki.write_text(
+        "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows),
+        encoding="utf-8",
+    )
+
+    result = build_vocabulary(JMDICT, kaikkki, limit=10, core_limit=5)
+
+    by_id = {record.id: record for record in result.records}
+    assert "vocabulary:jmdict:1000001" not in by_id
+    assert by_id["vocabulary:jmdict:1000004"].meaning_zh == ["桥", "COVID-19", "10^20"]
+    assert result.rejection_counts["invalid_chinese_gloss"] >= 3

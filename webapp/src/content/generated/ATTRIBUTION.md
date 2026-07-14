@@ -2,9 +2,9 @@
 
 ## Vocabulary
 
-- JMdict by the Electronic Dictionary Research and Development Group: https://www.edrdg.org/edrdg/licence.html
+- JMdict — EDRDG redistribution terms: https://www.edrdg.org/edrdg/licence.html
+- Kaikki/Wiktionary Chinese glosses — CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
 - Kaikki machine-readable Chinese Wiktionary data: https://kaikki.org/zhwiktionary/rawdata.html
-- License: Creative Commons Attribution-ShareAlike 4.0.
 
 ## Grammar
 

@@ -3915,15 +3915,6 @@
     "romaji": "nutto"
   },
   {
-    "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1567490",
-    "id": "vocabulary:jmdict:1567490",
-    "kind": "vocabulary",
-    "meaning": "===动词=== 〔及物(他)〕/不及物(自) 〔動一(五段)_む〕/動二(一段)/動三(変格) 他五 :捩じ込む",
-    "primary": "ねじ込む",
-    "reading": "ねじこむ",
-    "romaji": "nejikomu"
-  },
-  {
     "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1009920",
     "id": "vocabulary:jmdict:1009920",
     "kind": "vocabulary",
@@ -12951,15 +12942,6 @@
     "romaji": "shuufuku"
   },
   {
-    "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A2782210",
-    "id": "vocabulary:jmdict:2782210",
-    "kind": "vocabulary",
-    "meaning": "==== 名詞 ==== 修(しゅ)惑(わく) (shuwaku) # (佛教) 藉由修行消除煩惱,同思(し)惑(わく) (shiwaku)。",
-    "primary": "修惑",
-    "reading": "しゅわく",
-    "romaji": "shuwaku"
-  },
-  {
     "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1332400",
     "id": "vocabulary:jmdict:1332400",
     "kind": "vocabulary",
@@ -21798,15 +21780,6 @@
     "romaji": "kakuekiteisha"
   },
   {
-    "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1284430",
-    "id": "vocabulary:jmdict:1284430",
-    "kind": "vocabulary",
-    "meaning": "===动词=== 及物(他)/〔不及物(自)〕 〔動一(五段)_う〕/動二(一段)/動三(変格) 自五 :見 あう ==== 含義 ==== ===== 一般動詞 ===== # 會合,匯合(兩個或以上的事物合併爲一個) #: 彼(かれ)と目線(めせん)が合(あ)った。 Kare to mesen ga atta. 和他對上眼了。(直譯:和他目光汇合了。) # 性質相合 #: 彼(かれ)とは意見(いけん)が合(あ)う。 Kare to wa iken ga au. (我)和他意見一致。 #: 彼(かれ)とは話(はなし)が合(あ)う。 Kare to wa hanashi ga au. (我)和他聊得來。 ===== 複合動詞後項 ===== # (接續動詞連用形構成複合動詞)互相...... #: 人間(にんげん)はなぜ傷(きず)つけあうのでしょう。 Ningen wa naze kizutsukeau no deshō. 爲什麼人類要互相傷害呢? #: 通(つう)じ合(あ)う tsūjiau 相互理解 #: 向(む)き合(あ)う mukiau 面對面(直譯:互相朝向) #: お互(たが)いの民族(みんぞく)の優(すぐ)れた性質(せいしつ)や高貴(こうき)な文化(ぶんか)を賞讃(しょうさん)し合(あ)うhttp://www.aozora.gr.jp/cards/001395/files/49896_41936.html o-tagai no minzoku no sugureta seishitsu ya kōki na bunka o shōsan shiau 互相讚賞兩個民族的優秀性格和高尚文化 # (接續動詞連用形構成複合動詞)相合......(將分開的事物合在一起) #: 駅前(えきまえ)で友達(ともだち)と落(お)ち合(あ)う。 Ekimae de tomodachi to ochiau. 在車站附近和朋友會合。 #: 試験管(しけんかん)に水(みず)を加(くわ)え、溶(と)け合(あ)うかどうかを調(しら)べる。 Shikenkan ni mizu o kuwae, tokeauka dōka o shiraberu. 向試管中加水,觀察是否融合。",
-    "primary": "合う",
-    "reading": "あう",
-    "romaji": "au"
-  },
-  {
     "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1586870",
     "id": "vocabulary:jmdict:1586870",
     "kind": "vocabulary",
@@ -25839,6 +25812,15 @@
     "romaji": "jiban"
   },
   {
+    "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A2627780",
+    "id": "vocabulary:jmdict:2627780",
+    "kind": "vocabulary",
+    "meaning": "地龍(以巨蚓科動物除去內臟及泥沙後洗淨,曬乾或低溫乾燥的乾燥體,作為藥材)",
+    "primary": "地竜",
+    "reading": "じりゅう",
+    "romaji": "jiryuu"
+  },
+  {
     "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1421520",
     "id": "vocabulary:jmdict:1421520",
     "kind": "vocabulary",
@@ -25918,15 +25900,6 @@
     "primary": "型式",
     "reading": "かたしき",
     "romaji": "katashiki"
-  },
-  {
-    "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1565740",
-    "id": "vocabulary:jmdict:1565740",
-    "kind": "vocabulary",
-    "meaning": "1020",
-    "primary": "垓",
-    "reading": "がい",
-    "romaji": "gai"
   },
   {
     "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A2248500",
@@ -38154,7 +38127,7 @@
     "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1309480",
     "id": "vocabulary:jmdict:1309480",
     "kind": "vocabulary",
-    "meaning": "思索,[[盘算",
+    "meaning": "担心,忧虑",
     "primary": "思案",
     "reading": "しあん",
     "romaji": "shian"
@@ -50454,6 +50427,15 @@
     "romaji": "shidaini"
   },
   {
+    "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A2862396",
+    "id": "vocabulary:jmdict:2862396",
+    "kind": "vocabulary",
+    "meaning": "男性人名",
+    "primary": "次郎",
+    "reading": "じろう",
+    "romaji": "jirou"
+  },
+  {
     "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1869450",
     "id": "vocabulary:jmdict:1869450",
     "kind": "vocabulary",
@@ -54664,6 +54646,15 @@
     "primary": "渇愛",
     "reading": "かつあい",
     "romaji": "katsuai"
+  },
+  {
+    "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1208540",
+    "id": "vocabulary:jmdict:1208540",
+    "kind": "vocabulary",
+    "meaning": "渴望,切望",
+    "primary": "渇望",
+    "reading": "かつぼう",
+    "romaji": "katsubou"
   },
   {
     "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1610020",
@@ -68985,6 +68976,15 @@
     "romaji": "jishoukotsu"
   },
   {
+    "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1817060",
+    "id": "vocabulary:jmdict:1817060",
+    "kind": "vocabulary",
+    "meaning": "耳漏",
+    "primary": "耳漏",
+    "reading": "じろう",
+    "romaji": "jirou"
+  },
+  {
     "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1317290",
     "id": "vocabulary:jmdict:1317290",
     "kind": "vocabulary",
@@ -70234,15 +70234,6 @@
     "primary": "臍帯静脈",
     "reading": "さいたいじょうみゃく",
     "romaji": "saitaijoumyaku"
-  },
-  {
-    "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1727010",
-    "id": "vocabulary:jmdict:1727010",
-    "kind": "vocabulary",
-    "meaning": "做臣子應有的[[節操]",
-    "primary": "臣節",
-    "reading": "しんせつ",
-    "romaji": "shinsetsu"
   },
   {
     "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1317860",
@@ -80593,6 +80584,15 @@
     "primary": "辞書学",
     "reading": "じしょがく",
     "romaji": "jishogaku"
+  },
+  {
+    "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1635140",
+    "id": "vocabulary:jmdict:1635140",
+    "kind": "vocabulary",
+    "meaning": "收集了很多詞彙並加以解釋的書;辭書、辭典",
+    "primary": "辞林",
+    "reading": "じりん",
+    "romaji": "jirin"
   },
   {
     "href": "/vocabulary/entry/vocabulary%3Ajmdict%3A1318980",

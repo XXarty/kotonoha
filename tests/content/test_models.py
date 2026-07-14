@@ -289,6 +289,8 @@ def test_sources_and_manifest_require_valid_hashes_and_counts() -> None:
         snapshot_date=date(2026, 7, 13),
         downloaded_at=datetime(2026, 7, 14, tzinfo=timezone.utc),
         sha256="a" * 64,
+        artifact_name="jmdict-eng.json.tgz",
+        asset_url="https://github.com/scriptin/jmdict-simplified/releases/download/v1/jmdict-eng.json.tgz",
     )
     manifest = BuildManifest(
         built_at=datetime(2026, 7, 14, tzinfo=timezone.utc),
@@ -303,6 +305,26 @@ def test_sources_and_manifest_require_valid_hashes_and_counts() -> None:
     assert manifest.manifest_version == 2
     with pytest.raises(ValidationError):
         SourceSnapshot.model_validate({**snapshot.model_dump(), "sha256": "bad"})
+    with pytest.raises(ValidationError, match="remote snapshot"):
+        SourceSnapshot.model_validate(
+            {
+                **snapshot.model_dump(exclude={"asset_url"}),
+                "asset_url": None,
+            }
+        )
+    with pytest.raises(ValidationError, match="exactly one provenance location"):
+        SourceSnapshot.model_validate(
+            {**snapshot.model_dump(), "repository_path": "data/content/kana/gojuon.json"}
+        )
+
+    local_snapshot = SourceSnapshot(
+        source_id="kotonoha-kana",
+        snapshot_date=date(2026, 7, 14),
+        downloaded_at=datetime(2026, 7, 14, tzinfo=timezone.utc),
+        sha256="c" * 64,
+        repository_path="data/content/kana/gojuon.json",
+    )
+    assert local_snapshot.repository_path == "data/content/kana/gojuon.json"
 
 
 def test_normalization_and_ids_are_deterministic() -> None:

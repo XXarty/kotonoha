@@ -7,28 +7,35 @@
     "vocabulary": 10000
   },
   "files": {
-    "ATTRIBUTION.md": "46c226a68be400973c80c62381ea2650200d3d1f092ad05f5873b50e54104c3e",
+    "ATTRIBUTION.md": "32077d845ee70afa68008a4c82d3c4ece2e7f822b7663487d47b7293834227e4",
     "grammar.json": "f8b5b6dc8f58a61bc41f70ca90d5bf6787437794655466fa5e1349ae0eb66574",
     "kana.json": "f1cda2a4908d60ffb9e88b8437eeb0c43875472a38fdc036dd58a9f58f71cd01",
-    "public/content/search-index.json": "92a01b24cc74c1b5e63054926d30cf60ce049ed71bac68a5cce4fba920b770a6",
-    "sources.json": "ad3eadf30cf96d306641018e8fc1bf6e5b154909224b7b65f4a46e4085db125c",
-    "vocabulary.json": "228ea72e7ebf0811d800cd1ab9bdf4f86aa90bbb6e84b30566e0220c7b5cf8ab"
+    "public/content/search-index.json": "2b435bb6c638674864c9183556e169c4ee713aadd4d3a710959f854c827b1179",
+    "sources.json": "3c92fc866fdc9680a6b489fd86d7025068e68b58c4f559e21058dd34819be75d",
+    "vocabulary-retirements.json": "631746d1f1ff86e6f10c2726b0c3f5fbc4f8c9b16bf4d7ab9f0da246d314541c",
+    "vocabulary.json": "b27e89a91495e2cbc2a16b67d2b002282c8e00015b7a2fd632d98d0c02e93115"
   },
   "generator_version": "2",
   "manifest_version": 2,
   "rejection_counts": {
-    "ambiguous_chinese": 2999,
-    "missing_chinese": 169269,
-    "pos_mismatch": 27675
+    "ambiguous_chinese": 2995,
+    "gloss_markup": 16,
+    "invalid_chinese_gloss": 343,
+    "missing_chinese": 168373,
+    "pos_mismatch": 28544
   },
   "snapshots": [
     {
+      "artifact_name": "jmdict-eng-3.6.2+20260713141310.json.tgz",
+      "asset_url": "https://github.com/scriptin/jmdict-simplified/releases/download/3.6.2%2B20260713141310/jmdict-eng-3.6.2%2B20260713141310.json.tgz",
       "downloaded_at": "2026-07-14T23:01:22Z",
       "sha256": "f2d1c9bf6f3283ceb2342edee16a06e4e912bb3ff5d08cc2108cd4844392d3e3",
       "snapshot_date": "2026-07-13",
       "source_id": "jmdict-kaikki"
     },
     {
+      "artifact_name": "raw-wiktextract-data.jsonl.gz",
+      "asset_url": "https://kaikki.org/zhwiktionary/raw-wiktextract-data.jsonl.gz",
       "downloaded_at": "2026-07-14T23:01:22Z",
       "sha256": "0bbfb811f6abfd0a10c829908d5e9ec08325a968033194144fb32d11cb9e25db",
       "snapshot_date": "2026-07-06",
@@ -36,12 +43,14 @@
     },
     {
       "downloaded_at": "2026-07-14T15:26:35Z",
-      "sha256": "84d16f0bab0494a5216d581a620143c8931fa9e659056d7bc41bdec0919f8691",
+      "repository_path": "data/content/grammar",
+      "sha256": "f8b5b6dc8f58a61bc41f70ca90d5bf6787437794655466fa5e1349ae0eb66574",
       "snapshot_date": "2026-07-14",
       "source_id": "tae-kim-grammar"
     },
     {
       "downloaded_at": "2026-07-14T15:26:35Z",
+      "repository_path": "data/content/kana/gojuon.json",
       "sha256": "adb4e38d69f263f1852016c3939b1432e4c67e41770a17fb10a20c53d35d6ce2",
       "snapshot_date": "2026-07-14",
       "source_id": "kotonoha-kana"
@@ -51,7 +60,7 @@
     {
       "enabled": true,
       "id": "jmdict-kaikki",
-      "license_name": "JMdict redistribution terms + CC BY-SA 4.0",
+      "license_name": "JMdict: EDRDG redistribution terms; Kaikki/Wiktionary Chinese glosses: CC BY-SA 4.0",
       "license_url": "https://www.edrdg.org/edrdg/licence.html",
       "title": "JMdict + Kaikki 中文维基词典",
       "url": "https://kaikki.org/zhwiktionary/rawdata.html"

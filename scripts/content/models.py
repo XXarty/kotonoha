@@ -223,6 +223,37 @@ class SourceSnapshot(ContentRecord):
     snapshot_date: date
     downloaded_at: datetime
     sha256: Sha256
+    artifact_name: NonBlankText | None = None
+    asset_url: str | None = None
+    repository_path: NonBlankText | None = None
+
+    @field_validator("asset_url")
+    @classmethod
+    def validate_asset_url(cls, value: str | None) -> str | None:
+        return _require_https(value) if value is not None else None
+
+    @field_validator("repository_path")
+    @classmethod
+    def validate_repository_path(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        if value.startswith("/") or ".." in value.split("/"):
+            raise ValueError("repository path must be relative and stay inside the repository")
+        return value
+
+    @model_validator(mode="after")
+    def validate_provenance_location(self) -> SourceSnapshot:
+        has_artifact_name = self.artifact_name is not None
+        has_asset_url = self.asset_url is not None
+        if has_artifact_name != has_asset_url:
+            raise ValueError("remote snapshot requires artifact_name and asset_url together")
+        has_remote = has_artifact_name and has_asset_url
+        has_local = self.repository_path is not None
+        if has_remote == has_local:
+            raise ValueError(
+                "snapshot requires exactly one provenance location: remote asset or repository path"
+            )
+        return self
 
 
 class BuildManifest(ContentRecord):

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -7,13 +8,22 @@ from pathlib import Path
 import pytest
 
 import scripts.content.build_static_bundle as static_bundle
-from scripts.content.build_static_bundle import build_static_bundle, verify_static_bundle
+from scripts.content.build_static_bundle import (
+    ATTRIBUTION,
+    build_static_bundle,
+    canonical_json_bytes,
+    verify_static_bundle,
+)
 from scripts.content.fetch_sources import sha256_file
+from scripts.content.validate_grammar import load_grammar_curriculum
 
 
 ROOT = Path(__file__).resolve().parents[2]
 GRAMMAR = ROOT / "data/content/grammar"
 KANA = ROOT / "data/content/kana/gojuon.json"
+PINNED_SOURCES = ROOT / "data/content/sources/pinned-2026-07-15.json"
+GENERATED = ROOT / "webapp/src/content/generated"
+PUBLIC = ROOT / "webapp/public"
 
 
 def write_json(path: Path, payload: object) -> Path:
@@ -88,18 +98,22 @@ def source_metadata() -> dict[str, object]:
                 "snapshot_date": "2026-07-13",
                 "downloaded_at": "2026-07-14T00:00:00Z",
                 "sha256": "a" * 64,
+                "artifact_name": "jmdict-eng.json.tgz",
+                "asset_url": "https://github.com/scriptin/jmdict-simplified/releases/download/v1/jmdict-eng.json.tgz",
             },
             {
                 "source_id": "tae-kim-grammar",
                 "snapshot_date": "2026-07-14",
                 "downloaded_at": "2026-07-14T00:00:00Z",
                 "sha256": "b" * 64,
+                "repository_path": "data/content/grammar",
             },
             {
                 "source_id": "kotonoha-kana",
                 "snapshot_date": "2026-07-14",
                 "downloaded_at": "2026-07-14T00:00:00Z",
                 "sha256": "c" * 64,
+                "repository_path": "data/content/kana/gojuon.json",
             },
         ],
     }
@@ -112,6 +126,15 @@ def bundle_inputs(tmp_path: Path, vocabulary_count: int) -> dict[str, Path]:
         "kana_path": KANA,
         "source_metadata_path": write_json(tmp_path / "sources.json", source_metadata()),
         "rejections_path": write_json(tmp_path / "rejections.json", {"missing_chinese": 7}),
+        "retirements_path": write_json(
+            tmp_path / "vocabulary-retirements.json",
+            {
+                "baseline_commit": "d5b5ccb",
+                "pin_count": 0,
+                "retained_ids": [],
+                "retired": [],
+            },
+        ),
     }
 
 
@@ -124,6 +147,13 @@ def test_bundle_requires_launch_minimums(tmp_path: Path) -> None:
             output_dir=tmp_path / "generated",
             public_dir=tmp_path / "public",
         )
+
+
+def test_vocabulary_attribution_separates_jmdict_and_kaikki_licenses() -> None:
+    assert "JMdict — EDRDG redistribution terms" in ATTRIBUTION
+    assert "https://www.edrdg.org/edrdg/licence.html" in ATTRIBUTION
+    assert "Kaikki/Wiktionary Chinese glosses — CC BY-SA 4.0" in ATTRIBUTION
+    assert "https://creativecommons.org/licenses/by-sa/4.0/" in ATTRIBUTION
 
 
 def test_bundle_manifest_hashes_match_files(tmp_path: Path) -> None:
@@ -149,6 +179,29 @@ def test_bundle_manifest_hashes_match_files(tmp_path: Path) -> None:
     assert verification["manifest_sha256"] == sha256_file(output / "manifest.json")
     assert verification["counts"] == manifest.counts
     assert verify_static_bundle(output, tmp_path / "public").counts == manifest.counts
+    assert "vocabulary-retirements.json" in manifest.files
+
+
+def test_bundle_rejects_retirement_evidence_with_unresolved_or_missing_pins(
+    tmp_path: Path,
+) -> None:
+    inputs = bundle_inputs(tmp_path, vocabulary_count=500)
+    inputs["retirements_path"] = write_json(
+        tmp_path / "bad-retirements.json",
+        {
+            "baseline_commit": "d5b5ccb",
+            "pin_count": 2,
+            "retained_ids": ["vocabulary:jmdict:1000000"],
+            "retired": [],
+        },
+    )
+
+    with pytest.raises(ValueError, match="partition every pin"):
+        build_static_bundle(
+            **inputs,
+            output_dir=tmp_path / "generated",
+            public_dir=tmp_path / "public",
+        )
 
 
 def test_bundle_rejects_an_incomplete_grammar_curriculum(tmp_path: Path) -> None:
@@ -255,3 +308,53 @@ def test_public_search_index_is_the_last_replaced_file(
     )
 
     assert replaced_destinations[-1] == public / "content/search-index.json"
+
+
+def test_committed_pinned_metadata_rebuilds_the_committed_release_evidence(
+    tmp_path: Path,
+) -> None:
+    committed_manifest = json.loads((GENERATED / "manifest.json").read_text(encoding="utf-8"))
+    rejections = write_json(
+        tmp_path / "rejections.json",
+        committed_manifest["rejection_counts"],
+    )
+    output = tmp_path / "generated"
+    public = tmp_path / "public"
+
+    build_static_bundle(
+        vocabulary_path=GENERATED / "vocabulary.json",
+        grammar_path=GRAMMAR,
+        kana_path=KANA,
+        source_metadata_path=PINNED_SOURCES,
+        rejections_path=rejections,
+        retirements_path=GENERATED / "vocabulary-retirements.json",
+        output_dir=output,
+        public_dir=public,
+        built_at=datetime.fromisoformat(committed_manifest["built_at"].replace("Z", "+00:00")),
+    )
+
+    assert (output / "sources.json").read_bytes() == (GENERATED / "sources.json").read_bytes()
+    assert (output / "manifest.json").read_bytes() == (GENERATED / "manifest.json").read_bytes()
+    assert (public / "content/search-index.json").read_bytes() == (
+        PUBLIC / "content/search-index.json"
+    ).read_bytes()
+
+
+def test_pinned_metadata_links_exact_assets_and_hashes_local_sources() -> None:
+    metadata = json.loads(PINNED_SOURCES.read_text(encoding="utf-8"))
+    snapshots = metadata["snapshots"]
+
+    assert snapshots[0]["asset_url"].endswith(
+        "/3.6.2%2B20260713141310/jmdict-eng-3.6.2%2B20260713141310.json.tgz"
+    )
+    assert snapshots[1]["asset_url"] == (
+        "https://kaikki.org/zhwiktionary/raw-wiktextract-data.jsonl.gz"
+    )
+    grammar_bytes = canonical_json_bytes(
+        [
+            record.model_dump(mode="json")
+            for record in load_grammar_curriculum(GRAMMAR)
+        ]
+    )
+    assert snapshots[2]["sha256"] == hashlib.sha256(grammar_bytes).hexdigest()
+    assert snapshots[3]["sha256"] == sha256_file(KANA)

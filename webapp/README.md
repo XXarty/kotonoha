@@ -23,6 +23,7 @@ npm run dev
 - `vocabulary.json`：10,000 条通过写法、读音与词性门槛的 JMdict + Kaikki 中文维基词典词汇（5,000 条日常核心、5,000 条进阶扩展）
 - `grammar.json`：120 个语法单元，基础、核心、常用表达与进阶四条路径各 30 个
 - `kana.json`：46 组 CC0 基础五十音
+- `vocabulary-retirements.json`：扩充前 2,000 个稳定词汇 ID 的保留或退役原因，逐 ID 可审计
 - `sources.json`、`manifest.json`、`ATTRIBUTION.md`：来源、许可、快照日期与哈希
 
 本次词汇快照固定为：
@@ -32,7 +33,16 @@ npm run dev
 | JMdict Simplified English full | [release `3.6.2+20260713141310`](https://github.com/scriptin/jmdict-simplified/releases/tag/3.6.2%2B20260713141310)，词典日期 2026-07-13；资产 `jmdict-eng-3.6.2+20260713141310.json.tgz` | `f2d1c9bf6f3283ceb2342edee16a06e4e912bb3ff5d08cc2108cd4844392d3e3` |
 | Kaikki 中文维基词典 raw Wiktextract | [官方 raw-data 页面](https://kaikki.org/zhwiktionary/rawdata.html)，zhwiktionary dump 日期 2026-07-06，提取日期 2026-07-11；资产 `raw-wiktextract-data.jsonl.gz` | `0bbfb811f6abfd0a10c829908d5e9ec08325a968033194144fb32d11cb9e25db` |
 
-严格匹配后发布了上限 10,000 条；未发布候选按原因记录在 manifest：缺少可用中文释义 169,269 条、词性不兼容 27,675 条、中文候选歧义 2,999 条。构建器也会单独识别读音不匹配；本次没有产生非零的该类计数。拒绝统计是质量证据，不会为了凑数改写中文释义。
+机器可读的固定输入在 `data/content/sources/pinned-2026-07-15.json`。每个远程快照都带精确 `artifact_name`、HTTPS `asset_url` 与 SHA-256；本地课程和五十音快照使用仓库相对路径。无需手工填写被忽略的构建文件。
+
+严格匹配后发布了上限 10,000 条；未发布候选按原因记录在 manifest：缺少可用中文释义 168,373 条、词性不兼容 28,544 条、中文候选歧义 2,995 条、无效或非中文释义事件 343 次、移除残留标题/网址等结构标记 16 次。每条已发布记录至少保留一条含 CJK 字符的中文释义；`COVID-19` 这类窄范围标准缩写只允许作为中文释义旁的辅助项。拒绝统计是质量证据，不会为了凑数改写中文释义。
+
+兼容 pin 文件 `data/content/pins/pre-expansion-vocabulary-ids.json` 从提交 `d5b5ccb` 的 2,000 条线上词汇机械提取并排序。当前门槛下 496 条仍满足写法、读音、词性和中文质量要求，已在相同 tier 容量内优先保留；其余 1,504 条均因当前 JMdict/Kaikki 词性不兼容而逐 ID 退役，没有任何合格 pin 因 10,000 条切片被挤出。
+
+词汇许可按组件区分：
+
+- JMdict：遵守 [EDRDG redistribution terms](https://www.edrdg.org/edrdg/licence.html)。
+- Kaikki/Wiktionary 派生中文释义：遵守 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)，数据入口为 [Kaikki 中文维基词典 raw data](https://kaikki.org/zhwiktionary/rawdata.html)。
 
 Vercel 构建不会下载词典，也不会从 Neon 读取公开内容。验证已提交内容：
 
@@ -67,6 +77,9 @@ mv data/content/upstream/jmdict-eng-3.6.2.json \
   --kaikki data/content/upstream/kaikki-zh.jsonl.gz \
   --limit 10000 \
   --core-limit 5000 \
+  --pins data/content/pins/pre-expansion-vocabulary-ids.json \
+  --retirements data/content/build/vocabulary-retirements.json \
+  --baseline-commit d5b5ccb \
   --output data/content/build/vocabulary.json \
   --rejections data/content/build/rejections.json
 .venv-content/bin/python scripts/content/validate_grammar.py data/content/grammar
@@ -74,13 +87,14 @@ mv data/content/upstream/jmdict-eng-3.6.2.json \
   --vocabulary data/content/build/vocabulary.json \
   --grammar data/content/grammar \
   --kana data/content/kana/gojuon.json \
-  --source-metadata data/content/build/sources.json \
+  --source-metadata data/content/sources/pinned-2026-07-15.json \
   --rejections data/content/build/rejections.json \
+  --retirements data/content/build/vocabulary-retirements.json \
   --output webapp/src/content/generated \
   --public-dir webapp/public
 ```
 
-`data/content/build/sources.json` 必须填入上表的固定 URL 对应日期和下载文件哈希；打包器会在临时目录验证数量、引用和文件哈希，通过后才原子替换已提交快照。
+上述命令可从 clean checkout 直接执行；只需安装 Python 依赖并下载两个被忽略的上游资产。打包器会在临时目录验证数量、pin 分区、来源、引用和文件哈希，通过后才原子替换已提交快照。
 
 ## 可选的账号与进度
 

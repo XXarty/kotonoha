@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import sys
 from datetime import datetime, timezone
@@ -28,9 +29,9 @@ ATTRIBUTION = """# KOTONOHA public content attribution
 
 ## Vocabulary
 
-- JMdict by the Electronic Dictionary Research and Development Group: https://www.edrdg.org/edrdg/licence.html
+- JMdict — EDRDG redistribution terms: https://www.edrdg.org/edrdg/licence.html
+- Kaikki/Wiktionary Chinese glosses — CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
 - Kaikki machine-readable Chinese Wiktionary data: https://kaikki.org/zhwiktionary/rawdata.html
-- License: Creative Commons Attribution-ShareAlike 4.0.
 
 ## Grammar
 
@@ -60,6 +61,61 @@ def _write_json(path: Path, value: object) -> None:
     path.write_bytes(canonical_json_bytes(value))
 
 
+def _validate_retirement_evidence(
+    payload: object,
+    vocabulary_ids: set[str],
+) -> dict[str, object]:
+    if not isinstance(payload, dict):
+        raise ValueError("vocabulary retirement evidence must be a JSON object")
+    baseline_commit = payload.get("baseline_commit")
+    pin_count = payload.get("pin_count")
+    retained_ids = payload.get("retained_ids")
+    retired = payload.get("retired")
+    if (
+        not isinstance(baseline_commit, str)
+        or re.fullmatch(r"[0-9a-f]{7,40}", baseline_commit) is None
+    ):
+        raise ValueError("retirement evidence requires a Git baseline commit")
+    if not isinstance(pin_count, int) or pin_count < 0:
+        raise ValueError("retirement evidence pin_count must be nonnegative")
+    if not isinstance(retained_ids, list) or retained_ids != sorted(set(retained_ids)):
+        raise ValueError("retained pin IDs must be a sorted unique list")
+    if not isinstance(retired, list):
+        raise ValueError("retired pin evidence must be a list")
+    retired_ids: list[str] = []
+    normalized_retired: list[dict[str, str]] = []
+    for item in retired:
+        if not isinstance(item, dict):
+            raise ValueError("each retired pin requires an ID and reason")
+        pin_id = item.get("id")
+        reason = item.get("reason")
+        if (
+            not isinstance(pin_id, str)
+            or re.fullmatch(r"vocabulary:jmdict:[0-9]+", pin_id) is None
+            or not isinstance(reason, str)
+            or not reason.strip()
+        ):
+            raise ValueError("each retired pin requires a valid ID and reason")
+        retired_ids.append(pin_id)
+        normalized_retired.append({"id": pin_id, "reason": reason.strip()})
+    if normalized_retired != sorted(normalized_retired, key=lambda item: item["id"]):
+        raise ValueError("retired pin evidence must be sorted by ID")
+    if len(set(retired_ids)) != len(retired_ids):
+        raise ValueError("retired pin IDs must be unique")
+    retained_set = set(retained_ids)
+    retired_set = set(retired_ids)
+    if retained_set.intersection(retired_set) or len(retained_set | retired_set) != pin_count:
+        raise ValueError("retirement evidence must partition every pin")
+    if not retained_set.issubset(vocabulary_ids) or retired_set.intersection(vocabulary_ids):
+        raise ValueError("retirement evidence does not match the published vocabulary")
+    return {
+        "baseline_commit": baseline_commit,
+        "pin_count": pin_count,
+        "retained_ids": retained_ids,
+        "retired": normalized_retired,
+    }
+
+
 def _load_source_metadata(path: Path) -> tuple[list[ContentSource], list[SourceSnapshot]]:
     payload = _read_json(path)
     sources = [ContentSource.model_validate(item) for item in payload.get("sources", [])]
@@ -83,6 +139,7 @@ def build_static_bundle(
     kana_path: Path,
     source_metadata_path: Path,
     rejections_path: Path,
+    retirements_path: Path,
     output_dir: Path,
     public_dir: Path,
     built_at: datetime | None = None,
@@ -93,6 +150,10 @@ def build_static_bundle(
     kana = [KanaRecord.model_validate(item) for item in _read_json(kana_path)]
     sources, snapshots = _load_source_metadata(source_metadata_path)
     rejection_counts = {str(key): int(value) for key, value in _read_json(rejections_path).items()}
+    retirement_evidence = _validate_retirement_evidence(
+        _read_json(retirements_path),
+        {record.id for record in vocabulary},
+    )
 
     if len(vocabulary) < minimum_vocabulary:
         raise ValueError(f"launch bundle requires at least {minimum_vocabulary} vocabulary entries")
@@ -110,7 +171,10 @@ def build_static_bundle(
     try:
         source_payload = {
             "sources": [source.model_dump(mode="json") for source in sources],
-            "snapshots": [snapshot.model_dump(mode="json") for snapshot in snapshots],
+            "snapshots": [
+                snapshot.model_dump(mode="json", exclude_none=True)
+                for snapshot in snapshots
+            ],
         }
         _write_json(temporary / "sources.json", source_payload)
         _write_json(
@@ -125,6 +189,7 @@ def build_static_bundle(
             temporary / "kana.json",
             [record.model_dump(mode="json") for record in kana],
         )
+        _write_json(temporary / "vocabulary-retirements.json", retirement_evidence)
         (temporary / "ATTRIBUTION.md").write_text(ATTRIBUTION, encoding="utf-8")
         _write_json(
             temporary_public / "content/search-index.json",
@@ -136,6 +201,7 @@ def build_static_bundle(
             "vocabulary.json",
             "grammar.json",
             "kana.json",
+            "vocabulary-retirements.json",
             "ATTRIBUTION.md",
         ]
         files = {filename: sha256_file(temporary / filename) for filename in hashed_files}
@@ -155,7 +221,10 @@ def build_static_bundle(
             files=files,
             built_at=built_at or _default_built_at(snapshots),
         )
-        _write_json(temporary / "manifest.json", manifest.model_dump(mode="json"))
+        _write_json(
+            temporary / "manifest.json",
+            manifest.model_dump(mode="json", exclude_none=True),
+        )
         _write_json(
             temporary / "verification.json",
             {
@@ -208,6 +277,13 @@ def verify_static_bundle(output_dir: Path, public_dir: Path | None = None) -> Bu
     }
     if manifest.counts != actual_counts:
         raise ValueError(f"bundle count mismatch: expected {manifest.counts}, got {actual_counts}")
+    vocabulary_ids = {
+        str(item["id"]) for item in _read_json(output_dir / "vocabulary.json")
+    }
+    _validate_retirement_evidence(
+        _read_json(output_dir / "vocabulary-retirements.json"),
+        vocabulary_ids,
+    )
     return manifest
 
 
@@ -219,6 +295,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--kana", type=Path)
     parser.add_argument("--source-metadata", type=Path)
     parser.add_argument("--rejections", type=Path)
+    parser.add_argument("--retirements", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--public-dir", type=Path)
     args = parser.parse_args(argv)
@@ -229,6 +306,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
             args.kana,
             args.source_metadata,
             args.rejections,
+            args.retirements,
             args.output,
             args.public_dir,
         ]
@@ -248,6 +326,7 @@ def main(argv: list[str] | None = None) -> int:
             kana_path=args.kana,
             source_metadata_path=args.source_metadata,
             rejections_path=args.rejections,
+            retirements_path=args.retirements,
             output_dir=args.output,
             public_dir=args.public_dir,
         )

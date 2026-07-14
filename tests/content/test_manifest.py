@@ -22,6 +22,7 @@ def test_manifest_calculates_counts_and_rejects_negative_values() -> None:
         snapshot_date="2026-07-14",
         downloaded_at=datetime(2026, 7, 14, tzinfo=timezone.utc),
         sha256="a" * 64,
+        repository_path="data/content/kana/gojuon.json",
     )
 
     manifest = build_manifest(

@@ -19,6 +19,13 @@ from scripts.content.models import VocabularyRecord, normalize_text, vocabulary_
 
 
 _KAIKKI_SECTION_MARKER = re.compile(r"={2,}\s*日[语語]\s*={2,}")
+_GLOSS_MARKUP = re.compile(
+    r"(?:={2,}|https?://|www\.|(?:^|\s)#+(?::|\s)|\{\{|\}\}|\[\[|\]\])",
+    re.IGNORECASE,
+)
+_CJK = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]")
+_SAFE_ASCII_SECONDARY = re.compile(r"(?:COVID-19|10\^[0-9]+)")
+_VOCABULARY_ID = re.compile(r"^vocabulary:jmdict:[0-9]+$")
 
 
 @dataclass(frozen=True)
@@ -44,10 +51,24 @@ class KaikkiCandidate:
 class VocabularyBuild:
     records: tuple[VocabularyRecord, ...]
     rejection_counts: dict[str, int]
+    retired_pins: dict[str, str]
+    pinned_ids: tuple[str, ...]
 
     def json_bytes(self) -> bytes:
         payload = [record.model_dump(mode="json") for record in self.records]
         return (json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + "\n").encode()
+
+    def retirement_evidence(self, baseline_commit: str) -> dict[str, object]:
+        retained_ids = sorted(set(self.pinned_ids) - set(self.retired_pins))
+        return {
+            "baseline_commit": normalize_text(baseline_commit),
+            "pin_count": len(self.pinned_ids),
+            "retained_ids": retained_ids,
+            "retired": [
+                {"id": pin_id, "reason": reason}
+                for pin_id, reason in sorted(self.retired_pins.items())
+            ],
+        }
 
 
 def _compatible_reading(reading: dict[str, Any], spelling: str, has_kanji: bool) -> bool:
@@ -151,6 +172,7 @@ def _kaikki_part_of_speech(row: dict[str, Any]) -> tuple[str, ...]:
 def index_kaikki_glosses(
     path: Path,
     wanted_spellings: set[str],
+    quality_rejections: Counter[str] | None = None,
 ) -> tuple[
     dict[tuple[str, str], set[KaikkiCandidate]],
     dict[str, set[KaikkiCandidate]],
@@ -169,30 +191,40 @@ def index_kaikki_glosses(
             word = normalize_text(str(row.get("word", "")))
             if row.get("lang_code") != "ja" or word not in wanted_spellings:
                 continue
-            glosses = tuple(
-                dict.fromkeys(
-                    cleaned
-                    for sense in row.get("senses", [])
-                    for gloss in sense.get("glosses", [])
-                    if (cleaned := _clean_kaikki_gloss(gloss))
-                )
+            cleaned_glosses: list[str] = []
+            for sense in row.get("senses", []):
+                for gloss in sense.get("glosses", []):
+                    cleaned, rejection = _clean_kaikki_gloss(gloss)
+                    if rejection is not None and quality_rejections is not None:
+                        quality_rejections[rejection] += 1
+                    if cleaned:
+                        cleaned_glosses.append(cleaned)
+            candidate = KaikkiCandidate(
+                word=word,
+                readings=_kaikki_readings(row),
+                part_of_speech=_kaikki_part_of_speech(row),
+                glosses=tuple(dict.fromkeys(cleaned_glosses)),
             )
-            if glosses:
-                candidate = KaikkiCandidate(
-                    word=word,
-                    readings=_kaikki_readings(row),
-                    part_of_speech=_kaikki_part_of_speech(row),
-                    glosses=glosses,
-                )
-                spelling_only[word].add(candidate)
-                for reading in candidate.readings:
-                    exact[(word, reading)].add(candidate)
+            spelling_only[word].add(candidate)
+            for reading in candidate.readings:
+                exact[(word, reading)].add(candidate)
     return dict(exact), dict(spelling_only)
 
 
-def _clean_kaikki_gloss(value: object) -> str:
+def _clean_kaikki_gloss(value: object) -> tuple[str, str | None]:
     normalized = normalize_text(str(value))
-    return _KAIKKI_SECTION_MARKER.split(normalized, maxsplit=1)[0].strip()
+    normalized = _KAIKKI_SECTION_MARKER.split(normalized, maxsplit=1)[0].strip()
+    if not normalized:
+        return "", "invalid_chinese_gloss"
+    if _GLOSS_MARKUP.search(normalized):
+        return "", "gloss_markup"
+    if _CJK.search(normalized) or _SAFE_ASCII_SECONDARY.fullmatch(normalized):
+        return normalized, None
+    return "", "invalid_chinese_gloss"
+
+
+def _has_cjk_gloss(candidate: KaikkiCandidate) -> bool:
+    return any(_CJK.search(gloss) for gloss in candidate.glosses)
 
 
 def _category(part_of_speech: tuple[str, ...]) -> str:
@@ -268,56 +300,86 @@ def limit_balanced_records(
     return sorted(selected, key=lambda item: (item.category, item.kana, item.japanese, item.id))
 
 
+def _select_prioritized_records(
+    records: list[VocabularyRecord],
+    limit: int,
+    pinned_ids: set[str],
+) -> list[VocabularyRecord]:
+    pinned = [record for record in records if record.id in pinned_ids]
+    if len(pinned) > limit:
+        raise ValueError("current-quality pinned vocabulary exceeds its tier capacity")
+    selected_pins = limit_balanced_records(pinned, len(pinned))
+    non_pins = [record for record in records if record.id not in pinned_ids]
+    selected_non_pins = limit_balanced_records(non_pins, limit - len(selected_pins))
+    return sorted(
+        [*selected_pins, *selected_non_pins],
+        key=lambda item: (item.category, item.kana, item.japanese, item.id),
+    )
+
+
 def build_vocabulary(
     jmdict_path: Path,
     kaikki_path: Path,
     limit: int = 10_000,
     core_limit: int = 5_000,
+    pinned_ids: set[str] | None = None,
 ) -> VocabularyBuild:
     if limit < 1:
         raise ValueError("limit must be positive")
     if core_limit < 0:
         raise ValueError("core_limit must be nonnegative")
     core_limit = min(core_limit, limit)
+    pinned_ids = set(pinned_ids or ())
+    if any(_VOCABULARY_ID.fullmatch(pin_id) is None for pin_id in pinned_ids):
+        raise ValueError("pinned vocabulary IDs must use vocabulary:jmdict:<digits>")
     root = json.loads(jmdict_path.read_text(encoding="utf-8"))
     candidates = select_jmdict_candidates(root)
+    rejections: Counter[str] = Counter()
     exact_index, spelling_index = index_kaikki_glosses(
         kaikki_path,
         {item.japanese for item in candidates},
+        quality_rejections=rejections,
     )
-    rejections: Counter[str] = Counter()
+    candidate_rejections: dict[str, str] = {}
     records: list[VocabularyRecord] = []
     content_version = normalize_text(str(root.get("dictDate", "unknown")))
 
     for candidate in candidates:
+        record_id = vocabulary_id(candidate.entry_id)
+
+        def reject(reason: str) -> None:
+            rejections[reason] += 1
+            candidate_rejections[record_id] = reason
+
         matches = exact_index.get((candidate.japanese, candidate.kana), set())
         if not matches:
             spelling_matches = spelling_index.get(candidate.japanese, set())
             if not spelling_matches:
-                rejections["missing_chinese"] += 1
+                reject("missing_chinese")
                 continue
             matches = {item for item in spelling_matches if not item.readings}
             if not matches:
-                rejections["reading_mismatch"] += 1
+                reject("reading_mismatch")
                 continue
 
         compatible_matches = {item for item in matches if _compatible_pos(candidate, item)}
         if not compatible_matches:
-            rejections["pos_mismatch"] += 1
+            reject("pos_mismatch")
             continue
-        gloss_sets = {item.glosses for item in compatible_matches}
-        if not gloss_sets:
-            rejections["missing_chinese"] += 1
+        quality_matches = {item for item in compatible_matches if _has_cjk_gloss(item)}
+        if not quality_matches:
+            reject("invalid_chinese_gloss")
             continue
+        gloss_sets = {item.glosses for item in quality_matches}
         if len(gloss_sets) != 1:
-            rejections["ambiguous_chinese"] += 1
+            reject("ambiguous_chinese")
             continue
         meaning_zh = list(next(iter(gloss_sets)))
         category = _category(candidate.part_of_speech)
         tier = "core" if candidate.common else "extended"
         records.append(
             VocabularyRecord(
-                id=vocabulary_id(candidate.entry_id),
+                id=record_id,
                 source_id="jmdict-kaikki",
                 source_key=f"jmdict:{candidate.entry_id}",
                 category=category,
@@ -344,10 +406,43 @@ def build_vocabulary(
         (record for record in records if record.tier == "extended"),
         key=lambda item: (item.category, item.kana, item.japanese, item.id),
     )
-    selected_core = limit_balanced_records(core_records, core_limit)
-    selected_extended = limit_balanced_records(extended_records, limit - len(selected_core))
+    selected_core = _select_prioritized_records(core_records, core_limit, pinned_ids)
+    selected_extended = _select_prioritized_records(
+        extended_records,
+        limit - len(selected_core),
+        pinned_ids,
+    )
     selected = selected_core + selected_extended
-    return VocabularyBuild(tuple(selected), dict(sorted(rejections.items())))
+    valid_pin_ids = pinned_ids.intersection(record.id for record in records)
+    selected_ids = {record.id for record in selected}
+    missing_valid_pins = sorted(valid_pin_ids - selected_ids)
+    if missing_valid_pins:
+        raise ValueError(
+            "current-quality pinned vocabulary was not selected: "
+            + ", ".join(missing_valid_pins[:5])
+        )
+    retired_pins = {
+        pin_id: candidate_rejections.get(pin_id, "missing_jmdict_candidate")
+        for pin_id in sorted(pinned_ids - selected_ids)
+    }
+    return VocabularyBuild(
+        tuple(selected),
+        dict(sorted(rejections.items())),
+        retired_pins,
+        tuple(sorted(pinned_ids)),
+    )
+
+
+def load_pin_ids(path: Path) -> set[str]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, list) or any(not isinstance(item, str) for item in payload):
+        raise ValueError("pin file must contain a JSON array of vocabulary IDs")
+    if payload != sorted(set(payload)):
+        raise ValueError("pin file must be sorted and contain unique IDs")
+    pins = set(payload)
+    if any(_VOCABULARY_ID.fullmatch(pin_id) is None for pin_id in pins):
+        raise ValueError("pin file contains an invalid vocabulary ID")
+    return pins
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -356,14 +451,30 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--kaikki", type=Path, required=True)
     parser.add_argument("--limit", type=int, default=10_000)
     parser.add_argument("--core-limit", type=int, default=5_000)
+    parser.add_argument("--pins", type=Path)
+    parser.add_argument("--retirements", type=Path)
+    parser.add_argument("--baseline-commit")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--rejections", type=Path, required=True)
-    return parser.parse_args(argv)
+    args = parser.parse_args(argv)
+    pin_arguments = [args.pins, args.retirements, args.baseline_commit]
+    if any(value is not None for value in pin_arguments) and not all(
+        value is not None for value in pin_arguments
+    ):
+        parser.error("--pins, --retirements, and --baseline-commit must be used together")
+    return args
 
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
-    result = build_vocabulary(args.jmdict, args.kaikki, args.limit, args.core_limit)
+    pins = load_pin_ids(args.pins) if args.pins is not None else set()
+    result = build_vocabulary(
+        args.jmdict,
+        args.kaikki,
+        args.limit,
+        args.core_limit,
+        pinned_ids=pins,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.rejections.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_bytes(result.json_bytes())
@@ -371,9 +482,26 @@ def main(argv: list[str] | None = None) -> int:
         json.dumps(result.rejection_counts, ensure_ascii=False, sort_keys=True, indent=2) + "\n",
         encoding="utf-8",
     )
+    if args.retirements is not None:
+        args.retirements.parent.mkdir(parents=True, exist_ok=True)
+        args.retirements.write_text(
+            json.dumps(
+                result.retirement_evidence(args.baseline_commit),
+                ensure_ascii=False,
+                sort_keys=True,
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
     print(
         json.dumps(
-            {"published": len(result.records), "rejections": result.rejection_counts},
+            {
+                "published": len(result.records),
+                "rejections": result.rejection_counts,
+                "pins_retained": len(result.pinned_ids) - len(result.retired_pins),
+                "pins_retired": len(result.retired_pins),
+            },
             ensure_ascii=False,
             sort_keys=True,
         )
