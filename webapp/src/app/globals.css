@@ -359,6 +359,33 @@ input, select { min-height: 2.75rem; }
 .source-block a { display: inline-flex; min-height: 2.75rem; max-width: 100%; align-items: center; color: var(--moss-text); overflow-wrap: anywhere; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25rem; }
 .source-note { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .86rem; }
 .detail-learning-rater { max-width: 50rem; margin-top: clamp(3rem, 7vw, 5.5rem); }
+.adjacent-content-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: clamp(3rem, 7vw, 5.5rem);
+  padding-block: 1.25rem;
+  border-block: 1px solid var(--line);
+}
+.adjacent-content-link {
+  display: inline-grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .85rem;
+  min-height: 2.75rem;
+  align-items: center;
+  padding: .75rem 0;
+  color: var(--moss-text);
+}
+.adjacent-content-link-next {
+  grid-template-columns: minmax(0, 1fr) auto;
+  text-align: right;
+}
+.adjacent-content-link-next .adjacent-content-arrow { grid-column: 2; grid-row: 1; }
+.adjacent-content-link-next > span:last-child { grid-column: 1; grid-row: 1; }
+.adjacent-content-arrow { font-size: 1.1rem; }
+.adjacent-content-direction { display: block; font-size: .76rem; letter-spacing: .08em; }
+.adjacent-content-label { display: block; margin-top: .15rem; color: var(--ink); font: 500 1.3rem/1.4 var(--font-display); }
+.adjacent-content-link:hover .adjacent-content-label { color: var(--moss-text); }
 .study-rater { padding-top: 1.75rem; border-top: 1px solid var(--line); }
 .study-rater-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1rem; }
 .study-rater-message { min-height: 1.7rem; margin: .85rem 0 0; color: var(--moss-text); font-size: .9rem; }
@@ -465,6 +492,11 @@ input, select { min-height: 2.75rem; }
   .entry-meaning { grid-column: 1 / -1; }
   .detail-grid { grid-template-columns: 1fr; }
   .grammar-detail-grid { gap: 2.75rem; }
+  .adjacent-content-nav { grid-template-columns: 1fr; }
+  .adjacent-content-nav > span:empty { display: none; }
+  .adjacent-content-link-next { grid-template-columns: auto minmax(0, 1fr); text-align: left; }
+  .adjacent-content-link-next .adjacent-content-arrow { grid-column: 1; }
+  .adjacent-content-link-next > span:last-child { grid-column: 2; }
   .detail-japanese { font-size: clamp(3.5rem, 21vw, 6rem); }
   .kana-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; }
   .kana-card { min-height: 8rem; }
