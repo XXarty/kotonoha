@@ -109,6 +109,13 @@ def source_metadata() -> dict[str, object]:
                 "repository_path": "data/content/grammar",
             },
             {
+                "source_id": "kotonoha-original",
+                "snapshot_date": "2026-07-14",
+                "downloaded_at": "2026-07-14T00:00:00Z",
+                "sha256": "d" * 64,
+                "repository_path": "data/content/grammar",
+            },
+            {
                 "source_id": "kotonoha-kana",
                 "snapshot_date": "2026-07-14",
                 "downloaded_at": "2026-07-14T00:00:00Z",
@@ -174,6 +181,24 @@ def test_vocabulary_attribution_separates_jmdict_and_kaikki_licenses() -> None:
     assert "https://www.edrdg.org/edrdg/licence.html" in ATTRIBUTION
     assert "Kaikki/Wiktionary Chinese glosses — CC BY-SA 4.0" in ATTRIBUTION
     assert "https://creativecommons.org/licenses/by-sa/4.0/" in ATTRIBUTION
+
+
+def test_bundle_requires_snapshot_for_every_enabled_published_source(tmp_path: Path) -> None:
+    inputs = bundle_inputs(tmp_path, vocabulary_count=500)
+    metadata = source_metadata()
+    metadata["snapshots"] = [
+        snapshot
+        for snapshot in metadata["snapshots"]
+        if snapshot["source_id"] != "kotonoha-original"
+    ]
+    inputs["source_metadata_path"] = write_json(tmp_path / "missing-snapshot.json", metadata)
+
+    with pytest.raises(ValueError, match="kotonoha-original"):
+        build_static_bundle(
+            **inputs,
+            output_dir=tmp_path / "generated",
+            public_dir=tmp_path / "public",
+        )
 
 
 def test_bundle_manifest_hashes_match_files(tmp_path: Path) -> None:
@@ -471,7 +496,8 @@ def test_pinned_metadata_links_exact_assets_and_hashes_local_sources() -> None:
         ]
     )
     assert snapshots[2]["sha256"] == hashlib.sha256(grammar_bytes).hexdigest()
-    assert snapshots[3]["sha256"] == sha256_file(KANA)
+    assert snapshots[3]["sha256"] == hashlib.sha256(grammar_bytes).hexdigest()
+    assert snapshots[4]["sha256"] == sha256_file(KANA)
     assert vocabulary_source["license_components"] == [
         {
             "label": "JMdict — EDRDG redistribution terms",

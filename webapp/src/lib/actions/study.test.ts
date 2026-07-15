@@ -28,10 +28,7 @@ const generatedVocabulary = JSON.parse(
   readFileSync(resolve(process.cwd(), "src/content/generated/vocabulary.json"), "utf8"),
 ) as Array<{ kind: "vocabulary"; id: string }>;
 const retirementEvidence = JSON.parse(
-  readFileSync(
-    resolve(process.cwd(), "../data/content/build/vocabulary-retirements.json"),
-    "utf8",
-  ),
+  readFileSync(resolve(process.cwd(), "src/content/generated/vocabulary-retirements.json"), "utf8"),
 ) as RetirementEvidence;
 
 describe("rateStudyAction", () => {

@@ -153,7 +153,24 @@ def build_static_bundle(
     grammar = load_grammar_curriculum(grammar_path)
     kana = [KanaRecord.model_validate(item) for item in _read_json(kana_path)]
     sources, snapshots = _load_source_metadata(source_metadata_path)
+    source_ids = {source.id for source in sources}
     enabled_source_ids = {source.id for source in sources if source.enabled}
+    published_source_ids = {
+        record.source_id for record in [*vocabulary, *grammar, *kana]
+    }
+    unknown_source_ids = published_source_ids - source_ids
+    if unknown_source_ids:
+        raise ValueError(
+            "published content references unknown sources: "
+            + ", ".join(sorted(unknown_source_ids))
+        )
+    snapshot_source_ids = {snapshot.source_id for snapshot in snapshots}
+    missing_snapshot_ids = (published_source_ids & enabled_source_ids) - snapshot_source_ids
+    if missing_snapshot_ids:
+        raise ValueError(
+            "enabled published sources require snapshots: "
+            + ", ".join(sorted(missing_snapshot_ids))
+        )
     rejection_counts = {str(key): int(value) for key, value in _read_json(rejections_path).items()}
     retirement_evidence = _validate_retirement_evidence(
         _read_json(retirements_path),

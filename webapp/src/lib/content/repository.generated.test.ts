@@ -25,10 +25,7 @@ const pins = JSON.parse(
   ),
 ) as string[];
 const retirementEvidence = JSON.parse(
-  readFileSync(
-    resolve(process.cwd(), "../data/content/build/vocabulary-retirements.json"),
-    "utf8",
-  ),
+  readFileSync(resolve(process.cwd(), "src/content/generated/vocabulary-retirements.json"), "utf8"),
 ) as RetirementEvidence;
 
 describe("expanded generated repository", () => {
