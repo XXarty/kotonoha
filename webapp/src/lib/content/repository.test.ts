@@ -407,6 +407,73 @@ describe("static content repository", () => {
     expect(repository.getVocabularyList("verbs", { tier: "core" })).toEqual([]);
   });
 
+  it("resolves vocabulary neighbors only within the same category and tier", () => {
+    const input = fixtures();
+    const repository = createContentRepository({
+      ...input,
+      vocabulary: [
+        vocabularyFixture(1000001, "verbs", "core"),
+        vocabularyFixture(1000002, "verbs", "core"),
+        vocabularyFixture(1000003, "verbs", "core"),
+        vocabularyFixture(1000004, "verbs", "extended"),
+        vocabularyFixture(1000005, "nouns", "core"),
+      ],
+    });
+
+    expect(repository.getVocabularyNeighbors("vocabulary:jmdict:1000002")).toEqual({
+      previous: expect.objectContaining({ id: "vocabulary:jmdict:1000001" }),
+      next: expect.objectContaining({ id: "vocabulary:jmdict:1000003" }),
+    });
+    expect(repository.getVocabularyNeighbors("vocabulary:jmdict:1000001")).toEqual({
+      previous: null,
+      next: expect.objectContaining({ id: "vocabulary:jmdict:1000002" }),
+    });
+    expect(repository.getVocabularyNeighbors("vocabulary:jmdict:1000003")).toEqual({
+      previous: expect.objectContaining({ id: "vocabulary:jmdict:1000002" }),
+      next: null,
+    });
+    expect(repository.getVocabularyNeighbors("vocabulary:jmdict:1000004")).toEqual({
+      previous: null,
+      next: null,
+    });
+    expect(repository.getVocabularyNeighbors("vocabulary:jmdict:1000005")).toEqual({
+      previous: null,
+      next: null,
+    });
+    expect(repository.getVocabularyNeighbors("missing")).toEqual({
+      previous: null,
+      next: null,
+    });
+  });
+
+  it("resolves grammar neighbors in stable order without crossing paths", () => {
+    const input = fixtures();
+    const repository = createContentRepository({
+      ...input,
+      grammar: [
+        grammarFixture("foundation-first", "foundation", 1, "tae-kim-grammar"),
+        grammarFixture("foundation-middle", "foundation", 2, "tae-kim-grammar"),
+        grammarFixture("foundation-last", "foundation", 3, "tae-kim-grammar"),
+        grammarFixture("core-first", "core", 1, "tae-kim-grammar"),
+      ],
+    });
+
+    expect(repository.getGrammarNeighbors("foundation-middle")).toEqual({
+      previous: expect.objectContaining({ slug: "foundation-first" }),
+      next: expect.objectContaining({ slug: "foundation-last" }),
+    });
+    expect(repository.getGrammarNeighbors("foundation-first").previous).toBeNull();
+    expect(repository.getGrammarNeighbors("foundation-last").next).toBeNull();
+    expect(repository.getGrammarNeighbors("core-first")).toEqual({
+      previous: null,
+      next: null,
+    });
+    expect(repository.getGrammarNeighbors("missing")).toEqual({
+      previous: null,
+      next: null,
+    });
+  });
+
   it("filters disabled sources from directories, details, search, and daily words", () => {
     const repository = createContentRepository(fixtures(false));
 

@@ -7,6 +7,7 @@ import vocabularyJson from "@/content/generated/vocabulary.json";
 
 import type {
   ContentDirectoryItem,
+  ContentNeighbors,
   ContentSource,
   DailyWordCandidate,
   DueProgressRow,
@@ -18,6 +19,14 @@ import type {
   SourceSnapshot,
   VocabularyEntry,
 } from "./types";
+
+function adjacentItems<T>(items: readonly T[], index: number): ContentNeighbors<T> {
+  if (index < 0) return { previous: null, next: null };
+  return {
+    previous: items[index - 1] ?? null,
+    next: items[index + 1] ?? null,
+  };
+}
 
 const licenseComponentSchema = z.object({
   label: z.string().trim().min(1),
@@ -314,6 +323,22 @@ export function createContentRepository(rawInput: unknown) {
     return [...(grammarByPath.get(path as GrammarEntry["path"]) ?? [])];
   }
 
+  function getVocabularyNeighbors(id: string): ContentNeighbors<VocabularyEntry> {
+    const current = itemMap.get(id);
+    if (current?.kind !== "vocabulary") return { previous: null, next: null };
+    const group = vocabulary.filter(
+      (item) => item.category === current.category && item.tier === current.tier,
+    );
+    return adjacentItems(group, group.findIndex((item) => item.id === current.id));
+  }
+
+  function getGrammarNeighbors(slug: string): ContentNeighbors<GrammarEntry> {
+    const current = grammarSlugMap.get(slug);
+    if (!current) return { previous: null, next: null };
+    const group = grammarByPath.get(current.path) ?? [];
+    return adjacentItems(group, group.findIndex((item) => item.slug === current.slug));
+  }
+
   function getRelatedGrammar(ids: readonly string[]): GrammarEntry[] {
     const seen = new Set<string>();
     return ids.flatMap((id) => {
@@ -375,10 +400,12 @@ export function createContentRepository(rawInput: unknown) {
       ),
     getVocabularyEntry: (id: string) =>
       (itemMap.get(id)?.kind === "vocabulary" ? itemMap.get(id) : null) as VocabularyEntry | null,
+    getVocabularyNeighbors,
     getGrammarDirectory,
     getGrammarList,
     getRelatedGrammar,
     getGrammarEntry: (slug: string) => grammarSlugMap.get(slug) ?? null,
+    getGrammarNeighbors,
     getKanaTable: () => kana,
     searchContent,
     getDailyWordCandidates: (): DailyWordCandidate[] =>
@@ -420,10 +447,12 @@ export const {
   getVocabularyDirectory,
   getVocabularyList,
   getVocabularyEntry,
+  getVocabularyNeighbors,
   getGrammarDirectory,
   getGrammarList,
   getRelatedGrammar,
   getGrammarEntry,
+  getGrammarNeighbors,
   getKanaTable,
   searchContent,
   getDailyWordCandidates,

@@ -93,6 +93,11 @@ export interface KanaEntry {
 
 export type PublicContentItem = VocabularyEntry | GrammarEntry | KanaEntry;
 
+export interface ContentNeighbors<T> {
+  previous: T | null;
+  next: T | null;
+}
+
 export interface ContentDirectoryItem {
   slug: string;
   title: string;
