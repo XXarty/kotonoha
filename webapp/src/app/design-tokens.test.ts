@@ -81,6 +81,23 @@ describe("selective paper texture", () => {
   });
 });
 
+describe("ambient washi background", () => {
+  it("keeps decorative texture fixed behind interactive content", () => {
+    expect(rule("body::before, body::after")).toContain("position: fixed");
+    expect(rule("body::before, body::after")).toContain("pointer-events: none");
+    expect(rule("body::before")).toContain("radial-gradient");
+    expect(rule("body::after")).toContain("radial-gradient");
+    expect(rule(".site-content, body > footer")).toContain("z-index: 1");
+  });
+
+  it("uses slow ambient motion and disables it for reduced motion", () => {
+    expect(rule("body::before")).toContain("washi-drift 36s");
+    expect(rule("body::after")).toContain("ink-halo-drift 44s");
+    expect(css).toContain("@media (prefers-reduced-motion: reduce)");
+    expect(css).toContain("animation: none !important");
+  });
+});
+
 describe("detail touch targets", () => {
   it("keeps source links at least 44px high and lets their row wrap on narrow screens", () => {
     expect(rule(".source-block a")).toContain("display: inline-flex");

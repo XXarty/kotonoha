@@ -26,6 +26,9 @@
 * { box-sizing: border-box; }
 html { background: var(--mist); scroll-behavior: smooth; }
 body {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
   min-height: 100vh;
   margin: 0;
   color: var(--ink);
@@ -33,6 +36,36 @@ body {
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.7;
+}
+body::before, body::after {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  content: "";
+  will-change: transform;
+}
+body::before {
+  inset: -2rem;
+  background: radial-gradient(circle, rgba(89, 111, 98, .09) .55px, transparent .8px) 0 0 / 12px 12px;
+  opacity: .48;
+  animation: washi-drift 36s linear infinite alternate;
+}
+body::after {
+  inset: -18vh -12vw;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(102, 125, 110, .12) 0 9rem, transparent 9.2rem),
+    radial-gradient(circle at 87% 72%, rgba(188, 200, 188, .2) 0 14rem, transparent 14.25rem);
+  opacity: .52;
+  filter: blur(1px);
+  animation: ink-halo-drift 44s ease-in-out infinite alternate;
+}
+@keyframes washi-drift {
+  from { transform: translate3d(-.45rem, -.25rem, 0); }
+  to { transform: translate3d(.55rem, .4rem, 0); }
+}
+@keyframes ink-halo-drift {
+  from { transform: translate3d(-1.5vw, -.75vh, 0) scale(1); }
+  to { transform: translate3d(1.5vw, 1vh, 0) scale(1.035); }
 }
 a { color: inherit; text-decoration: none; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
@@ -43,6 +76,7 @@ button, input, select, textarea { font: inherit; }
 button { min-width: 2.75rem; min-height: 2.75rem; }
 input, select, textarea { background-color: var(--paper); }
 input, select { min-height: 2.75rem; }
+.site-content, body > footer { position: relative; z-index: 1; }
 .site-content { min-height: calc(100vh - 11rem); }
 .shell { width: min(var(--shell-max), calc(100% - 2rem)); margin-inline: auto; }
 .page { padding-block: clamp(3rem, 7vw, 7rem); }
@@ -428,6 +462,8 @@ input, select { min-height: 2.75rem; }
 }
 
 @media (max-width: 720px) {
+  body::before { opacity: .36; }
+  body::after { opacity: .34; }
   .site-header-row { gap: .45rem; }
   .site-brand .data-label { display: none; }
   .site-menu-toggle {

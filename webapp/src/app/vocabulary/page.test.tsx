@@ -23,6 +23,8 @@ it("renders repository fixture vocabulary categories and counts", () => {
   expect(screen.getAllByText("1 条")).toHaveLength(3);
   expect(screen.getByRole("heading", { name: "日常核心" })).toBeVisible();
   expect(screen.getByRole("heading", { name: "进阶扩展" })).toBeVisible();
+  expect(screen.queryByRole("link", { name: "日常核心" })).not.toBeInTheDocument();
+  expect(screen.queryByRole("link", { name: "进阶扩展" })).not.toBeInTheDocument();
   expect(screen.getAllByText("打开这条路径")).toHaveLength(4);
   expect(screen.queryByText(/OPEN COLLECTION/i)).not.toBeInTheDocument();
 });
