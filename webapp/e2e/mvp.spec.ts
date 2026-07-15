@@ -52,20 +52,22 @@ test("global and legacy search find a real public word without leaving stale URL
   await page.goto("/");
   await page.getByRole("button", { name: "搜索全站内容" }).click();
   const searchbox = page.getByRole("searchbox", { name: "搜索内容" });
-  await searchbox.fill("灯");
-  const result = page.locator(".global-search-result", { hasText: "明かり" }).first();
+  await searchbox.fill("灯す");
+  const result = page.locator(".global-search-result", { hasText: "灯す" }).first();
   await expect(result).toBeVisible();
-  await expect(result).toContainText("あかり");
+  await expect(result).toContainText("ともす");
   await expect(result).toHaveAttribute(
     "href",
-    "/vocabulary/entry/vocabulary%3Ajmdict%3A1586210",
+    "/vocabulary/entry/vocabulary%3Ajmdict%3A1582140",
   );
   await page.getByRole("button", { name: "关闭搜索" }).click();
 
-  await page.goto("/search?q=%E7%81%AF");
-  await expect(page).toHaveURL(/\/?search=1&q=%E7%81%AF$/);
+  await page.goto(`/search?q=${encodeURIComponent("灯す")}`);
+  await expect(page).toHaveURL(
+    new RegExp(`\\/?search=1&q=${encodeURIComponent("灯す")}$`),
+  );
   await expect(page.getByRole("dialog", { name: "搜索日语内容" })).toBeVisible();
-  await expect(page.getByRole("searchbox", { name: "搜索内容" })).toHaveValue("灯");
+  await expect(page.getByRole("searchbox", { name: "搜索内容" })).toHaveValue("灯す");
   await page.getByRole("button", { name: "关闭搜索" }).click();
   await expect(page).toHaveURL("/");
   await expectNoHorizontalOverflow(page);
@@ -109,7 +111,7 @@ test("all four grammar paths lead to expanded sourced detail", async ({ page }, 
   await page.goto("/grammar/core");
   await expect(page.locator(".entry-list > li")).toHaveCount(30);
   await page.goto("/grammar/entry/morau");
-  await expect(page.getByRole("heading", { level: 1, name: "もらう／～てもらう" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "もらう/~てもらう" })).toBeVisible();
   for (const section of ["接续", "说明", "容易混淆的地方", "例句", "一起比较", "来源"]) {
     await expect(page.getByRole("heading", { name: section, exact: true })).toBeVisible();
   }
