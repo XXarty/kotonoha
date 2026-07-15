@@ -7,6 +7,7 @@ import { siteCopy } from "@/lib/site-copy";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kotonoha-japanese-learning.vercel.app"),
   title: {
     default: "ことのは｜每天一点日语",
     template: "%s｜ことのは",
