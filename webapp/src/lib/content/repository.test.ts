@@ -233,6 +233,31 @@ function productionContractFixtures(disableOriginal = false) {
   };
 }
 
+function disableSource(
+  sourceId: "jmdict-kaikki" | "tae-kim-grammar" | "kotonoha-original" | "kotonoha-kana",
+) {
+  const input = productionContractFixtures();
+  return {
+    ...input,
+    sources: {
+      ...input.sources,
+      sources: input.sources.sources.map((source) =>
+        source.id === sourceId ? { ...source, enabled: false } : source,
+      ),
+    },
+  };
+}
+
+function dueRow(itemId: string, kind: "vocabulary" | "grammar" | "kana") {
+  return {
+    progressId: `progress:${itemId}`,
+    itemId,
+    kind,
+    status: "learning" as const,
+    nextReviewAt: new Date("2026-07-15T00:00:00Z"),
+  };
+}
+
 describe("static content repository", () => {
   it("keeps grammar directory counts, metadata, order, and lists aligned", () => {
     const repository = createContentRepository(productionContractFixtures());
@@ -390,6 +415,92 @@ describe("static content repository", () => {
     expect(repository.searchContent("食べる").vocabulary).toEqual([]);
     expect(repository.getDailyWordCandidates()).toEqual([]);
   });
+
+  it.each([
+    {
+      sourceId: "jmdict-kaikki" as const,
+      removedId: "vocabulary:jmdict:1000001",
+      removedKind: "vocabulary" as const,
+      search: "词1000001",
+      remainingId: "grammar:tae-kim:foundation-direct",
+      assertDirectory: (repository: ReturnType<typeof createContentRepository>) => {
+        expect(repository.getVocabularyDirectory()).toEqual([]);
+        expect(repository.getGrammarDirectory()).not.toEqual([]);
+        expect(repository.getDailyWordCandidates()).toEqual([]);
+      },
+    },
+    {
+      sourceId: "tae-kim-grammar" as const,
+      removedId: "grammar:tae-kim:foundation-direct",
+      removedKind: "grammar" as const,
+      search: "表达 foundation-direct",
+      remainingId: "grammar:tae-kim:foundation-original",
+      assertDirectory: (repository: ReturnType<typeof createContentRepository>) => {
+        expect(repository.getGrammarList("core")).toEqual([]);
+        expect(repository.getGrammarList("foundation")).toHaveLength(1);
+        expect(repository.getVocabularyDirectory()).not.toEqual([]);
+      },
+    },
+    {
+      sourceId: "kotonoha-original" as const,
+      removedId: "grammar:tae-kim:foundation-original",
+      removedKind: "grammar" as const,
+      search: "表达 foundation-original",
+      remainingId: "grammar:tae-kim:foundation-direct",
+      assertDirectory: (repository: ReturnType<typeof createContentRepository>) => {
+        expect(repository.getGrammarList("foundation")).toHaveLength(1);
+        expect(repository.getGrammarDirectory()).toEqual([
+          expect.objectContaining({ slug: "foundation", count: 1 }),
+          expect.objectContaining({ slug: "core", count: 1 }),
+          expect.objectContaining({ slug: "expressions", count: 2 }),
+        ]);
+      },
+    },
+    {
+      sourceId: "kotonoha-kana" as const,
+      removedId: "kana:gojuon:a",
+      removedKind: "kana" as const,
+      search: "あ",
+      remainingId: "vocabulary:jmdict:1000001",
+      assertDirectory: (repository: ReturnType<typeof createContentRepository>) => {
+        expect(repository.getKanaTable()).toEqual([]);
+        expect(repository.getVocabularyDirectory()).not.toEqual([]);
+        expect(repository.getGrammarDirectory()).not.toEqual([]);
+      },
+    },
+  ])(
+    "removes $sourceId from directories, search, daily candidates, and review hydration while retaining other sources",
+    ({
+      sourceId,
+      removedId,
+      removedKind,
+      search,
+      remainingId,
+      assertDirectory,
+    }) => {
+      const repository = createContentRepository(disableSource(sourceId));
+
+      assertDirectory(repository);
+      expect(repository.getContentItem(removedId)).toBeNull();
+      expect(repository.getContentItem(remainingId)).not.toBeNull();
+      expect(
+        [
+          ...repository.searchContent(search).vocabulary,
+          ...repository.searchContent(search).grammar,
+          ...repository.searchContent(search).kana,
+        ].map((item) => item.id),
+      ).not.toContain(removedId);
+      expect(repository.hydrateReviewQueue([dueRow(removedId, removedKind)])).toEqual([]);
+      expect(
+        repository.hydrateReviewQueue([
+          dueRow(
+            remainingId,
+            remainingId.startsWith("vocabulary:") ? "vocabulary" : "grammar",
+          ),
+        ]),
+      ).toHaveLength(1);
+    },
+  );
 
   it("retains exact machine-readable snapshot provenance", () => {
     const repository = createContentRepository(fixtures());

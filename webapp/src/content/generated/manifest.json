@@ -8,10 +8,10 @@
   },
   "files": {
     "ATTRIBUTION.md": "32077d845ee70afa68008a4c82d3c4ece2e7f822b7663487d47b7293834227e4",
-    "grammar.json": "f8b5b6dc8f58a61bc41f70ca90d5bf6787437794655466fa5e1349ae0eb66574",
+    "grammar.json": "dad190604b2a1fe6c45957f248418f878c84612acc15a37fc381063e8af7df8c",
     "kana.json": "f1cda2a4908d60ffb9e88b8437eeb0c43875472a38fdc036dd58a9f58f71cd01",
     "public/content/search-index.json": "2b435bb6c638674864c9183556e169c4ee713aadd4d3a710959f854c827b1179",
-    "sources.json": "65b46ef14066532cc6cd2e7b17cee38f93c477dd6a769ee6612f7e0a430fa7d5",
+    "sources.json": "ee3ae82d12beda31190b81d446358eb699aed3414efafb7b242040ef9b3ca5ba",
     "vocabulary-retirements.json": "631746d1f1ff86e6f10c2726b0c3f5fbc4f8c9b16bf4d7ab9f0da246d314541c",
     "vocabulary.json": "b27e89a91495e2cbc2a16b67d2b002282c8e00015b7a2fd632d98d0c02e93115"
   },
@@ -44,7 +44,7 @@
     {
       "downloaded_at": "2026-07-14T15:26:35Z",
       "repository_path": "data/content/grammar",
-      "sha256": "f8b5b6dc8f58a61bc41f70ca90d5bf6787437794655466fa5e1349ae0eb66574",
+      "sha256": "dad190604b2a1fe6c45957f248418f878c84612acc15a37fc381063e8af7df8c",
       "snapshot_date": "2026-07-14",
       "source_id": "tae-kim-grammar"
     },
