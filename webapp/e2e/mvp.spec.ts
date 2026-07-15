@@ -15,6 +15,14 @@ async function expectMinimumTouchTarget(locator: Locator) {
   expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
 }
 
+function expectOnlyZeroDurations(value: string) {
+  const durations = value.split(",").map((duration) => duration.trim());
+  expect(durations.length, "computed duration should not be empty").toBeGreaterThan(0);
+  for (const duration of durations) {
+    expect(["0s", "0ms"]).toContain(duration);
+  }
+}
+
 test("home reports the verified release and the responsive header remains usable", async ({
   page,
 }) => {
@@ -43,7 +51,97 @@ test("home reports the verified release and the responsive header remains usable
     await expect(page.getByRole("navigation", { name: "主导航" })).toBeVisible();
     await expect(page.getByRole("button", { name: "打开主导航" })).not.toBeVisible();
   }
+  await expect(page.locator(".site-header")).toBeVisible();
+  await expect(page.locator(".home-opening-grid")).toBeVisible();
+  await expect(page.locator(".home-guidance")).toBeVisible();
+  await expect(page.locator(".home-entrances")).toBeVisible();
+  await expect(page.locator(".home-source-note")).toBeVisible();
+  await expect(page.locator("footer")).toBeVisible();
   await expectNoHorizontalOverflow(page);
+});
+
+test("global search keyboard journey reaches a real word and restores focus", async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-1024", "keyboard flow runs once");
+
+  const navigatedPaths: string[] = [];
+  page.on("framenavigated", (frame) => {
+    if (frame === page.mainFrame()) navigatedPaths.push(new URL(frame.url()).pathname);
+  });
+
+  await page.goto("/");
+  const searchTrigger = page.getByRole("button", { name: "搜索全站内容" });
+  await searchTrigger.focus();
+  await expect(searchTrigger).toBeFocused();
+  await searchTrigger.click();
+
+  const searchbox = page.getByRole("searchbox", { name: "搜索内容" });
+  await expect(searchbox).toBeFocused();
+  await searchbox.fill("諦める");
+
+  const result = page.locator(".global-search-result", { hasText: "諦める" }).first();
+  await expect(result).toContainText("あきらめる");
+  await expect(result).toHaveAttribute(
+    "href",
+    "/vocabulary/entry/vocabulary%3Ajmdict%3A1436730",
+  );
+
+  await searchbox.press("ArrowDown");
+  await searchbox.press("Enter");
+  await expect(page).toHaveURL(
+    "http://127.0.0.1:3000/vocabulary/entry/vocabulary%3Ajmdict%3A1436730",
+  );
+  await expect(page.getByRole("heading", { level: 1, name: "諦める" })).toBeVisible();
+  expect(navigatedPaths).not.toContain("/search");
+
+  await page.getByRole("button", { name: "认识" }).click();
+  await expect(page.getByText("已经轻轻记下，下次再见。", { exact: true })).toBeVisible();
+
+  await page.goto("/");
+  const reopenedTrigger = page.getByRole("button", { name: "搜索全站内容" });
+  await reopenedTrigger.focus();
+  await reopenedTrigger.click();
+  await expect(page.getByRole("searchbox", { name: "搜索内容" })).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog", { name: "搜索日语内容" })).toHaveCount(0);
+  await expect(reopenedTrigger).toBeFocused();
+  expect(navigatedPaths).not.toContain("/search");
+});
+
+test("reduced motion removes global search animation and restores focus", async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-1024", "reduced-motion flow runs once");
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const searchTrigger = page.getByRole("button", { name: "搜索全站内容" });
+  await searchTrigger.focus();
+  await searchTrigger.click();
+
+  const panel = page.locator(".global-search-panel");
+  await expect(panel).toBeVisible();
+  const durations = await panel.evaluate((element) => {
+    const styles = getComputedStyle(element);
+    return {
+      animation: styles.animationDuration,
+      transition: styles.transitionDuration,
+    };
+  });
+  expectOnlyZeroDurations(durations.animation);
+  expectOnlyZeroDurations(durations.transition);
+
+  const closeButton = page.getByRole("button", { name: "关闭搜索" });
+  const searchbox = page.getByRole("searchbox", { name: "搜索内容" });
+  await closeButton.focus();
+  await page.keyboard.press("Shift+Tab");
+  await expect(searchbox).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(closeButton).toBeFocused();
+
+  await page.keyboard.press("Escape");
+  await expect(searchTrigger).toBeFocused();
 });
 
 test("global and legacy search find a real public word without leaving stale URL state", async ({
