@@ -1,9 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { getSourceAttributions, getVocabularyEntry, notFound } = vi.hoisted(() => ({
+const { getSourceAttributions, getVocabularyEntry, getVocabularyNeighbors, notFound } = vi.hoisted(() => ({
   getSourceAttributions: vi.fn(),
   getVocabularyEntry: vi.fn(),
+  getVocabularyNeighbors: vi.fn(),
   notFound: vi.fn(),
 }));
 
@@ -17,6 +18,7 @@ vi.mock("@/components/study-rater", () => ({
 vi.mock("@/lib/content/repository", () => ({
   getSourceAttributions,
   getVocabularyEntry,
+  getVocabularyNeighbors,
 }));
 
 import VocabularyEntryPage from "./page";
@@ -49,6 +51,7 @@ describe("VocabularyEntryPage", () => {
       throw new Error("NEXT_NOT_FOUND");
     });
     getVocabularyEntry.mockReturnValue(baseEntry);
+    getVocabularyNeighbors.mockReturnValue({ previous: null, next: null });
     getSourceAttributions.mockReturnValue({
       sources: [
         {
@@ -103,9 +106,32 @@ describe("VocabularyEntryPage", () => {
     );
 
     expect(getVocabularyEntry).toHaveBeenCalledWith("vocabulary:jmdict:1436730");
+    expect(getVocabularyNeighbors).toHaveBeenCalledWith("vocabulary:jmdict:1436730");
     expect(screen.getByRole("heading", { name: "諦める" })).toBeVisible();
     expect(screen.getByText("放弃")).toBeVisible();
     expect(screen.getByText("死心")).toBeVisible();
+  });
+
+  it("renders stable-ID links for available vocabulary neighbors", async () => {
+    getVocabularyNeighbors.mockReturnValue({
+      previous: { ...baseEntry, id: "vocabulary:jmdict:1000001", japanese: "あげる" },
+      next: { ...baseEntry, id: "vocabulary:jmdict:1000002", japanese: "諦めない" },
+    });
+
+    render(
+      await VocabularyEntryPage({
+        params: Promise.resolve({ id: "vocabulary%3Ajmdict%3A1436730" }),
+      }),
+    );
+
+    expect(screen.getByRole("link", { name: "上一个 あげる" })).toHaveAttribute(
+      "href",
+      "/vocabulary/entry/vocabulary%3Ajmdict%3A1000001",
+    );
+    expect(screen.getByRole("link", { name: "下一个 諦めない" })).toHaveAttribute(
+      "href",
+      "/vocabulary/entry/vocabulary%3Ajmdict%3A1000002",
+    );
   });
 
   it("omits the whole example section when no reliable examples exist", async () => {

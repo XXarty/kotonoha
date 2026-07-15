@@ -1,8 +1,14 @@
 import { notFound } from "next/navigation";
 
+import { AdjacentContentNav } from "@/components/adjacent-content-nav";
 import { ConnectedStudyRater } from "@/components/study-rater";
 import { isAuthConfigured } from "@/lib/auth/enabled";
-import { getSourceAttributions, getVocabularyEntry } from "@/lib/content/repository";
+import {
+  getSourceAttributions,
+  getVocabularyEntry,
+  getVocabularyNeighbors,
+} from "@/lib/content/repository";
+import { contentRoute } from "@/lib/content/routes";
 
 export default async function VocabularyEntryPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -14,6 +20,7 @@ export default async function VocabularyEntryPage({ params }: { params: Promise<
   }
   const entry = getVocabularyEntry(decodedId);
   if (!entry) notFound();
+  const neighbors = getVocabularyNeighbors(decodedId);
   const source = getSourceAttributions().sources.find(
     (item) => item.id === entry.source_id && item.enabled,
   );
@@ -74,6 +81,17 @@ export default async function VocabularyEntryPage({ params }: { params: Promise<
           ) : null}
         </div>
       </div>
+
+      <AdjacentContentNav
+        previous={neighbors.previous ? {
+          href: contentRoute.vocabularyEntry(neighbors.previous.id),
+          label: neighbors.previous.japanese,
+        } : null}
+        next={neighbors.next ? {
+          href: contentRoute.vocabularyEntry(neighbors.next.id),
+          label: neighbors.next.japanese,
+        } : null}
+      />
 
       <div className="detail-learning-rater">
         <ConnectedStudyRater authEnabled={isAuthConfigured()} itemId={entry.id} />

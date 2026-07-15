@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { AdjacentContentNav } from "@/components/adjacent-content-nav";
 import { ConnectedStudyRater } from "@/components/study-rater";
 import { isAuthConfigured } from "@/lib/auth/enabled";
 import {
   getGrammarEntry,
+  getGrammarNeighbors,
   getRelatedGrammar,
   getSourceAttributions,
 } from "@/lib/content/repository";
@@ -14,6 +16,7 @@ export default async function GrammarEntryPage({ params }: { params: Promise<{ s
   const { slug } = await params;
   const entry = getGrammarEntry(slug);
   if (!entry) notFound();
+  const neighbors = getGrammarNeighbors(slug);
   const source = getSourceAttributions().sources.find(
     (item) => item.id === entry.source_id && item.enabled,
   );
@@ -94,6 +97,17 @@ export default async function GrammarEntryPage({ params }: { params: Promise<{ s
           ) : null}
         </div>
       </div>
+
+      <AdjacentContentNav
+        previous={neighbors.previous ? {
+          href: contentRoute.grammarEntry(neighbors.previous.slug),
+          label: neighbors.previous.expression,
+        } : null}
+        next={neighbors.next ? {
+          href: contentRoute.grammarEntry(neighbors.next.slug),
+          label: neighbors.next.expression,
+        } : null}
+      />
 
       <div className="detail-learning-rater">
         <ConnectedStudyRater authEnabled={isAuthConfigured()} itemId={entry.id} />

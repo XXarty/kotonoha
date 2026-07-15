@@ -1,9 +1,10 @@
 import { render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { getContentItem, getGrammarEntry, getRelatedGrammar, getSourceAttributions, notFound } = vi.hoisted(() => ({
+const { getContentItem, getGrammarEntry, getGrammarNeighbors, getRelatedGrammar, getSourceAttributions, notFound } = vi.hoisted(() => ({
   getContentItem: vi.fn(),
   getGrammarEntry: vi.fn(),
+  getGrammarNeighbors: vi.fn(),
   getRelatedGrammar: vi.fn(),
   getSourceAttributions: vi.fn(),
   notFound: vi.fn(),
@@ -19,6 +20,7 @@ vi.mock("@/components/study-rater", () => ({
 vi.mock("@/lib/content/repository", () => ({
   getContentItem,
   getGrammarEntry,
+  getGrammarNeighbors,
   getRelatedGrammar,
   getSourceAttributions,
 }));
@@ -84,6 +86,7 @@ describe("GrammarEntryPage", () => {
       throw new Error("NEXT_NOT_FOUND");
     });
     getGrammarEntry.mockReturnValue(baseEntry);
+    getGrammarNeighbors.mockReturnValue({ previous: null, next: null });
     getContentItem.mockImplementation((id: keyof typeof related) => related[id] ?? null);
     getRelatedGrammar.mockReturnValue([
       related["grammar:tae-kim:ga-subject"],
@@ -136,6 +139,25 @@ describe("GrammarEntryPage", () => {
     expect(screen.getByText("今天很热。")).toBeVisible();
     expect(screen.getByText("私は学生です。")).toBeVisible();
     expect(screen.getByText("我是学生。")).toBeVisible();
+    expect(getGrammarNeighbors).toHaveBeenCalledWith("wa-topic");
+  });
+
+  it("renders slug links for available grammar neighbors", async () => {
+    getGrammarNeighbors.mockReturnValue({
+      previous: { ...baseEntry, id: "grammar:tae-kim:previous", slug: "previous", expression: "〜前" },
+      next: { ...baseEntry, id: "grammar:tae-kim:ga-aru", slug: "ga-aru", expression: "〜がある" },
+    });
+
+    render(await GrammarEntryPage({ params: Promise.resolve({ slug: "wa-topic" }) }));
+
+    expect(screen.getByRole("link", { name: "上一个 〜前" })).toHaveAttribute(
+      "href",
+      "/grammar/entry/previous",
+    );
+    expect(screen.getByRole("link", { name: "下一个 〜がある" })).toHaveAttribute(
+      "href",
+      "/grammar/entry/ga-aru",
+    );
   });
 
   it("keeps only public grammar relations in their stored order", async () => {
