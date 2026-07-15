@@ -153,6 +153,7 @@ def build_static_bundle(
     grammar = load_grammar_curriculum(grammar_path)
     kana = [KanaRecord.model_validate(item) for item in _read_json(kana_path)]
     sources, snapshots = _load_source_metadata(source_metadata_path)
+    enabled_source_ids = {source.id for source in sources if source.enabled}
     rejection_counts = {str(key): int(value) for key, value in _read_json(rejections_path).items()}
     retirement_evidence = _validate_retirement_evidence(
         _read_json(retirements_path),
@@ -197,7 +198,11 @@ def build_static_bundle(
         (temporary / "ATTRIBUTION.md").write_text(ATTRIBUTION, encoding="utf-8")
         _write_json(
             temporary_public / "content/search-index.json",
-            build_search_index(vocabulary, grammar, kana),
+            build_search_index(
+                [record for record in vocabulary if record.source_id in enabled_source_ids],
+                [record for record in grammar if record.source_id in enabled_source_ids],
+                [record for record in kana if record.source_id in enabled_source_ids],
+            ),
         )
 
         hashed_files = [
@@ -272,21 +277,38 @@ def verify_static_bundle(output_dir: Path, public_dir: Path | None = None) -> Bu
             raise ValueError(
                 f"bundle hash mismatch for {filename}: expected {expected_sha256}, got {actual_sha256}"
             )
+    vocabulary_payload = _read_json(output_dir / "vocabulary.json")
+    grammar_payload = _read_json(output_dir / "grammar.json")
+    kana_payload = _read_json(output_dir / "kana.json")
     actual_counts = {
-        "vocabulary": len(_read_json(output_dir / "vocabulary.json")),
-        "grammar": len(_read_json(output_dir / "grammar.json")),
-        "kana": len(_read_json(output_dir / "kana.json")),
+        "vocabulary": len(vocabulary_payload),
+        "grammar": len(grammar_payload),
+        "kana": len(kana_payload),
         "invalid": 0,
     }
     if manifest.counts != actual_counts:
         raise ValueError(f"bundle count mismatch: expected {manifest.counts}, got {actual_counts}")
-    vocabulary_ids = {
-        str(item["id"]) for item in _read_json(output_dir / "vocabulary.json")
-    }
+    vocabulary_ids = {str(item["id"]) for item in vocabulary_payload}
     _validate_retirement_evidence(
         _read_json(output_dir / "vocabulary-retirements.json"),
         vocabulary_ids,
     )
+    if public_dir is None:
+        raise ValueError("public_dir is required to verify the public search index")
+    sources, _snapshots = _load_source_metadata(output_dir / "sources.json")
+    enabled_source_ids = {source.id for source in sources if source.enabled}
+    enabled_content_ids = {
+        str(item["id"])
+        for items in (vocabulary_payload, grammar_payload, kana_payload)
+        for item in items
+        if item["source_id"] in enabled_source_ids
+    }
+    search_payload = _read_json(public_dir / "content/search-index.json")
+    search_ids = [str(row["id"]) for row in search_payload]
+    if len(search_ids) != len(set(search_ids)):
+        raise ValueError("duplicate public search index IDs")
+    if set(search_ids) != enabled_content_ids:
+        raise ValueError("public search index IDs do not match enabled content IDs")
     return manifest
 
 

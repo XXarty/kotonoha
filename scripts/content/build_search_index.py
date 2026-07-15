@@ -38,6 +38,7 @@ class _VerifiedVocabularyIndexSource(BaseModel):
 
     id: str = Field(pattern=r"^vocabulary:jmdict:[0-9]+$")
     kind: Literal["vocabulary"]
+    source_id: Literal["jmdict-kaikki"]
     source_key: str = Field(pattern=r"^jmdict:[0-9]+$")
     japanese: NonBlankText
     kana: NonBlankText
@@ -56,6 +57,7 @@ class _VerifiedGrammarIndexSource(BaseModel):
 
     id: str = Field(pattern=r"^grammar:tae-kim:[a-z0-9-]+$")
     kind: Literal["grammar"]
+    source_id: Literal["tae-kim-grammar", "kotonoha-original"]
     slug: str = Field(pattern=r"^[a-z0-9-]+$")
     expression: NonBlankText
     explanation_zh: NonBlankText
@@ -72,6 +74,7 @@ class _VerifiedKanaIndexSource(BaseModel):
 
     id: str = Field(pattern=r"^kana:gojuon:[a-z]+$")
     kind: Literal["kana"]
+    source_id: Literal["kotonoha-kana"]
     hiragana: NonBlankText
     katakana: NonBlankText
     romaji: str = Field(pattern=r"^[a-z]+$")
@@ -169,10 +172,21 @@ def write_verified_bundle_search_index(
     from scripts.content.build_static_bundle import verify_static_bundle
 
     verify_static_bundle(bundle_dir, public_dir)
+    source_payload = json.loads((bundle_dir / "sources.json").read_text(encoding="utf-8"))
+    enabled_source_ids = {
+        source["id"]
+        for source in source_payload["sources"]
+        if source["enabled"] is True
+    }
+    vocabulary = _read_records(
+        bundle_dir / "vocabulary.json", _VerifiedVocabularyIndexSource
+    )
+    grammar = _read_records(bundle_dir / "grammar.json", _VerifiedGrammarIndexSource)
+    kana = _read_records(bundle_dir / "kana.json", _VerifiedKanaIndexSource)
     rows = build_search_index(
-        _read_records(bundle_dir / "vocabulary.json", _VerifiedVocabularyIndexSource),
-        _read_records(bundle_dir / "grammar.json", _VerifiedGrammarIndexSource),
-        _read_records(bundle_dir / "kana.json", _VerifiedKanaIndexSource),
+        [record for record in vocabulary if record.source_id in enabled_source_ids],
+        [record for record in grammar if record.source_id in enabled_source_ids],
+        [record for record in kana if record.source_id in enabled_source_ids],
     )
     _write_rows(output_path, rows)
     return rows

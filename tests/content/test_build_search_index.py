@@ -1,12 +1,17 @@
 from __future__ import annotations
 
+import json
+from datetime import datetime
 from pathlib import Path
+
+import pytest
 
 from scripts.content.build_search_index import (
     build_search_index,
     main,
     write_verified_bundle_search_index,
 )
+from scripts.content.build_static_bundle import build_static_bundle
 from scripts.content.models import GrammarRecord, KanaRecord, VocabularyRecord
 
 
@@ -142,6 +147,64 @@ def test_verified_committed_bundle_can_publish_without_inventing_tiers(tmp_path:
     assert len(rows) == 10000 + 120 + 46
     assert output.read_bytes().endswith(b"\n")
     assert all("tier" not in row for row in rows)
+
+
+@pytest.mark.parametrize(
+    "disabled_source",
+    ["jmdict-kaikki", "tae-kim-grammar", "kotonoha-original", "kotonoha-kana"],
+)
+def test_verified_bundle_regeneration_filters_disabled_sources(
+    tmp_path: Path,
+    disabled_source: str,
+) -> None:
+    committed = ROOT / "webapp/src/content/generated"
+    manifest = json.loads((committed / "manifest.json").read_text(encoding="utf-8"))
+    metadata = json.loads((committed / "sources.json").read_text(encoding="utf-8"))
+    for source in metadata["sources"]:
+        if source["id"] == disabled_source:
+            source["enabled"] = False
+    source_path = tmp_path / "sources.json"
+    source_path.write_text(json.dumps(metadata, ensure_ascii=False), encoding="utf-8")
+    rejections = tmp_path / "rejections.json"
+    rejections.write_text(
+        json.dumps(manifest["rejection_counts"], ensure_ascii=False),
+        encoding="utf-8",
+    )
+    bundle = tmp_path / "generated"
+    public = tmp_path / "public"
+    build_static_bundle(
+        vocabulary_path=committed / "vocabulary.json",
+        grammar_path=ROOT / "data/content/grammar",
+        kana_path=ROOT / "data/content/kana/gojuon.json",
+        source_metadata_path=source_path,
+        rejections_path=rejections,
+        retirements_path=committed / "vocabulary-retirements.json",
+        output_dir=bundle,
+        public_dir=public,
+        built_at=datetime.fromisoformat(manifest["built_at"].replace("Z", "+00:00")),
+    )
+    output = tmp_path / "regenerated-search-index.json"
+
+    rows = write_verified_bundle_search_index(
+        bundle_dir=bundle,
+        public_dir=public,
+        output_path=output,
+    )
+    generated = [
+        *json.loads((bundle / "vocabulary.json").read_text(encoding="utf-8")),
+        *json.loads((bundle / "grammar.json").read_text(encoding="utf-8")),
+        *json.loads((bundle / "kana.json").read_text(encoding="utf-8")),
+    ]
+    disabled_ids = {
+        item["id"] for item in generated if item["source_id"] == disabled_source
+    }
+    enabled_ids = {
+        item["id"] for item in generated if item["source_id"] != disabled_source
+    }
+
+    assert disabled_ids
+    assert {row["id"] for row in rows}.isdisjoint(disabled_ids)
+    assert {row["id"] for row in rows} == enabled_ids
 
 
 def test_cli_publishes_a_verified_bundle_without_upstream_inputs(tmp_path: Path) -> None:

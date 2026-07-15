@@ -1,9 +1,12 @@
+import ast
 import hashlib
 import json
 import re
 import subprocess
 from collections import Counter
 from pathlib import Path
+
+import pytest
 
 from scripts.content.build_static_bundle import canonical_json_bytes, verify_static_bundle
 from scripts.content.fetch_sources import sha256_file
@@ -16,10 +19,68 @@ PUBLIC = ROOT / "webapp/public"
 PINNED_SOURCES = ROOT / "data/content/sources/pinned-2026-07-15.json"
 GRAMMAR_DIR = ROOT / "data/content/grammar"
 KANA_SOURCE = ROOT / "data/content/kana/gojuon.json"
+RETIRED_FILENAMES = {
+    "extract_dk.py",
+    "extract_grammar.py",
+    "translate_zh.py",
+    "import_to_neon.py",
+    "import_tatoeba.py",
+    "build_tatoeba.py",
+}
+RETIRED_CATEGORY = re.compile(r"(?:ocr|pdf|tatoeba)", re.IGNORECASE)
+RETIRED_PACKAGES = ("pypdf", "pdfplumber", "pytesseract", "pdf2image")
 
 
 def read_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def git_tracked_local_content_inputs(
+    root: Path,
+    run=subprocess.run,
+) -> list[str] | None:
+    try:
+        probe = run(
+            ["git", "rev-parse", "--is-inside-work-tree"],
+            cwd=root,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except FileNotFoundError:
+        return None
+    if probe.returncode != 0 or probe.stdout.strip() != "true":
+        return None
+    tracked = run(
+        ["git", "ls-files", "data/content/upstream", "data/content/build"],
+        cwd=root,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return tracked.stdout.splitlines()
+
+
+def retired_content_script_violations(paths: list[Path]) -> list[str]:
+    violations: list[str] = []
+    for path in paths:
+        if path.name in RETIRED_FILENAMES or RETIRED_CATEGORY.search(path.stem):
+            violations.append(f"filename:{path.name}")
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+        imports: list[str] = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                imports.extend(alias.name for alias in node.names)
+            elif isinstance(node, ast.ImportFrom):
+                imports.append(node.module or "")
+                imports.extend(alias.name for alias in node.names)
+        for imported in imports:
+            lowered = imported.lower()
+            if RETIRED_CATEGORY.search(lowered) or any(
+                package in lowered for package in RETIRED_PACKAGES
+            ):
+                violations.append(f"import:{path.name}:{imported}")
+    return sorted(set(violations))
 
 
 def test_committed_release_contract_is_complete_and_hash_consistent() -> None:
@@ -168,39 +229,54 @@ def test_morau_example_uses_direct_natural_chinese() -> None:
 
 
 def test_local_only_content_inputs_are_not_tracked() -> None:
-    tracked = subprocess.run(
-        ["git", "ls-files", "data/content/upstream", "data/content/build"],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout.splitlines()
+    tracked = git_tracked_local_content_inputs(ROOT)
+    if tracked is None:
+        pytest.skip("Git worktree metadata is unavailable; tracked-input check is Git-only")
 
     assert tracked == []
 
 
-def test_retired_content_modules_do_not_exist() -> None:
-    retired = {
-        "extract_dk.py",
-        "extract_grammar.py",
-        "translate_zh.py",
-        "import_to_neon.py",
-        "import_tatoeba.py",
-        "build_tatoeba.py",
-    }
-    present = {path.name for path in (ROOT / "scripts/content").glob("*.py")}
+def test_git_tracking_probe_skips_only_when_worktree_metadata_is_unavailable() -> None:
+    calls: list[list[str]] = []
 
-    assert retired.isdisjoint(present)
+    def outside_git(command, **_kwargs):
+        calls.append(command)
+        return subprocess.CompletedProcess(command, 128, "", "not a worktree")
+
+    assert git_tracked_local_content_inputs(ROOT, outside_git) is None
+    assert calls == [["git", "rev-parse", "--is-inside-work-tree"]]
 
 
-def test_content_scripts_do_not_import_pdf_or_ocr_packages() -> None:
-    forbidden = ("pypdf", "pdfplumber", "pytesseract", "pdf2image")
-    imports = "\n".join(
-        path.read_text(encoding="utf-8")
-        for path in (ROOT / "scripts/content").glob("*.py")
-    ).lower()
+def test_git_tracking_probe_remains_strict_inside_a_worktree() -> None:
+    responses = iter(
+        [
+            subprocess.CompletedProcess([], 0, "true\n", ""),
+            subprocess.CompletedProcess([], 0, "data/content/upstream/raw.json\n", ""),
+        ]
+    )
 
-    assert not [package for package in forbidden if package in imports]
+    assert git_tracked_local_content_inputs(ROOT, lambda *_args, **_kwargs: next(responses)) == [
+        "data/content/upstream/raw.json"
+    ]
+
+
+def test_retired_content_modules_and_import_categories_do_not_exist() -> None:
+    scripts = list((ROOT / "scripts/content").glob("*.py"))
+
+    assert retired_content_script_violations(scripts) == []
+
+
+def test_retired_content_guard_detects_renamed_modules_and_imports(tmp_path: Path) -> None:
+    renamed = tmp_path / "new_ocr_pipeline.py"
+    renamed.write_text("from helpers import clean\n", encoding="utf-8")
+    imported = tmp_path / "clean_name.py"
+    imported.write_text("import community_tatoeba\nimport pytesseract\n", encoding="utf-8")
+
+    assert retired_content_script_violations([renamed, imported]) == [
+        "filename:new_ocr_pipeline.py",
+        "import:clean_name.py:community_tatoeba",
+        "import:clean_name.py:pytesseract",
+    ]
 
 
 def test_published_source_catalog_covers_every_grammar_source() -> None:

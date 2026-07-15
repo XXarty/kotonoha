@@ -8,9 +8,10 @@ async function expectNoHorizontalOverflow(page: Page) {
     .toBe(true);
 }
 
-async function expectMinimumTouchHeight(locator: Locator) {
+async function expectMinimumTouchTarget(locator: Locator) {
   const box = await locator.boundingBox();
   expect(box, "interactive control should have a rendered box").not.toBeNull();
+  expect(box?.width ?? 0).toBeGreaterThanOrEqual(44);
   expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
 }
 
@@ -28,12 +29,12 @@ test("home reports the verified release and the responsive header remains usable
   await expect(page.getByText("46 个五十音字符", { exact: true })).toBeVisible();
 
   const searchTrigger = page.getByRole("button", { name: "搜索全站内容" });
-  await expectMinimumTouchHeight(searchTrigger);
+  await expectMinimumTouchTarget(searchTrigger);
   const width = page.viewportSize()?.width ?? 1440;
   if (width <= 720) {
     const menu = page.getByRole("button", { name: "打开主导航" });
     await expect(menu).toBeVisible();
-    await expectMinimumTouchHeight(menu);
+    await expectMinimumTouchTarget(menu);
     await expect(page.getByRole("navigation", { name: "主导航" })).not.toBeVisible();
     await menu.click();
     await expect(page.getByRole("navigation", { name: "主导航" })).toBeVisible();
@@ -51,6 +52,7 @@ test("global and legacy search find a real public word without leaving stale URL
   test.skip(testInfo.project.name !== "desktop-1024", "full search flow runs once");
   await page.goto("/");
   await page.getByRole("button", { name: "搜索全站内容" }).click();
+  await expectMinimumTouchTarget(page.getByRole("button", { name: "关闭搜索" }));
   const searchbox = page.getByRole("searchbox", { name: "搜索内容" });
   await searchbox.fill("灯す");
   const result = page.locator(".global-search-result", { hasText: "灯す" }).first();

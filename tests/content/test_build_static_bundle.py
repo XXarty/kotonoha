@@ -138,6 +138,26 @@ def bundle_inputs(tmp_path: Path, vocabulary_count: int) -> dict[str, Path]:
     }
 
 
+def disable_source_metadata(tmp_path: Path, source_id: str) -> Path:
+    metadata = source_metadata()
+    for source in metadata["sources"]:
+        if source["id"] == source_id:
+            source["enabled"] = False
+    return write_json(tmp_path / f"sources-without-{source_id}.json", metadata)
+
+
+def rewrite_search_evidence(output: Path, public: Path, rows: list[dict[str, object]]) -> None:
+    write_json(public / "content/search-index.json", rows)
+    manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
+    manifest["files"]["public/content/search-index.json"] = sha256_file(
+        public / "content/search-index.json"
+    )
+    (output / "manifest.json").write_bytes(canonical_json_bytes(manifest))
+    verification = json.loads((output / "verification.json").read_text(encoding="utf-8"))
+    verification["manifest_sha256"] = sha256_file(output / "manifest.json")
+    (output / "verification.json").write_bytes(canonical_json_bytes(verification))
+
+
 def test_bundle_requires_launch_minimums(tmp_path: Path) -> None:
     inputs = bundle_inputs(tmp_path, vocabulary_count=1)
 
@@ -180,6 +200,97 @@ def test_bundle_manifest_hashes_match_files(tmp_path: Path) -> None:
     assert verification["counts"] == manifest.counts
     assert verify_static_bundle(output, tmp_path / "public").counts == manifest.counts
     assert "vocabulary-retirements.json" in manifest.files
+
+
+@pytest.mark.parametrize(
+    ("disabled_source", "removed_kind"),
+    [
+        ("jmdict-kaikki", "vocabulary"),
+        ("tae-kim-grammar", "grammar"),
+        ("kotonoha-original", "grammar"),
+        ("kotonoha-kana", "kana"),
+    ],
+)
+def test_bundle_search_index_excludes_each_disabled_source_but_retains_enabled_content(
+    tmp_path: Path,
+    disabled_source: str,
+    removed_kind: str,
+) -> None:
+    inputs = bundle_inputs(tmp_path, vocabulary_count=500)
+    inputs["source_metadata_path"] = disable_source_metadata(tmp_path, disabled_source)
+    output = tmp_path / "generated"
+    public = tmp_path / "public"
+
+    build_static_bundle(**inputs, output_dir=output, public_dir=public)
+
+    index_rows = json.loads(
+        (public / "content/search-index.json").read_text(encoding="utf-8")
+    )
+    index_ids = {row["id"] for row in index_rows}
+    generated = [
+        *json.loads((output / "vocabulary.json").read_text(encoding="utf-8")),
+        *json.loads((output / "grammar.json").read_text(encoding="utf-8")),
+        *json.loads((output / "kana.json").read_text(encoding="utf-8")),
+    ]
+    removed_ids = {
+        item["id"] for item in generated if item["source_id"] == disabled_source
+    }
+    retained_ids = {
+        item["id"] for item in generated if item["source_id"] != disabled_source
+    }
+
+    assert removed_ids
+    assert {item["kind"] for item in generated if item["id"] in removed_ids} == {
+        removed_kind
+    }
+    assert index_ids.isdisjoint(removed_ids)
+    assert index_ids == retained_ids
+
+    rewrite_search_evidence(
+        output,
+        public,
+        [*index_rows, {**index_rows[0], "id": sorted(removed_ids)[0]}],
+    )
+    with pytest.raises(ValueError, match="public search index IDs"):
+        verify_static_bundle(output, public)
+
+
+def test_verifier_rejects_search_index_with_unknown_or_missing_enabled_ids(
+    tmp_path: Path,
+) -> None:
+    inputs = bundle_inputs(tmp_path, vocabulary_count=500)
+    output = tmp_path / "generated"
+    public = tmp_path / "public"
+    build_static_bundle(**inputs, output_dir=output, public_dir=public)
+    original = json.loads(
+        (public / "content/search-index.json").read_text(encoding="utf-8")
+    )
+
+    rewrite_search_evidence(
+        output,
+        public,
+        [*original, {**original[0], "id": "grammar:tae-kim:not-generated"}],
+    )
+    with pytest.raises(ValueError, match="public search index IDs"):
+        verify_static_bundle(output, public)
+
+    rewrite_search_evidence(output, public, original[1:])
+    with pytest.raises(ValueError, match="public search index IDs"):
+        verify_static_bundle(output, public)
+
+
+def test_verifier_rejects_duplicate_search_index_ids(tmp_path: Path) -> None:
+    inputs = bundle_inputs(tmp_path, vocabulary_count=500)
+    output = tmp_path / "generated"
+    public = tmp_path / "public"
+    build_static_bundle(**inputs, output_dir=output, public_dir=public)
+    original = json.loads(
+        (public / "content/search-index.json").read_text(encoding="utf-8")
+    )
+    rewrite_search_evidence(output, public, [*original, original[0]])
+
+    with pytest.raises(ValueError, match="duplicate public search index IDs"):
+        verify_static_bundle(output, public)
 
 
 def test_bundle_rejects_retirement_evidence_with_unresolved_or_missing_pins(
