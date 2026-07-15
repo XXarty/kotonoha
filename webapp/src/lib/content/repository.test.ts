@@ -293,16 +293,37 @@ describe("static content repository", () => {
     expect(repository.getGrammarDirectory().some((item) => item.slug === "advanced")).toBe(false);
   });
 
-  it("sorts every grammar path explicitly by display order", () => {
+  it("returns isolated cached grammar paths in stable display order", () => {
     const input = productionContractFixtures();
     const repository = createContentRepository({
       ...input,
-      grammar: [...input.grammar].reverse(),
+      grammar: input.grammar
+        .map((item) =>
+          item.slug === "expression-direct-b" ? { ...item, display_order: 4 } : item,
+        )
+        .reverse(),
     });
 
-    expect(repository.getGrammarList("expressions").map((item) => item.display_order)).toEqual([
-      4, 5, 6,
-    ]);
+    const first = repository.getGrammarList("expressions");
+    const second = repository.getGrammarList("expressions");
+    const expectedIds = [
+      "grammar:tae-kim:expression-direct-a",
+      "grammar:tae-kim:expression-direct-b",
+      "grammar:tae-kim:expression-original",
+    ];
+
+    expect(first.map((item) => item.id)).toEqual(expectedIds);
+    expect(second.map((item) => item.id)).toEqual(expectedIds);
+    expect(first).not.toBe(second);
+
+    first.reverse();
+    expect(repository.getGrammarList("expressions").map((item) => item.id)).toEqual(
+      expectedIds,
+    );
+    expect(repository.getGrammarList("unknown")).toEqual([]);
+    expect(repository.getGrammarList("unknown")).not.toBe(
+      repository.getGrammarList("unknown"),
+    );
   });
 
   it("resolves enabled grammar relations once in first-request order", () => {

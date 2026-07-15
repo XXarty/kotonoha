@@ -27,6 +27,13 @@ The corrected source-switch regression now explicitly asserts that a disabled-so
 - Added committed-evidence compatibility checks using the pre-expansion pins and retirement manifest. The current first retained example is `vocabulary:jmdict:1000510`; the current first retired `pos_mismatch` example is `vocabulary:jmdict:1000470`. Tests select from evidence rather than relying on arbitrary IDs.
 - Verified retained rows hydrate and can be rated, while retired rows remain stored inputs but safely hydrate to no public item and cannot be rated or recreated.
 
+## Review minor remediation
+
+- Added a failing tie-order regression using reversed input and equal `display_order` values. Before the fix, the list retained reversed input order (`direct-b` before `direct-a`) instead of using a deterministic ID tie-break.
+- Enabled grammar records are now sorted once during repository construction by `display_order`, then by ID.
+- The repository builds a frozen read-only array for each grammar path. `getGrammarList(path)` performs a map lookup and returns a fresh array copy, so consecutive calls are consistently ordered and callers cannot mutate cached path order.
+- The regression also covers distinct array references, mutation isolation, and safe fresh `[]` results for unknown paths.
+
 ## Verification
 
 - Focused suites: 6 files, 36 tests passed.

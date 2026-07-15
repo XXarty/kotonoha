@@ -254,6 +254,14 @@ function includesNormalized(fields: readonly string[], query: string): boolean {
   return fields.some((field) => normalizeSearch(field).includes(query));
 }
 
+function compareGrammarEntries(left: GrammarEntry, right: GrammarEntry): number {
+  const orderDifference = left.display_order - right.display_order;
+  if (orderDifference !== 0) return orderDifference;
+  if (left.id < right.id) return -1;
+  if (left.id > right.id) return 1;
+  return 0;
+}
+
 interface VocabularyListOptions {
   tier?: string;
 }
@@ -270,14 +278,20 @@ export function createContentRepository(rawInput: unknown) {
   const vocabulary = (parsed.vocabulary as VocabularyEntry[]).filter((entry) =>
     enabledSources.has(entry.source_id),
   );
-  const grammar = (parsed.grammar as GrammarEntry[]).filter((entry) =>
-    enabledSources.has(entry.source_id),
-  );
+  const grammar = (parsed.grammar as GrammarEntry[])
+    .filter((entry) => enabledSources.has(entry.source_id))
+    .sort(compareGrammarEntries);
   const kana = (parsed.kana as KanaEntry[]).filter((entry) => enabledSources.has(entry.source_id));
   const itemMap = new Map<string, PublicContentItem>(
     [...vocabulary, ...grammar, ...kana].map((item) => [item.id, item]),
   );
   const grammarSlugMap = new Map(grammar.map((item) => [item.slug, item]));
+  const grammarByPath = new Map<GrammarEntry["path"], readonly GrammarEntry[]>(
+    GRAMMAR_PATHS.map(({ slug }) => [
+      slug,
+      Object.freeze(grammar.filter((item) => item.path === slug)),
+    ]),
+  );
   const sourceMap = new Map(sources.map((source) => [source.id, source]));
 
   function getVocabularyDirectory(): ContentDirectoryItem[] {
@@ -291,15 +305,13 @@ export function createContentRepository(rawInput: unknown) {
 
   function getGrammarDirectory(): ContentDirectoryItem[] {
     return GRAMMAR_PATHS.map(({ slug, title, description, tone }) => {
-      const count = grammar.filter((item) => item.path === slug).length;
+      const count = grammarByPath.get(slug)?.length ?? 0;
       return { slug, title, description, count, meta: `${count} 个单元`, tone };
     }).filter((item) => item.count > 0);
   }
 
   function getGrammarList(path: string): GrammarEntry[] {
-    return grammar
-      .filter((item) => item.path === path)
-      .sort((left, right) => left.display_order - right.display_order);
+    return [...(grammarByPath.get(path as GrammarEntry["path"]) ?? [])];
   }
 
   function getRelatedGrammar(ids: readonly string[]): GrammarEntry[] {
